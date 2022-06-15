@@ -10,7 +10,7 @@
                 <h3>150000 Ar / jour</h3>
                 <input type="date">
                 <p>RC </p>
-                <a class="btn-primary" href="#">Details</a>
+                <a class="btn-primary" @click="showDetail">Details</a>
             </div>
         </div>
         <div class="logement-content">
@@ -47,6 +47,20 @@
             </div>
         </div>
 
+        <transition name="fade" appear>
+    <div class="modal-overlay" 
+         v-if="detail" 
+         @click="detail = false ">
+    </div>
+  </transition>
+  <transition name="pop" appear>
+    <div class="modal" role="dialog" v-if="detail">
+        <div class="logement-modal">
+            <LogementModal />
+        </div>
+    </div>
+  </transition>
+
     </div>
     <a class="btn-primary" href="#">Voir tous les logements</a>
    
@@ -54,12 +68,74 @@
 </template>
 
 <script>
+import LogementModal from '../LogementModal'
 export default {
-    name : 'LogementComponent'
+    name : 'LogementComponent' , 
+    components : {
+        LogementModal
+    } , 
+    data() {
+        return {
+            detail : false
+        }
+    },
+
+    methods: {
+        showDetail(){
+            this.detail = !this.detail
+        }
+    },
 }
 </script>
 
 <style scoped>
+.modal {
+  position: absolute;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 2rem;
+  border-radius: 0.2rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+  background: #FFF;
+  z-index: 999;
+  transform: none;
+}
+.modal h1 {
+  margin: 0 0 1rem;
+}
+
+.modal-overlay {
+  content: '';
+  position: absolute;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 998;
+  background: #2c3e50;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+
+.pop-enter-active{
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(1, 0, 1, 1), opacity 0.4s linear;
+}
+.pop-leave-active{
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(1, 0, 1, 1), opacity 0.4s linear;
+  transform: scale(0.3) translateY(-50%);
+}
+
 .logement-container{
     display: flex;
     flex-wrap: wrap;

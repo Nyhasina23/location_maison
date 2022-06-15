@@ -31,7 +31,7 @@
         </div>
     </div>
   </transition>
-  <transition name="fades" appear>
+  <transition name="fade" appear>
     <div class="modal-overlay" 
          v-if="showSignupModal" 
          @click="showSignupModal = false ">
