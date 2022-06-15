@@ -1,14 +1,19 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <NavBar />
+  <MainView />
+  <FooterComponent />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import NavBar from './components/NavBar.vue'
+import FooterComponent from './components/FooterComponent.vue'
+import MainView from './views/MainView.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NavBar ,
+    MainView ,
+    FooterComponent
   }
 }
 </script>
@@ -20,6 +25,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
