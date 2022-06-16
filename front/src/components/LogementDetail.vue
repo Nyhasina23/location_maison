@@ -5,7 +5,10 @@
             <div class="logement-img">
                 <img src="../assets/img(1).jpg" alt="">
                 <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</p>
-                <FullCalendar :options="calendarOptions" />
+                <FullCalendar class="calendar" 
+                    :options="calendarOptions"
+                    
+                  />
             </div>
             <div class="logement-detail input-field">
                 <h3>Vos Informations</h3>
@@ -37,20 +40,40 @@ export default {
     return {
      calendarOptions: {
         plugins: [ DayGridPlugin, InteractionPlugin , TimeGridPlugin ],
-        initialView: 'dayGridMonth'
+        initialView: 'dayGridMonth' ,
+        selectable : true ,
+        dateClick : this.handleDateClick ,
+        eventClick : this.handleSelect ,
+        events: [
+          { title: 'réservé', date: '2022-06-16' },
+          { title: 'réservé', date: '2022-06-17' , color: 'red' }
+        ] , 
+        
       }
 
     }
-  }
+  } ,
+
+  methods: {
+    handleDateClick(arg){
+      console.log(arg);
+        this.calendarOptions.events.push({title : 'test' , date : arg.dateStr , color : 'green'});
+        console.log(this.calendarOptions.events);
+    },
+    handleSelect(arg){
+      console.log(arg)
+    }
+  },
 }
 </script>
 
 <style scoped>
-
+.calendar{
+  width:80% ;
+}
 .logement-content{
     display: flex;
     width: 100%;
-    height: 20rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
 }
@@ -58,7 +81,6 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 5;
-    overflow: scroll;
     align-items: center;
     justify-content: center;
     padding: 2%;
@@ -76,8 +98,6 @@ export default {
     justify-content: flex-start;
     margin-left: 1.2rem;
     margin-right: 1.2rem;
-    overflow-y: scroll;
-    overflow-x: hidden;
     padding: 1rem;
 
 }
