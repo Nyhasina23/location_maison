@@ -98,8 +98,8 @@ export default {
   left: 0;
   margin: auto;
   text-align: center;
-  width: fit-content;
-  height: fit-content;
+  width: 70%;
+  height: 70%;
   padding: 2rem;
   border-radius: 0.2rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
