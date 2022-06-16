@@ -53,16 +53,12 @@ class LogementController{
                     }
                     newLogement.image = image
                     newLogement.save()
-    
                     res.status(200).send(docs)
-    
                 }
             })     
         } catch (error) {
             res.status(500).send('error server')
         }
-       
-
     }
 
     static getAll = async (req , res) => {

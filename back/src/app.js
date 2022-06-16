@@ -1,4 +1,6 @@
 const connexionDB = require('./modules/config/db.config');
+const { authenticateToken } = require('./middlewares/authentificationToken');
+
 connexionDB();
 const express = require('express');
 const app = express();
@@ -15,7 +17,7 @@ app.use(bodyParser.urlencoded({extended : true}))
 const  signinRoutes = require('./routes/signin.routes.js')
 const  signupRoutes = require('./routes/signup.routes.js')
 const  logementRoutes = require('./routes/logement.routes.js')
-app.use('/signin' , signinRoutes)
-app.use('/signup' , signupRoutes)
-app.use('/logement' , logementRoutes)
+app.use('/signin' , signinRoutes);
+app.use('/signup' , signupRoutes);
+app.use('/logement' , logementRoutes);
 module.exports = {app}

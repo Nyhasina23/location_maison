@@ -1,33 +1,39 @@
 const mongoose = require('mongoose')
 
 const UserSchema = mongoose.Schema({
-    username : {
-        type : String , 
-    },
-    role:{
-        type : Number,
+    role: {
+        type: Number,
         default: 0
     },
-    fullname:{
+    firstname: {
         type: String,
     },
-    email : {
-        type : String , 
-        require : true
-    } , 
-    password : {
-        type : String  , 
-        require : true
+    lastname: {
+        type: String,
     },
-    isMale : {
+    email: {
+        type: String,
+        require: true
+    },
+    password: {
+        type: String,
+        require: true
+    },
+    isMale: {
         type: Boolean,
         default: true
     },
-    recoveryCode :{
-        type : String
+    recoveryCode: {
+        type: String
+    },
+    address: {
+        type: String
+    },
+    phoneNumber: {
+        type: String
     }
 });
 
-const UserModel = new mongoose.model('site-location' , UserSchema , 'users')
+const UserModel = new mongoose.model('site-location', UserSchema, 'users')
 
-module.exports =  {UserModel}
+module.exports = { UserModel }

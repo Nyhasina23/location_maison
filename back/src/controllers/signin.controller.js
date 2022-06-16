@@ -1,6 +1,7 @@
-const { generateToken } = require('../modules/generateToken.js')
-const { UserModel } = require('../models/user.model.js')
-const { sha } = require('../modules/sha256.js')
+const { generateToken } = require('../modules/generateToken.js');
+const { UserModel } = require('../models/user.model.js');
+const { sha } = require('../modules/sha256.js');
+const { sendMail } = require('../modules/emailSend.js');
 class signinController {
     static signin = async (req, res) => {
         const identity = req.body.identity;
@@ -19,48 +20,48 @@ class signinController {
             res.status(403).send("Identity or password incorrect");
         }
     }
-    static getRecoveryCode = async(req,res) =>{
+    static getRecoveryCode = async (req, res) => {
         const email = req.params.email;
-        const user = await UserModel.findOne({email});
-        if(user){
+        const user = await UserModel.findOne({ email });
+        if (user) {
+
             res.status(200).send("email sent");
-        }else{
+        } else {
             res.status(403).send("Email does not exist");
         }
     }
-    static checkRecoveryCode = async(req,res) =>{
-        
+    static checkRecoveryCode = async (req, res) => {
+
         const recoveryCode = req.body.recoveryCode;
         const email = req.body.email;
-        const user = await UserModel.findOne({email});
-        if(user){
-            if(recoveryCode == user.password){
+        const user = await UserModel.findOne({ email });
+        if (user) {
+            if (recoveryCode == user.password) {
                 res.status(200).send("Valid recovery code");
-            }else{
+            } else {
                 res.status(403).send("Invalid recovery code");
             }
 
-        }else{
+        } else {
             res.status(403).send("Email does not exist");
         }
     }
-    static recoverPassword = async(req,res) =>{
+    static recoverPassword = async (req, res) => {
         const recoveryCode = req.body.recoveryCode;
         let password = req.body.password;
         const email = req.body.email;
         password = sha(password);
 
-        const user = await UserModel.findOne({email});
-        if(user){
-            if(recoveryCode == user.password){
+        const user = await UserModel.findOne({ email });
+        if (user) {
+            if (recoveryCode == user.password) {
                 user.password = password;
                 user.save();
                 res.status(200).send("Valid recovery code");
-            }else{
+            } else {
                 res.status(403).send("Invalid recovery code");
             }
-
-        }else{
+        } else {
             res.status(403).send("Email does not exist");
         }
     }
