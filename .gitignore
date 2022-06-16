@@ -12,7 +12,6 @@ back/yarn-debug.log*
 back/yarn-error.log*
 back/lerna-debug.log*
 back/public
-back/.env
 # env
 
 
@@ -185,7 +184,6 @@ front/.yarn-integrity
 
 # dotenv environment variables file
 front/.env.test
-front/.env
 
 # parcel-bundler cache (https://parceljs.org/)
 front/.cache
@@ -226,7 +224,6 @@ front/tests/e2e/videos/
 front/tests/e2e/screenshots/
 
 # local env files
-front/.env
 front/.env.local
 front/.env.*.local
 

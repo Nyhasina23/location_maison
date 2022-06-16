@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 
 const mongoURI = process.env.URI;
 
-
    const connexionDB = () => {
     try {
         mongoose.connect(mongoURI , {
