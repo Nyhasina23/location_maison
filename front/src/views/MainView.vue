@@ -65,10 +65,31 @@
         Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500 
         </p>
     </div>
+
+    <h2>Quelques photos du Logement</h2>
+
+     <swiper
+    :slidesPerView="3"
+    :spaceBetween="30"
+    :pagination="{
+      clickable: true,
+    }"
+    :modules="modules"
+    class="mySwiper"
+  >
+    <swiper-slide><img src="../assets/img(1).jpg" alt=""></swiper-slide>
+    <swiper-slide><img src="../assets/img(3).jpg" alt=""></swiper-slide>
+    <swiper-slide><img src="../assets/img(4).jpg" alt=""></swiper-slide>
+    <swiper-slide><img src="../assets/img(6).jpg" alt=""></swiper-slide>
+  </swiper>
   </div>
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper";
 import LogementComponent from '../components/logement/LogementComponent.vue'
 import LogementSearchComponent from '../components/logement/LogementSearchComponent.vue'
 export default {
@@ -76,8 +97,14 @@ export default {
     components : {
         LogementComponent,
         LogementSearchComponent,
+        Swiper,
+        SwiperSlide,
     } ,
-    
+    setup() {
+    return {
+      modules: [Pagination],
+    };
+  },
     data() {
         return {
             showLoginModal: false,
@@ -227,5 +254,37 @@ export default {
 }
 .main-text p , h2{
     text-align: left;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

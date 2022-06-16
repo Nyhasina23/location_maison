@@ -5,6 +5,7 @@
             <div class="logement-img">
                 <img src="../assets/img(1).jpg" alt="">
                 <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</p>
+                <FullCalendar :options="calendarOptions" />
             </div>
             <div class="logement-detail input-field">
                 <h3>Vos Informations</h3>
@@ -22,8 +23,25 @@
 </template>
 
 <script>
+
+import FullCalendar from '@fullcalendar/vue3'
+import DayGridPlugin from '@fullcalendar/daygrid'
+import TimeGridPlugin from '@fullcalendar/timegrid'
+import InteractionPlugin from '@fullcalendar/interaction'
 export default {
-    name : 'LogementModal'
+    name : 'LogementModal' ,
+    components : {
+        FullCalendar
+    },
+      data() {
+    return {
+     calendarOptions: {
+        plugins: [ DayGridPlugin, InteractionPlugin , TimeGridPlugin ],
+        initialView: 'dayGridMonth'
+      }
+
+    }
+  }
 }
 </script>
 
