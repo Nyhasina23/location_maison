@@ -54,8 +54,11 @@
     
 
     <div class="logement">
-        <LogementComponent class="left" />
-        <LogementSearchComponent class="right"/>
+        <LogementComponent class="left" :price=" `${price}` " />
+         <FullCalendar class="calendar" 
+           :options="calendarOptions"
+           
+         />
     </div>
     
     <div  class="main-text">
@@ -82,23 +85,30 @@
     <swiper-slide><img src="../assets/img(4).jpg" alt=""></swiper-slide>
     <swiper-slide><img src="../assets/img(6).jpg" alt=""></swiper-slide>
   </swiper>
+  <FooterComponent />
   </div>
 </template>
 
 <script>
+
+import FullCalendar from '@fullcalendar/vue3'
+import DayGridPlugin from '@fullcalendar/daygrid'
+import TimeGridPlugin from '@fullcalendar/timegrid'
+import InteractionPlugin from '@fullcalendar/interaction'
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
 import LogementComponent from '../components/logement/LogementComponent.vue'
-import LogementSearchComponent from '../components/logement/LogementSearchComponent.vue'
+import FooterComponent from '../components/FooterComponent.vue'
 export default {
     name : 'MainView' , 
     components : {
         LogementComponent,
-        LogementSearchComponent,
         Swiper,
         SwiperSlide,
+        FullCalendar,
+        FooterComponent
     } ,
     setup() {
     return {
@@ -109,6 +119,19 @@ export default {
         return {
             showLoginModal: false,
             showSignupModal: false,
+            calendarOptions: {
+            plugins: [ DayGridPlugin, InteractionPlugin , TimeGridPlugin ],
+            initialView: 'dayGridMonth' ,
+            selectable : true ,
+            dateClick : this.handleDateClick ,
+            eventClick : this.handleSelect ,
+            events: [
+              { title: 'réservé', date: '2022-06-16' , price : '5000' },
+              { title: 'réservé', date: '2022-06-17' , color: 'red' }
+            ] , 
+        
+      } ,
+            price : 150000
         }
     },
     methods: {
@@ -119,12 +142,22 @@ export default {
         showSignup(){
             this.showSignupModal = !this.showSignupModal
             this.showLoginModal = false
+        },
+        handleDateClick(){
+            this.price = this.calendarOptions.events[0].price
+        },
+        handleSelect(arg){
+          console.log(arg)
         }
     },
 }
 </script>
 
 <style>
+.calendar{
+  width:40% ;
+  margin : 1rem 0rem 0rem 1rem;
+}
 .login{
   height : 50vh;
 }

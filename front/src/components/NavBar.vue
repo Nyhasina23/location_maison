@@ -6,18 +6,34 @@
         <div class="links">
             <ul>
                 <li>
-                    <a href="">  
-                        <box-icon type='solid' name='home'></box-icon>
+                    <router-link to="/">  
+                        <box-icon type='regular' name='home'></box-icon>
                         <span>
                             Accueil
+                        </span>
+                    </router-link>
+                </li>
+                <li>
+                    <a href="">
+                        <box-icon type='regular' name='book-content' ></box-icon>
+                        <span>
+                            Réservations
                         </span>
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        <box-icon type='solid' name='book-content' ></box-icon>
+                        <box-icon type='regular' name='user-plus' ></box-icon>
                         <span>
-                            Réservations
+                            Inscription
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <box-icon type='regular' name='user-circle' ></box-icon>
+                        <span>
+                            Connexion
                         </span>
                     </a>
                 </li>

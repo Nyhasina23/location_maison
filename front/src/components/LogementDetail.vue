@@ -18,7 +18,20 @@
                 <input type="text" name="" id="" placeholder="Tél..." >
                 <input type="text" name="" id="" placeholder="mail..." >
                 <input type="number" name="" id="" placeholder="Nombre Personne..."  >
-                <p>RC </p>
+                <label for="entrydate">Date d'entrée</label> 
+                <input  type="date" name="" id="entrydate">
+                <label for="leavedate">Date de sortie</label> 
+                <input type="date" name="" id="leavedate">
+                <label for="transport">Transport Ivato / Logement</label>
+                <select name="" id="transport">
+                  <option value="AT avec transport aller">AT avec transport aller</option>
+                  <option value="ST sans transport ">ST sans transport </option>
+                  <option value="AR avec aller et retour">AR avec transport aller et retour </option>
+                </select>
+                <label for="entryhour">Heure d'entrée</label> 
+                <input type="time" name="" id="entryhour">
+                <label for="leavehour">Heure de sortie</label> 
+                <input type="time" name="" id="leavehour">
                 <a class="btn-primary" @click="showDetail">Reserver</a>
             </div>
     </div>
@@ -104,19 +117,31 @@ export default {
 .logement-detail h3 {
     margin-top: 1rem;
 }
+
 .logement-detail .btn-primary{
-    padding: 2rem;
     text-decoration: none;
     color : white ;
-    padding : 0.5rem 1rem 0.5rem 1rem;
+    padding : 0.8rem 1rem 0.8rem 1rem;
     background: red;
     border: 2px solid red;
-    width: 80%;
+    width: 87%;
+    margin-top: 1rem;
+}
+.logement-detail .btn-primary:hover{
+    background: rgb(211, 2, 2);
 }
 
 .input-field input{
   padding : 0.7rem;
-  margin : 0.5rem;
+  margin : 0.7rem 0.5rem 0.7rem 0.5rem;
   width: 90%;
+}
+.input-field select{
+  width: 95%;
+  padding : 1rem;
+}
+label {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 </style>

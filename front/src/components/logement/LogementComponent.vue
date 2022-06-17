@@ -1,53 +1,21 @@
 <template>
   <div class="logement">
-    <h2>Logements libre</h2>
+    <h2>Résidence</h2>
     <div class="logement-container">
         <div class="logement-content">
             <div class="logement-img">
                 <img src="../../assets/img(1).jpg" alt="">
             </div>
             <div class="logement-detail">
-                <h3>150000 Ar / jour</h3>
+                <h3> {{price}} Ar / jour</h3>
                 <input type="date">
-                <p>RC </p>
-                <a class="btn-primary" @click="showDetail">Details</a>
-            </div>
-        </div>
-        <div class="logement-content">
-            <div class="logement-img">
-                <img src="../../assets/img(3).jpg" alt="">
-            </div>
-            <div class="logement-detail">
-                <h3>150000 Ar / jour</h3>
-                <input type="date">
-                <p>RC </p>
-                <a class="btn-primary" href="#">Details</a>
-            </div>
-        </div>
-        <div class="logement-content">
-            <div class="logement-img">
-                <img src="../../assets/img(2).jpg" alt="">
-            </div>
-            <div class="logement-detail">
-                <h3>150000 Ar / jour</h3>
-                <input type="date">
-                <p>RC </p>
-                <a class="btn-primary" href="#">Details</a>
-            </div>
-        </div>
-        <div class="logement-content">
-            <div class="logement-img">
-                <img src="../../assets/img(6).jpg" alt="">
-            </div>
-            <div class="logement-detail">
-                <h3>150000 Ar / jour</h3>
-                <input type="date">
-                <p>RC </p>
-                <a class="btn-primary" href="#">Details</a>
+                <h3>Logement libre</h3>
+                <p>RC /1er / 2EME/ 3EME </p>
+                <p>Villa</p>
+                <router-link to="/logement/detail" class="btn-primary" @click="showDetail">Details</router-link>
             </div>
         </div>
     </div>
-    <a class="btn-primary" href="#">Voir tous les logements</a>
    
   </div>
 </template>
@@ -55,6 +23,9 @@
 <script>
 export default {
     name : 'LogementComponent' , 
+    props : {
+        price : Number
+    },
     components : {
     } , 
 
@@ -73,12 +44,11 @@ export default {
     display: flex;
     border : 1px solid gray;
     width: fit-content;
-    height: 12rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
 }
 .logement-img img {
-    width : 15rem ;
+    width : 30rem ;
     height: 100%;
     object-fit: cover;
 }
@@ -98,6 +68,12 @@ export default {
     background: red;
     border: 2px solid red;
     width: 80%;
+}
+.logement-detail .btn-primary:hover{
+    background: rgb(211, 2, 2);
+}
+.logement-detail p{
+    text-align: left;
 }
 .btn-primary{
     padding: 2rem;
