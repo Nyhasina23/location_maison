@@ -36,10 +36,14 @@ export default {
 
 .navBar{
     display: flex;
-    width: 100%;
+    width: 100vw;
     align-items: center;
     justify-content: space-between;
-    margin : -1rem 1rem -1rem 1rem;
+    box-shadow: 3px 1px 11px 1px;
+    margin : -0.5rem;
+}
+.navBar .logo{
+    margin-left : 1rem;
 }
 .links ul {
     list-style-type: none;
