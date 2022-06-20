@@ -60,7 +60,7 @@
            
          />
     </div>
-    
+
     <div  class="main-text">
         <h2>Lorem ipsum</h2>
         <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500
@@ -125,6 +125,7 @@ export default {
             selectable : true ,
             dateClick : this.handleDateClick ,
             eventClick : this.handleSelect ,
+            locale : 'fr',
             events: [
               { title: 'réservé', date: '2022-06-16' , price : '5000' },
               { title: 'réservé', date: '2022-06-17' , color: 'red' }
