@@ -31,7 +31,11 @@ const UserSchema = mongoose.Schema({
     },
     phoneNumber: {
         type: String
-    }
+    } , 
+    reservation : [{
+        type : mongoose.Schema.Types.ObjectId , 
+        ref : 'reservation'
+    }]
 });
 
 const UserModel = new mongoose.model('site-location', UserSchema, 'users')

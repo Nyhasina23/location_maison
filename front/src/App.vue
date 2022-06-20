@@ -21,6 +21,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   overflow-x: hidden;
-
+  margin : 0;
 }
 </style>

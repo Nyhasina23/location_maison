@@ -17,7 +17,9 @@ app.use(bodyParser.urlencoded({extended : true}))
 const  signinRoutes = require('./routes/signin.routes.js')
 const  signupRoutes = require('./routes/signup.routes.js')
 const  logementRoutes = require('./routes/logement.routes.js')
+const  reservationRoutes = require('./routes/reservation.routes.js')
 app.use('/signin' , signinRoutes);
 app.use('/signup' , signupRoutes);
 app.use('/logement' , logementRoutes);
+app.use('/reservation' , reservationRoutes);
 module.exports = {app}

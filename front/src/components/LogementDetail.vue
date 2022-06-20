@@ -18,19 +18,19 @@
                 <input type="text" name="" id="" placeholder="Tél..." >
                 <input type="text" name="" id="" placeholder="mail..." >
                 <input type="number" name="" id="" placeholder="Nombre Personne..."  >
-                <label for="entrydate">Date d'entrée</label> 
-                <input  type="date" name="" id="entrydate">
-                <label for="leavedate">Date de sortie</label> 
-                <input type="date" name="" id="leavedate">
-                <label for="transport">Transport Ivato / Logement</label>
+                <label for="entrydate">Date d'entrée</label>
+                <input type="date" v-model="entryDate" name="" id="entrydate">
+                <label for="leavedate">Date de sortie</label>
+                <input type="date" v-model="leaveDate" name="" id="leavedate">
+                <label for="transport">Transport Ivato /logement </label>
                 <select name="" id="transport">
-                  <option value="AT avec transport aller">AT avec transport aller</option>
-                  <option value="ST sans transport ">ST sans transport </option>
-                  <option value="AR avec aller et retour">AR avec transport aller et retour </option>
+                  <option value="AT">Avec transport aller</option>
+                  <option value="ST">Sans transport</option>
+                  <option value="AR">Avec aller et retour</option>
                 </select>
-                <label for="entryhour">Heure d'entrée</label> 
+                <label for="entryhour">Heure d'entrée</label>
                 <input type="time" name="" id="entryhour">
-                <label for="leavehour">Heure de sortie</label> 
+                <label for="leavehour">Heure de sortie</label>
                 <input type="time" name="" id="leavehour">
                 <a class="btn-primary" @click="showDetail">Reserver</a>
             </div>
@@ -56,25 +56,54 @@ export default {
         initialView: 'dayGridMonth' ,
         selectable : true ,
         dateClick : this.handleDateClick ,
-        eventClick : this.handleSelect ,
-        events: [
-          { title: 'réservé', date: '2022-06-16' },
-          { title: 'réservé', date: '2022-06-17' , color: 'red' }
-        ] , 
+        select : this.handleSelect ,
+        events: [] , 
         
-      }
+      } , 
+      entryDate : '' ,
+      leaveDate : '' ,
+
+      data : [
+        {
+          title : 'réservé' ,
+          start : '2022-06-06' ,
+          end : '2022-06-11'
+        },
+        {
+          title : 'réservé' ,
+          start : '2022-06-12' ,
+          end : '2022-06-15'
+        },
+      ]
 
     }
   } ,
 
+  mounted() {
+    this.data.forEach(e => {
+      let data = {
+        title : e.title,
+        start : e.start,
+        end : e.end
+      }
+      this.calendarOptions.events.push(data);
+      
+    })
+  },
   methods: {
-    handleDateClick(arg){
-      console.log(arg);
-        this.calendarOptions.events.push({title : 'test' , date : arg.dateStr , color : 'green'});
-        console.log(this.calendarOptions.events);
-    },
+   
     handleSelect(arg){
-      console.log(arg)
+      console.log(arg);
+        this.entryDate = arg.startStr
+        this.leaveDate = arg.endStr
+        this.calendarOptions.events.push(
+        { title : 'je reserve' , 
+          start : this.entryDate ,
+          end : this.leaveDate ,
+          color : 'green' , 
+          allDay : true
+        });
+
     }
   },
 }
@@ -137,11 +166,8 @@ export default {
   width: 90%;
 }
 .input-field select{
-  width: 95%;
   padding : 1rem;
-}
-label {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin : 0.5rem;
+  width: 95%;
 }
 </style>
