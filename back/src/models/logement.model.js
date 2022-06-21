@@ -3,25 +3,44 @@ const mongoose = require('mongoose')
 const LogementSchema = mongoose.Schema({
     name : {
         type : String , 
-        require : true 
-    } , 
-    free_logement : {
-        type : Array , 
-        require : true
     } ,
-    image : [{
+    type : {
+        type : String , 
+    },
+    disponibility : {
+        type : Array , 
+    },
+    address : {
+        type : String ,
+    } ,
+    description : {
+        type : String ,
+    } ,
+    surface : {
+        type : Number ,
+    } ,
+    modalite : {
+        // a = parking
+        // b = cuisine 
+        // c = douche
+        // d = eau chaude
+        // e = wifi
+        // f = tele satellite
+        // g = salle de jeu
+        // h = gardie
+
+        type : String
+    } ,
+    images : [{
         type : mongoose.Schema.Types.ObjectId ,
         ref : 'image'
     }], 
-
-    free_date : {
-        type : Array , 
-        require : true
-    } ,
-
+    reservation :[ {
+        type : mongoose.Schema.Types.ObjectId ,
+        ref : 'reservation'
+    }] ,
     price : {
-        type : Number , 
-        require : true
+        type : Array , 
     } , 
 })
 

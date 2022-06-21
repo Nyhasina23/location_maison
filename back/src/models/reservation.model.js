@@ -4,9 +4,14 @@ const reservationSchema = mongoose.Schema({
         //1 payé
         //2 avec acompte 
         //3 pas payé
+        //4 : annulé
         type: Number , 
         default : 3
 
+    } ,
+    payed : {
+        type : Number ,
+        require : true
     } ,
     firstname : {
         type : String ,
@@ -17,8 +22,8 @@ const reservationSchema = mongoose.Schema({
         require : true
     } , 
     logement : {
-        type : String , 
-        require : true
+        type : mongoose.Schema.Types.ObjectId , 
+        ref : 'reservation'
     },
     address : {
         type : String ,
@@ -55,7 +60,16 @@ const reservationSchema = mongoose.Schema({
     hour_leave : {
         type : String,
         require : true
-    } 
+    } ,
+    reference : {
+        type : String ,
+        require : true
+    } ,
+    typeTransfert : {
+        type : String, 
+        require : true
+    }
+   
 })
 
 const ReservationModel = new mongoose.model("reservation",reservationSchema);

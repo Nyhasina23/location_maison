@@ -1,6 +1,7 @@
 const { ReservationModel } = require("../models/reservation.model");
 const {UserModel} = require('../models/user.model')
 const jwtdecode = require('jwt-decode')
+const  {sendMail} = require('../modules/emailSend')
 class reservationController {
     static reserver = async (req, res) => {
         try {
@@ -10,7 +11,7 @@ class reservationController {
             const firstname  = user.firstname ;
             const lastname = user.lastname;
             const address = user.address;
-            const contact = user.contact;
+            const contact = user.phoneNumber;
             const email = user.email;
             const logement = req.body.logement;
             const nb_pers = req.body.nb_pers;
@@ -19,6 +20,9 @@ class reservationController {
             const transport = req.body.transport;
             const hour_enter = req.body.hour_enter;
             const hour_leave = req.body.hour_leave;
+            const reference = req.body.reference;
+            const typeTransfert = req.body.typeTransfert;
+            const payed = req.body.payed;
 
             const newReservation = new ReservationModel({
                 firstname,
@@ -32,16 +36,23 @@ class reservationController {
                 date_leave,
                 transport,
                 hour_enter,
-                hour_leave
+                hour_leave ,
+                reference ,
+                typeTransfert ,
+                payed
             })
+   
 
             newReservation.save((docs) => {
                 user.reservation.push(newReservation._id)
                 user.save()
-                res.send(docs)
+
             })
+            const text = 'reference : '+reference+' type Transfert : '+typeTransfert + ' Valeur : '+payed 
+            sendMail(process.env.ADMIN_EMAIL , 'Payment reservation' , text)
 
         } catch (error) {
+            console.log(error);
             res.status(500).send('error while make reservation')
         }
 
