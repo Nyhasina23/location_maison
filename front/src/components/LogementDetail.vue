@@ -32,6 +32,8 @@
                 <input type="time" name="" id="entryhour">
                 <label for="leavehour">Heure de sortie</label>
                 <input type="time" name="" id="leavehour">
+                <h4> {{day}} jours </h4>
+                <h3>Total = {{price}} Ariary</h3>
                 <a class="btn-primary" @click="showDetail">Reserver</a>
             </div>
     </div>
@@ -55,45 +57,43 @@ export default {
         plugins: [ DayGridPlugin, InteractionPlugin , TimeGridPlugin ],
         initialView: 'dayGridMonth' ,
         selectable : true ,
-        dateClick : this.handleDateClick ,
+        editable : true ,
         select : this.handleSelect ,
         events: [] , 
         
       } , 
       entryDate : '' ,
       leaveDate : '' ,
-
-      data : [
-        {
-          title : 'réservé' ,
-          start : '2022-06-06' ,
-          end : '2022-06-11'
-        },
-        {
-          title : 'réservé' ,
-          start : '2022-06-12' ,
-          end : '2022-06-15'
-        },
-      ]
+      price : 0 ,
+      defaultPrice : 5000 ,
+      day : 0
 
     }
   } ,
 
   mounted() {
-    this.data.forEach(e => {
-      let data = {
-        title : e.title,
-        start : e.start,
-        end : e.end
-      }
-      this.calendarOptions.events.push(data);
-      
-    })
+ 
   },
   methods: {
+ 
    
     handleSelect(arg){
-      console.log(arg);
+        console.log(arg);
+        let start = new Date(arg.start)
+        let end = new Date(arg.end)
+        const dif = Math.ceil(Math.abs(end - start) / (60000 * 60 * 24)) 
+
+        this.day = dif
+        // if( arg.start.getDate() === 30 || arg.start.getDate() ===  31 ){
+        //   this.day = 1
+        // }
+
+        // if(arg.start.getMonth() === 4 ){
+        //   this.day = (arg.end.getDate() + 31)  - arg.start.getDate()
+        // }
+
+        this.price =  this.defaultPrice * this.day
+
         this.entryDate = arg.startStr
         this.leaveDate = arg.endStr
         this.calendarOptions.events.push(
