@@ -1,17 +1,18 @@
 const { ReservationModel } = require("../models/reservation.model");
 const {UserModel} = require('../models/user.model')
+const jwtdecode = require('jwt-decode')
 class reservationController {
     static reserver = async (req, res) => {
         try {
-            // const token = req.headers['authorization'].split(' ')[1];
-            // const userId = token.userId;
-            const user = await UserModel.findById('62a4e6440448de2994f26350')
-            const firstname  = req.body.firstname ;
-            const lastname = req.body.lastname;
+            const token = req.headers['authorization'].split(' ')[1];
+            const userId = jwtdecode(token).id;
+            const user = await UserModel.findById(userId)
+            const firstname  = user.firstname ;
+            const lastname = user.lastname;
+            const address = user.address;
+            const contact = user.contact;
+            const email = user.email;
             const logement = req.body.logement;
-            const address = req.body.address;
-            const contact = req.body.contact;
-            const email = req.body.email;
             const nb_pers = req.body.nb_pers;
             const date_enter = req.body.date_enter;
             const date_leave = req.body.date_leave;

@@ -7,7 +7,7 @@
           </ul>
       </div>
       <div class="right">
-          <h3>Vos réservations</h3>
+          <!-- <h3>Vos réservations</h3>
           <div class="reservation">
               <div class="reservationContent">
                   <div class="left">
@@ -23,18 +23,44 @@
                   </div>
                   
               </div>
-          </div>
+          </div> -->
+          <div class="calendar" id="calendar"></div>
+
       </div>
   </div>
 </template>
 
 <script>
+
+import {Calendar} from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from "@fullcalendar/interaction";
 export default {
-    name : 'AdminView'
+    name : 'AdminView' ,
+    data() {
+        return {
+            
+        }
+    },
+    mounted() {
+         let calendarElement = document.getElementById('calendar')
+        let calendar = new Calendar(calendarElement , {
+          initialView : 'dayGridMonth' ,
+          plugins : [dayGridPlugin , interactionPlugin] ,
+          editable : false ,
+          droppable : true ,
+          events : this.disponibilityRaw ,
+        })
+          
+        calendar.render()
+    },
 }
 </script>
 
 <style scoped>
+.calendar{
+  width:80% ;
+}
 .admin{
     display: flex;
     margin : -1rem;
