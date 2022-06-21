@@ -66,21 +66,25 @@ class reservationController {
         } catch (error) {
             res.status(500).send('Eroor while getting user reservations')
         }
-
     }
 
     static validReservation = async (req , res) => {
-        const idRes = req.params.idRes;
-        await ReservationModel.findByIdAndUpdate( idRes , {
-            state : req.body.state , 
-            new : true
-        } , (error , docs) => {
-            if(error){
-                res.status(500).send('error while validating reservation');
-            }else{
-                res.send(docs);
-            }
-        })
+        try {
+            const idRes = req.params.idRes;
+            await ReservationModel.findByIdAndUpdate( idRes , {
+                state : req.body.state , 
+                new : true
+            })
+
+        } catch (error) {
+            res.status(500).send('Eroor while validating  reservations')
+            
+        }
+      
+    }
+
+    static getAllReservationLogement = (req , res) => {
+        const idLog = 
     }
 
     static getAllReservation = async (req , res) => {
