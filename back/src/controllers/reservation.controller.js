@@ -1,14 +1,15 @@
 const { ReservationModel } = require("../models/reservation.model");
-const {UserModel} = require('../models/user.model')
+const { UserModel } = require('../models/user.model')
 const jwtdecode = require('jwt-decode')
-const  {sendMail} = require('../modules/emailSend')
+const { sendMail } = require('../modules/emailSend')
+const { LogementModel } = require('../models/logement.model')
 class reservationController {
     static reserver = async (req, res) => {
         try {
             const token = req.headers['authorization'].split(' ')[1];
             const userId = jwtdecode(token).id;
             const user = await UserModel.findById(userId)
-            const firstname  = user.firstname ;
+            const firstname = user.firstname;
             const lastname = user.lastname;
             const address = user.address;
             const contact = user.phoneNumber;
@@ -36,62 +37,98 @@ class reservationController {
                 date_leave,
                 transport,
                 hour_enter,
-                hour_leave ,
-                reference ,
-                typeTransfert ,
+                hour_leave,
+                reference,
+                typeTransfert,
                 payed
             })
-   
 
-            newReservation.save((docs) => {
+
+            newReservation.save(async () => {
+                console.log(logement);
+                const _logement = await LogementModel.findById(logement)
+                _logement.reservation.push(newReservation._id)
+                _logement.save()
                 user.reservation.push(newReservation._id)
                 user.save()
 
             })
-            const text = 'reference : '+reference+' type Transfert : '+typeTransfert + ' Valeur : '+payed 
-            sendMail(process.env.ADMIN_EMAIL , 'Payment reservation' , text)
+            const text = 'reference : ' + reference + ' type Transfert : ' + typeTransfert + ' Valeur : ' + payed
+            sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
+
+            res.status(200).send('created')
 
         } catch (error) {
-            console.log(error);
             res.status(500).send('error while make reservation')
         }
 
     }
 
-    static getAllReservationUser = async (req , res) => {
+    static getAllReservationUser = async (req, res) => {
         try {
-            const user = await UserModel.findById('62a4e6440448de2994f26350')
-            .populate('reservation')
+            const token = req.headers['authorization'].split(' ')[1];
+            const userId = jwtdecode(token).id;
+            const user = await UserModel.findById(userId).populate('reservation')
             res.send(user.reservation)
         } catch (error) {
             res.status(500).send('Eroor while getting user reservations')
         }
     }
 
-    static validReservation = async (req , res) => {
+    static validateReservation = async (req, res) => {
         try {
-            const idRes = req.params.idRes;
-            await ReservationModel.findByIdAndUpdate( idRes , {
-                state : req.body.state , 
-                new : true
+            const reservationId = req.body.reservation;
+            const payed = req.body.payed;
+            let state = req.body.state;
+            let color;
+            let reservation = await ReservationModel.findById(reservationId);
+            let logement = await LogementModel.findById(reservation.logement);
+            reservation.payed = reservation.payed + payed;
+            if (reservation.payed == 0) {
+                reservation.state = 3;
+                color = "red";
+            } else if (reservation.payed < reservation.toPay) {
+                reservation.state = 2;
+                color = "blue";
+            } else {
+                reservation.state = 1;
+                color = "green";
+            }
+            logement.disponibility.push({
+                start: reservation.date_enter,
+                end: reservation.date_leave,
+                color: 'red'
             })
-
+            let text = "Votre payement a été pris en compte";
+            sendMail(reservation.email, 'Payment reservation', text);
+            logement.save();
+            reservation.save();
+            res.send(reservation);
         } catch (error) {
             res.status(500).send('Eroor while validating  reservations')
-            
+            console.log(error);
+
         }
-      
+
     }
 
-    static getAllReservationLogement = (req , res) => {
-        const idLog = 
+    static getAllReservationLogement = async (req, res) => {
+        try {
+            const idLog = req.params.idLog;
+            const reservationLog = await LogementModel.findById(idLog).populate('reservation')
+            res.status(200).send(reservationLog)
+        } catch (error) {
+            res.status(500).send('Eroor while getting  reservations logement')
+
+        }
+
     }
 
-    static getAllReservation = async (req , res) => {
-        await ReservationModel.find( (error , docs) => {
-            if(error){
+    static getAllReservation = async (req, res) => {
+        await ReservationModel.find((error, docs) => {
+            if (error) {
                 res.status(500).send('error while geting all reservation');
-            }else{
+            } else {
                 res.send(docs);
             }
         })

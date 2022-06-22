@@ -46,4 +46,4 @@ const LogementSchema = mongoose.Schema({
 
 const LogementModel = mongoose.model( 'logements' , LogementSchema)
 
-module.exports = LogementModel
+module.exports = {LogementModel}

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const LogementModel = require("../models/logement.model")
+const {LogementModel} = require("../models/logement.model")
 const { ImageModel } = require('../models/image.model')
 const dirname = require('../../getDirname')
 const resizeImg = require('resize-img');
@@ -61,6 +61,7 @@ class LogementController {
 
         } catch (error) {
             res.status(500).send('error server')
+            console.log(error);
         }
     }
 
