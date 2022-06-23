@@ -74,7 +74,16 @@ class reservationController {
             res.status(500).send('Eroor while getting user reservations')
         }
     }
+    static getOneReservationUSer = async (req , res) => {
+        try {
+            const idRes = req.params.idRes;
+            const reservation = await ReservationModel.findById(idRes)
+            res.status(200).send(reservation)
+        } catch (error) {
+            res.status(500).send('Eroor while getting one reservation')
+        }
 
+    }
     static validateReservation = async (req, res) => {
         try {
             const reservationId = req.body.reservation;
@@ -125,13 +134,18 @@ class reservationController {
     }
 
     static getAllReservation = async (req, res) => {
-        await ReservationModel.find((error, docs) => {
-            if (error) {
-                res.status(500).send('error while geting all reservation');
-            } else {
-                res.send(docs);
-            }
-        })
+        try {
+            await ReservationModel.find((error, docs) => {
+                if (error) {
+                    res.status(500).send('error while geting all reservation');
+                } else {
+                    res.send(docs);
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+       
     }
 
     
