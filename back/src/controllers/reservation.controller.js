@@ -24,6 +24,7 @@ class reservationController {
             const reference = req.body.reference;
             const typeTransfert = req.body.typeTransfert;
             const payed = req.body.payed;
+            const toPay = req.body.toPay;
 
             const newReservation = new ReservationModel({
                 firstname,
@@ -40,7 +41,8 @@ class reservationController {
                 hour_leave,
                 reference,
                 typeTransfert,
-                payed
+                payed ,
+                toPay
             })
 
 
@@ -77,7 +79,7 @@ class reservationController {
     static getOneReservationUSer = async (req , res) => {
         try {
             const idRes = req.params.idRes;
-            const reservation = await ReservationModel.findById(idRes)
+            const reservation = await ReservationModel.findById(idRes.toString())
             res.status(200).send(reservation)
         } catch (error) {
             res.status(500).send('Eroor while getting one reservation')
@@ -87,12 +89,14 @@ class reservationController {
     static validateReservation = async (req, res) => {
         try {
             const reservationId = req.body.reservation;
-            const payed = req.body.payed;
-            let state = req.body.state;
+            const payed = parseInt(req.body.payed);
             let color;
             let reservation = await ReservationModel.findById(reservationId);
             let logement = await LogementModel.findById(reservation.logement);
             reservation.payed = reservation.payed + payed;
+            if(reservation.payed < 0){
+                reservation.payed = 0
+            }
             if (reservation.payed == 0) {
                 reservation.state = 3;
                 color = "red";
@@ -113,6 +117,7 @@ class reservationController {
             sendMail(reservation.email, 'Payment reservation', text);
             logement.save();
             reservation.save();
+            console.log('tonga eto');
             res.send(reservation);
         } catch (error) {
             res.status(500).send('Eroor while validating  reservations')
@@ -135,20 +140,14 @@ class reservationController {
 
     static getAllReservation = async (req, res) => {
         try {
-            await ReservationModel.find((error, docs) => {
-                if (error) {
-                    res.status(500).send('error while geting all reservation');
-                } else {
-                    res.send(docs);
-                }
-            })
+            const allRes = await ReservationModel.find().sort({date:-1})
+            res.status(200).send(allRes)
         } catch (error) {
             console.log(error);
         }
        
     }
 
-    
 
     static userAnnulation = async (req, res) =>{
         const reservationId = req.body.reservationId;

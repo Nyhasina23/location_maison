@@ -101,13 +101,11 @@
                      <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Adresse</label>
                      <input type="text" v-model="oneReservation.address" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
                  </div>
-                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Status</label>
-                 <select id="countries" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected :value="oneReservation.state">{{  oneReservation.state === 4  ?   'Annulé' :  oneReservation.state === 3 ?  'Non payé' :  oneReservation.state === 2 ?  'Avec acompte' : 'Payé' }}</option>
-                    <option>avec acompte</option>
-                    <option>payé</option>
-                 </select>
-                 <button type="submit" class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
+                 <div class="mb-6">
+                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Payé</label>
+                     <input type="text" v-model="payed" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                 </div>
+                 <button type="submit" @click="validChange" class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
              </form>
           </div>
 
@@ -129,7 +127,8 @@ export default {
             showReservation : false ,
             showValidate : false ,
             reservation : '' ,
-            oneReservation : ''
+            oneReservation : '' ,
+            payed : ''
         }
     },
     async mounted() {
@@ -151,7 +150,6 @@ export default {
             console.log(error);
         })
 
-       
     },
 
     methods: {
@@ -166,6 +164,17 @@ export default {
                 console.log(error);
             })
         },
+        async validChange(){
+            const idRes = localStorage.getItem('idRes')
+            axios.put(process.env.VUE_APP_URL+'/reservation/validate/' , {
+                reservation : idRes , 
+                payed : this.payed,
+            }).then(() => {
+                console.log('validé');
+            }).catch(error => {
+                console.log(error);
+            })
+        } ,
 
         toggleActive(e){
             const link = document.querySelectorAll('.link');

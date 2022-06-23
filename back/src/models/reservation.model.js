@@ -72,6 +72,10 @@ const reservationSchema = mongoose.Schema({
     typeTransfert : {
         type : String, 
         require : true
+    }, 
+    date : {
+        type : Date,
+        default : Date.now()
     }
    
 })
