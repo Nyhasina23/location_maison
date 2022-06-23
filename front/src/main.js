@@ -5,6 +5,6 @@ import './index.css'
 import  'boxicons'
 import 'flowbite';
 const app = createApp(App)
-
-app.use(router)
+import {store} from './store/index'
+app.use(router , store)
 app.mount('#app')
