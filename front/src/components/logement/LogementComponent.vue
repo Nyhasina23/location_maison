@@ -12,7 +12,7 @@
                 <h3>Logement libre</h3>
                 <p>RC /1er / 2EME/ 3EME </p>
                 <p>Villa</p>
-                <router-link to="/logement/detail" class="btn-primary" @click="showDetail">Details</router-link>
+                <router-link to="/reservation/detail" class="btn-primary" @click="showDetail">Details</router-link>
             </div>
         </div>
     </div>

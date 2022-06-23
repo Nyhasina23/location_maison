@@ -7,7 +7,6 @@
           </ul>
       </div>
       <div class="right">
-          <h3>Vos réservations</h3>
           <div v-if="showReservation" class="reservation">
               <div class="reservationContent">
                   <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
@@ -74,7 +73,7 @@
                                         Payé
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a href="#"  @click="showValidationView" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -83,7 +82,33 @@
               </div>
           </div>
           <div v-if="showCalendar" class="calendar" id="calendar"></div>
-
+          <div v-if="showValidate" class="editReservation">
+             <form>
+                 <div class="mb-6">
+                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nom</label>
+                     <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@flowbite.com" required>
+                 </div>
+                 <div class="mb-6">
+                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Prénoms</label>
+                     <input type="password" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                 </div>
+                 <div class="mb-6">
+                     <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
+                     <input type="password" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                 </div>
+                 <div class="mb-6">
+                     <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Adresse</label>
+                     <input type="password" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                 </div>
+                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Status</label>
+                 <select id="countries" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option>Non payé</option>
+                    <option>avec acompte</option>
+                    <option>payé</option>
+                 </select>
+                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
+             </form>
+          </div>
 
       </div>
   </div>
@@ -98,8 +123,9 @@ export default {
     name : 'AdminView' ,
     data() {
         return {
-            showCalendar : true ,
+            showCalendar : false ,
             showReservation : false ,
+            showValidate : true
         }
     },
     mounted() {
@@ -133,11 +159,19 @@ export default {
         showCalendarView(){
             this.showCalendar = true;
             this.showReservation = false;
+            this.showValidate = false;
             window.location.reload()
             
         },
         showReservationView(){
             this.showReservation = true;
+            this.showCalendar = false;
+            this.showValidate = false;
+            
+        },
+        showValidationView(){
+            this.showValidate = true;
+            this.showReservation = false;
             this.showCalendar = false;
         }
     },
@@ -151,6 +185,24 @@ export default {
 }
 .calendar{
   width:65% ;
+}
+.editReservation{
+    width : 100%;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+}
+.editReservation form{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.editReservation label{
+    align-items: start;
+    width: 100%;
+    display: flex;
+    font-size: 0.9rem;
 }
 .admin{
     display: flex;

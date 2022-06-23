@@ -133,6 +133,9 @@ class reservationController {
             }
         })
     }
+
+    
+
     static userAnnulation = async (req, res) =>{
         const reservationId = req.body.reservationId;
         const reservation = await ReservationModel.findById(reservationId);
