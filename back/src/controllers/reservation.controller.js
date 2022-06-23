@@ -97,7 +97,8 @@ class reservationController {
             logement.disponibility.push({
                 start: reservation.date_enter,
                 end: reservation.date_leave,
-                color: 'red'
+                color: 'red',
+                reservation : reservation._id.toString()
             })
             let text = "Votre payement a été pris en compte";
             sendMail(reservation.email, 'Payment reservation', text);
@@ -107,7 +108,6 @@ class reservationController {
         } catch (error) {
             res.status(500).send('Eroor while validating  reservations')
             console.log(error);
-
         }
 
     }
@@ -132,6 +132,46 @@ class reservationController {
                 res.send(docs);
             }
         })
+    }
+    static userAnnulation = async (req, res) =>{
+        const reservationId = req.body.reservationId;
+        const reservation = await ReservationModel.findById(reservationId);
+        const logement = await LogementModel.findById(reservation.logement);
+        console.log(logement.disponibility);
+        for(let i = 0; i<logement.disponibility.length; i++){
+            if(logement.disponibility[i].reservation == reservationId){
+                logement.disponibility.splice(i,1);
+                logement.save();
+                break;
+            }
+        }
+        reservation.state = 4;
+        reservation.save();
+        let text = "L'annulation de votre réservation a bien été pris en compte";
+        sendMail(reservation.email, 'Annulation de reservation', text);
+        text = 'La reservation de '+reservation.firstname+" "+reservation.lastname+" sur la résidence "+logement.name+" a été annulée";
+        sendMail(process.env.ADMIN_EMAIL,'Annulation de reservation', text);
+        res.status(200).send("annulé")
+    }
+    static adminAnnulation = async (req, res) =>{
+        const reservationId = req.body.reservationId;
+        const reservation = await ReservationModel.findById(reservationId);
+        const logement = await LogementModel.findById(reservation.logement);
+        console.log(logement.disponibility);
+        for(let i = 0; i<logement.disponibility.length; i++){
+            if(logement.disponibility[i].reservation == reservationId){
+                logement.disponibility.splice(i,1);
+                logement.save();
+                break;
+            }
+        }
+        reservation.state = 4;
+        reservation.save();
+        let text = "Votre réservation sur la résidence "+logement.name+" a été annulée";
+        sendMail(reservation.email, 'Annulation de reservation', text);
+        text = "L'annulation de la réseravtion de" +reservation.firstname+" "+reservation.lastname+" sur la résidence "+logement.name+ " a bien été pris en compte";
+        sendMail(process.env.ADMIN_EMAIL,'Annulation de reservation', text);
+        res.status(200).send("annulé")
     }
 }
 module.exports = { reservationController };

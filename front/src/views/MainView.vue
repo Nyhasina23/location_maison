@@ -52,40 +52,33 @@
     </div>
   </transition>
     
+<div class="mainLogement">
 
     <div class="logement">
-        <LogementComponent class="left" :price=" `${price}` " />
-         <FullCalendar class="calendar" 
-           :options="calendarOptions"
-           
-         />
+          <LogementComponent class="left" :price=" `${price}` " />
+          <FullCalendar class="calendar" :options="calendarOptions"/>
     </div>
 
-    <div  class="main-text">
-        <h2>Lorem ipsum</h2>
-        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500
-        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500
-        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500 
-        </p>
-    </div>
+          <div  class="main-text">
+              <h2>Lorem ipsum</h2>
+              <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500
+              Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500
+              Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500 
+              </p>
+          </div>
 
-    <h2>Quelques photos du Logement</h2>
+          <h2>Quelques photos du Logement</h2>
 
-     <swiper
-    :slidesPerView="3"
-    :spaceBetween="30"
-    :pagination="{
-      clickable: true,
-    }"
-    :modules="modules"
-    class="mySwiper"
-  >
-    <swiper-slide><img src="../assets/img(1).jpg" alt=""></swiper-slide>
-    <swiper-slide><img src="../assets/img(3).jpg" alt=""></swiper-slide>
-    <swiper-slide><img src="../assets/img(4).jpg" alt=""></swiper-slide>
-    <swiper-slide><img src="../assets/img(6).jpg" alt=""></swiper-slide>
-  </swiper>
-  <FooterComponent />
+          <swiper
+          :slidesPerView="3" :spaceBetween="30" :pagination="{ clickable: true, }" :modules="modules" class="mySwiper">
+          <swiper-slide><img src="../assets/img(1).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/img(3).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/img(4).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/img(6).jpg" alt=""></swiper-slide>
+        </swiper>
+        <FooterComponent />
+</div>
+
   </div>
 </template>
 
@@ -155,6 +148,9 @@ export default {
 </script>
 
 <style>
+.mainLogement{
+  margin : 1rem;
+}
 .calendar{
   width:40% ;
   margin : 1rem 0rem 0rem 1rem;
@@ -243,6 +239,7 @@ export default {
     width: 35rem;
     text-align: left;
     color : white;
+    margin-bottom: 1rem;
 }
 .header .header-container{
     height: 30rem;
@@ -274,6 +271,7 @@ export default {
 .logement{
     display: flex;
 }
+
 .logement .left{
     display: flex;
     flex-direction: column;
@@ -283,11 +281,9 @@ export default {
     display: flex;
     flex : 1
 }
-.main{
-    margin : 1rem;
-}
 .main-text p , h2{
     text-align: left;
+    margin-bottom : 1rem;
 }
 
 .swiper {

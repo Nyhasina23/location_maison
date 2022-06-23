@@ -47,6 +47,9 @@ export default {
     margin-right: 1rem;
     margin-bottom: 1rem;
 }
+h3{
+    margin : 0.5rem;
+}
 .logement-img img {
     width : 30rem ;
     height: 100%;
@@ -74,6 +77,7 @@ export default {
 }
 .logement-detail p{
     text-align: left;
+    margin : 0.5rem;
 }
 .btn-primary{
     padding: 2rem;

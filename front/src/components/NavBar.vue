@@ -52,11 +52,10 @@ export default {
 
 .navBar{
     display: flex;
-    width: 100vw;
     align-items: center;
     justify-content: space-between;
     box-shadow: 3px 1px 11px 1px;
-    margin : -0.5rem;
+    padding : 1rem;
 }
 .navBar .logo{
     margin-left : 1rem;
@@ -81,7 +80,7 @@ export default {
     color : red;
 }
 .links ul li a span  {
-       padding : 0.5rem;
+    padding : 0.5rem;
 }
 
 box-icon:hover {
