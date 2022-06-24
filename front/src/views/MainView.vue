@@ -354,9 +354,6 @@ export default {
 .secondSide .price{
   text-align: left;
 }
-.secondSide .price span{
-  color
-}
 .secondSide .btn{
   background: var(--primary-color-4);
   margin-right: 1rem;
