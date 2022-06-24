@@ -19,7 +19,9 @@ const sendMail = (to, subject, text) => {
 
     transport.sendMail(mailOptions, function (err, info) {
         if (err) {
-            throw err;
+            return false;
+        }else{
+            return true;
         }
     });
 }

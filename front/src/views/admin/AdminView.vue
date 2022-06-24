@@ -2,11 +2,14 @@
   <div class="admin">
        <div class="leftSideBar">
           <ul>
-              <li @click="showCalendarView">Calendrier</li>
+              <li @click="showLogementView">Logements</li>
               <li @click="showReservationView">Réservations</li>
           </ul>
       </div>
       <div class="right">
+
+          <router-view></router-view>
+
           <div v-if="showReservation" class="reservation">
               <div class="reservationContent">
                   <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
@@ -81,7 +84,62 @@
                     </div>
               </div>
           </div>
-          <div v-if="showCalendar" class="calendar" id="calendar"></div>
+          <div v-if="showLogement" class="w-full">
+                <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+                        <div class="p-4">
+                            <label for="table-search" class="sr-only">Search</label>
+                            <div class="relative mt-1">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
+                            </div>
+                        </div>
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nom 
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Type
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Description
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Réservations
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Calendar</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="log in logement" v-bind:key="log._id"  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                       {{log.name}}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{log.type}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{log.description}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{log.reservation.length}}
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Calendar</router-link>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+          </div>
           <div v-if="showValidate" class="editReservation">
              <form>
              <p class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</p>
@@ -115,37 +173,33 @@
 
 <script>
 
-import {Calendar} from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from "@fullcalendar/interaction";
 import axios from 'axios'
 export default {
     name : 'AdminView' ,
     data() {
         return {
-            showCalendar : true ,
+            showLogement : true ,
             showReservation : false ,
             showValidate : false ,
+            showCalendar : true ,
             reservation : '' ,
             oneReservation : '' ,
+            logement : '' ,
             payed : ''
         }
     },
     async mounted() {
-         let calendarElement = document.getElementById('calendar')
-         let calendar = new Calendar(calendarElement , {
-          initialView : 'dayGridMonth' ,
-          plugins : [dayGridPlugin , interactionPlugin] ,
-          editable : false ,
-          droppable : true ,
-          events : this.disponibilityRaw ,
-        })
-          
-        calendar.render()
-        
+              
         await axios.get(process.env.VUE_APP_URL+'/reservation')
         .then((res) => {
             this.reservation = res.data
+        }).catch(error => {
+            console.log(error);
+        })
+
+        await axios.get(process.env.VUE_APP_URL+'/logement/list')
+        .then((res) => {
+            this.logement = res.data
         }).catch(error => {
             console.log(error);
         })
@@ -190,23 +244,32 @@ export default {
               }
             }
         } ,
-        showCalendarView(){
-            this.showCalendar = true;
+        showLogementView(){
+            this.showLogement = true;
             this.showReservation = false;
+            this.showCalendar = false;
             this.showValidate = false;
-            window.location.reload()
             
         },
         showReservationView(){
             this.showReservation = true;
             this.showCalendar = false;
+            this.showLogement = false;
             this.showValidate = false;
             
         },
         showValidationView(){
             this.showValidate = true;
             this.showReservation = false;
+            this.showLogement = false;
             this.showCalendar = false;
+        },
+        showCalendarView(id){
+            this.showCalendar = true;
+            this.showValidate = false;
+            this.showReservation = false;
+            this.showLogement = false;
+            localStorage.setItem('idLog' , id)
         }
     },
 }

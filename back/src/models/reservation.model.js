@@ -9,6 +9,10 @@ const reservationSchema = mongoose.Schema({
         default : 3
 
     },
+    isSeen : {
+        type : Boolean,
+        default : true
+    },
     payed : {
         type : Number ,
         default:0,

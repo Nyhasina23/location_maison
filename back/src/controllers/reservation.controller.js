@@ -41,7 +41,7 @@ class reservationController {
                 hour_leave,
                 reference,
                 typeTransfert,
-                payed ,
+                payed,
                 toPay
             })
 
@@ -56,9 +56,12 @@ class reservationController {
 
             })
             const text = 'reference : ' + reference + ' type Transfert : ' + typeTransfert + ' Valeur : ' + payed
-            sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
-
-            res.status(200).send('created')
+            let isSent = await sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
+            if (isSent) {
+                res.status(200).send(true)
+            } else {
+                res.status(200).send(false)
+            }
 
         } catch (error) {
             res.status(500).send('error while make reservation')
@@ -76,7 +79,7 @@ class reservationController {
             res.status(500).send('Eroor while getting user reservations')
         }
     }
-    static getOneReservationUSer = async (req , res) => {
+    static getOneReservationUSer = async (req, res) => {
         try {
             const idRes = req.params.idRes;
             const reservation = await ReservationModel.findById(idRes.toString())
@@ -94,7 +97,7 @@ class reservationController {
             let reservation = await ReservationModel.findById(reservationId);
             let logement = await LogementModel.findById(reservation.logement);
             reservation.payed = reservation.payed + payed;
-            if(reservation.payed < 0){
+            if (reservation.payed < 0) {
                 reservation.payed = 0
             }
             if (reservation.payed == 0) {
@@ -107,15 +110,44 @@ class reservationController {
                 reservation.state = 1;
                 color = "green";
             }
-            logement.disponibility.push({
-                start: reservation.date_enter,
-                end: reservation.date_leave,
-                color: 'red',
-                reservation : reservation._id.toString()
-            })
+
+            if (reservation.isSeen) {
+                logement.disponibility.push({
+                    start: reservation.date_enter,
+                    end: reservation.date_leave,
+                    color,
+                    reservation: reservation._id.toString()
+                })
+                reservation.isSeen = false
+            } else {
+
+                console.log(logement.disponibility);
+                for (let i = 0; i < logement.disponibility.length; i++) {
+                    if (logement.disponibility[i].reservation == reservation._id.toString()) {
+                        logement.disponibility.splice(i, 1);
+                        await logement.save();
+                    }
+                }
+                logement.disponibility.push({
+                    start: reservation.date_enter,
+                    end: reservation.date_leave,
+                    color,
+                    reservation: reservation._id.toString()
+                })
+                await logement.save();
+                
+            }
+
+
             let text = "Votre payement a été pris en compte";
             sendMail(reservation.email, 'Payment reservation', text);
-            logement.save();
+            logement.save((err, docs) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(docs);
+                }
+            });
             reservation.save();
             console.log('tonga eto');
             res.send(reservation);
@@ -140,23 +172,23 @@ class reservationController {
 
     static getAllReservation = async (req, res) => {
         try {
-            const allRes = await ReservationModel.find().sort({date:-1})
+            const allRes = await ReservationModel.find().sort({ date: -1 })
             res.status(200).send(allRes)
         } catch (error) {
             console.log(error);
         }
-       
+
     }
 
 
-    static userAnnulation = async (req, res) =>{
+    static userAnnulation = async (req, res) => {
         const reservationId = req.body.reservationId;
         const reservation = await ReservationModel.findById(reservationId);
         const logement = await LogementModel.findById(reservation.logement);
         console.log(logement.disponibility);
-        for(let i = 0; i<logement.disponibility.length; i++){
-            if(logement.disponibility[i].reservation == reservationId){
-                logement.disponibility.splice(i,1);
+        for (let i = 0; i < logement.disponibility.length; i++) {
+            if (logement.disponibility[i].reservation == reservationId) {
+                logement.disponibility.splice(i, 1);
                 logement.save();
                 break;
             }
@@ -165,28 +197,28 @@ class reservationController {
         reservation.save();
         let text = "L'annulation de votre réservation a bien été pris en compte";
         sendMail(reservation.email, 'Annulation de reservation', text);
-        text = 'La reservation de '+reservation.firstname+" "+reservation.lastname+" sur la résidence "+logement.name+" a été annulée";
-        sendMail(process.env.ADMIN_EMAIL,'Annulation de reservation', text);
+        text = 'La reservation de ' + reservation.firstname + " " + reservation.lastname + " sur la résidence " + logement.name + " a été annulée";
+        sendMail(process.env.ADMIN_EMAIL, 'Annulation de reservation', text);
         res.status(200).send("annulé")
     }
-    static adminAnnulation = async (req, res) =>{
+    static adminAnnulation = async (req, res) => {
         const reservationId = req.body.reservationId;
         const reservation = await ReservationModel.findById(reservationId);
         const logement = await LogementModel.findById(reservation.logement);
         console.log(logement.disponibility);
-        for(let i = 0; i<logement.disponibility.length; i++){
-            if(logement.disponibility[i].reservation == reservationId){
-                logement.disponibility.splice(i,1);
+        for (let i = 0; i < logement.disponibility.length; i++) {
+            if (logement.disponibility[i].reservation == reservationId) {
+                logement.disponibility.splice(i, 1);
                 logement.save();
                 break;
             }
         }
         reservation.state = 4;
         reservation.save();
-        let text = "Votre réservation sur la résidence "+logement.name+" a été annulée";
+        let text = "Votre réservation sur la résidence " + logement.name + " a été annulée";
         sendMail(reservation.email, 'Annulation de reservation', text);
-        text = "L'annulation de la réseravtion de" +reservation.firstname+" "+reservation.lastname+" sur la résidence "+logement.name+ " a bien été pris en compte";
-        sendMail(process.env.ADMIN_EMAIL,'Annulation de reservation', text);
+        text = "L'annulation de la réseravtion de" + reservation.firstname + " " + reservation.lastname + " sur la résidence " + logement.name + " a bien été pris en compte";
+        sendMail(process.env.ADMIN_EMAIL, 'Annulation de reservation', text);
         res.status(200).send("annulé")
     }
 }

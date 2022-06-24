@@ -10,12 +10,12 @@ const store =  createStore({
             date_enter : '',
             date_leave: '',
             transport : '',
-            hour_leave : [],
-            hour_enter : [],
+            hour_leave : '',
+            hour_enter : '',
             reference:'',
             typeTransfert:'',
             payed : '',
-            toPay: {}
+            toPay: ''
     },
     mutations : {
         setToPay(state, value){
@@ -30,17 +30,12 @@ const store =  createStore({
         setPayed(state,value){
             state.payed = value;
         },
-        isAuhtenticated(state , status){
-            state.isAuth = status
-        },
         setModal(state,value){
             state.modalMessage = value;
         },
-        setName(state , value){
-            state.name = value
-        },
+      
         setHour_enter(state , value){
-            state.hour_enter.push(value)
+            state.hour_enter =value
         },
         setNbr_pers(state , value){
             state.nbr_pers = value
@@ -58,20 +53,9 @@ const store =  createStore({
             state.transport = value
         },
         setHour_leave(state , value){
-            state.hour_leave.push(value)
+            state.hour_leave = value
         },
-        deleteContact(state){
-            state.contact  = []
-        },
-        deleteCategory(state){
-            state.category = []
-        },
-        deleteDeviantWalletId(state){
-            state.deviantWalletId = []
-        },
-        deleteCoordonates(state){
-            state.coordonates = []
-        },
+    
     } , 
 
     getters : {
@@ -90,4 +74,4 @@ const store =  createStore({
           })
     ]
 })
-export  {store}
+export {store}

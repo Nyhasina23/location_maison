@@ -2,6 +2,7 @@
   <div class="main">
     <div class="header">
         <div class="header-container">
+          <p class="siteName">Site de location</p>
             <h2>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</h2>
             <div class="header-btn">
                 <a class="btn-primary" href="#" @click="showLogin()">LANCEZ-VOUS</a>
@@ -9,7 +10,20 @@
             </div>
         </div>
     </div>
-
+  <div class="logementList">
+    <div class="oneLogement">
+      <img class="Logementmage" src="../../public/img(8).jpg" alt="">
+      <div class="secondSide">
+        <p class="logementName">Villa Tsarasoa Avaradoha</p>
+        <p class="logementType">Villa</p>
+        <p class="price">A partir de<span> 200.000 ariary </span>/J </p>
+        <div class="duo">
+          <router-link to="/" class="detail btn">Détails</router-link>
+          <router-link to="/" class="reserver btn">Réserver</router-link>
+        </div>
+      </div>
+    </div>
+  </div>
   <transition name="fade" appear>
     <div class="modal-overlay" 
          v-if="showLoginModal" 
@@ -55,17 +69,9 @@
 <div class="mainLogement">
 
     <div class="logement">
-          <LogementComponent class="left" :price=" `${price}` " />
-          <FullCalendar class="calendar" :options="calendarOptions"/>
     </div>
 
-          <div  class="main-text">
-              <h2>Lorem ipsum</h2>
-              <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500
-              Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500
-              Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500 
-              </p>
-          </div>
+          
 
           <h2>Quelques photos du Logement</h2>
 
@@ -84,23 +90,16 @@
 
 <script>
 
-import FullCalendar from '@fullcalendar/vue3'
-import DayGridPlugin from '@fullcalendar/daygrid'
-import TimeGridPlugin from '@fullcalendar/timegrid'
-import InteractionPlugin from '@fullcalendar/interaction'
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
-import LogementComponent from '../components/logement/LogementComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 export default {
     name : 'MainView' , 
     components : {
-        LogementComponent,
         Swiper,
         SwiperSlide,
-        FullCalendar,
         FooterComponent
     } ,
     setup() {
@@ -112,20 +111,7 @@ export default {
         return {
             showLoginModal: false,
             showSignupModal: false,
-            calendarOptions: {
-            plugins: [ DayGridPlugin, InteractionPlugin , TimeGridPlugin ],
-            initialView: 'dayGridMonth' ,
-            selectable : true ,
-            dateClick : this.handleDateClick ,
-            eventClick : this.handleSelect ,
-            locale : 'fr',
-            events: [
-              { title: 'réservé', date: '2022-06-16' , price : '5000' },
-              { title: 'réservé', date: '2022-06-17' , color: 'red' }
-            ] , 
         
-      } ,
-            price : 150000
         }
     },
     methods: {
@@ -175,9 +161,9 @@ export default {
 .input-field .btn-submit{
   width : 100%;
   padding : 0.7rem;
-  background: red;
+  background: var(--primary-color-4);
   color :white;
-  border : red;
+  border : var(--primary-color-4);
   margin-top: 0.5rem;
 }
 
@@ -255,18 +241,25 @@ export default {
 .header-btn .btn-primary{
     margin-right: 1rem;
     text-decoration: none;
-    color : white ;
-    padding : 1rem;
-    background: red;
-    border: 2px solid red;
-
+    color: white;
+    padding: 1rem;
+    border-radius: .5rem;
+    background: var(--primary-color-4);
+    border: 2px solid var(--primary-color-4);
 }
+.header-btn .btn-primary:hover{
+    background: var(--primary-color-5);
+    border: 2px solid var(--primary-color-5);
+    transition:ease all .3s;
+}
+
 .header-btn .btn-second{
     margin-right: 1rem;
     text-decoration: none;
-    color : white ;
-    padding : 1rem;
-    border: 2px solid red;
+    color: white;
+    padding: 1rem;
+    border-radius: .5rem;
+    border: 2px solid var(--primary-color-4);
 }
 .logement{
     display: flex;
@@ -284,6 +277,10 @@ export default {
 .main-text p , h2{
     text-align: left;
     margin-bottom : 1rem;
+    cursor: context-menu;
+}
+.logementType{
+  text-align: start;
 }
 
 .swiper {
@@ -316,5 +313,60 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.logementList{
+  display: flex;
+}
+.oneLogement{
+  border-radius: .5rem;
+  border: solid 1px #eee;
+  width:50%;
+  height: 20rem;
+  margin: 1rem;
+  overflow: hidden;
+  display: flex;
+}
+.Logementmage{
+  height: 100%;
+  width: 40%;
+  object-fit: cover;
+}
+.secondSide{
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.secondSide .logementName{
+  font-weight: 600;
+  text-align: left;
+}
+.siteName{
+  color: var(--primary-color-4);
+  font-size: 3rem;
+  font-weight: 600;
+  cursor: unset;
+  
+}
+.duo{
+  display: flex;
+}
+.secondSide .price{
+  text-align: left;
+}
+.secondSide .price span{
+  color
+}
+.secondSide .btn{
+  background: var(--primary-color-4);
+  margin-right: 1rem;
+  color: white;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+}
+.btn:hover{
+  background: var(--primary-color-5);
+  transition: ease .3s all
+  
 }
 </style>

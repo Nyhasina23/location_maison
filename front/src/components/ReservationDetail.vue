@@ -5,17 +5,17 @@
               <p class="para text-2xl mb-2 font-semibold">Réservations</p>
               <p class="mb-8 para">Veuillez glisser les deux boutons sur le calendrier pour choisir votre date de réservation</p>
               <div class="flex w-full ">
+                  <button @click="mount" class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Reéssayer</button>
                   <div id="draggable-start" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Date d'entrée</div>
                   <div id="draggable-end"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" >Date d'arrivée</div>
               </div>
                   <div class="calendar" id="calendar"></div>
-                  <button @click="mount" class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Reéssayer</button>
             </div>
             <div class="logement-detail">
                 <h1 class="text-xl mb-10 mt-4 font-semibold">Vos Informations</h1>
                 <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre de personne</label>
-                    <input type="number" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <input type="number" v-model="nbr_pers" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date d'entrée</label>
@@ -28,24 +28,18 @@
                 
                  <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Heure d'entrée</label>
-                    <input type="time" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <input type="time" id="base-input" v-model="entry_hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                  <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Heure de sortie</label>
-                    <input type="time" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <input type="time" id="base-input" v-model="leave_hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
 
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Logement</label>
-                 <select id="countries" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option>Non payé</option>
-                    <option>avec acompte</option>
-                    <option>payé</option>
-                 </select>
                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Transport</label>
-                 <select id="countries" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option>Non payé</option>
-                    <option>avec acompte</option>
-                    <option>payé</option>
+                 <select id="countries" v-model="transport" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="AT" >AT avec transport aller </option>
+                    <option value="ST" >ST sans transport</option>
+                    <option value="AR" >AR avec aller et retour</option>
                  </select>
 
                 <!-- Main modal -->
@@ -61,11 +55,11 @@
                                 <form class="space-y-6" action="#">
                                     <div>
                                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Référence</label>
-                                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
+                                        <input v-model="reference" type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
                                     </div>
                                     <div>
                                         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Type de transfert</label>
-                                         <select id="countries" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                         <select id="countries" v-model="transfert" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                              <option>MVola</option>
                                              <option>BNI</option>
                                              <option>Paypal</option>
@@ -75,7 +69,7 @@
                                     <p class="text-sm methode" >BNI : 108 1235 45 5452</p>
                                     <p class="text-sm methode" >Paypal : nyhasina@gmail.com</p>
                                     <p class="text-sm underline" >Total à payer</p>
-                                    <p class="text-xl">150 000 AR</p>
+                                    <p class="text-xl">{{price}} AR</p>
                                     <button type="submit" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider réservation</button>
                                   
                                 </form>
@@ -84,7 +78,7 @@
                     </div>
                 </div> 
 
-                <a class="btn-primary" @click="showDetail" data-modal-toggle="authentication-modal">Reserver</a>
+                <a class="btn-primary" @click="submitReservation" data-modal-toggle="authentication-modal">Reserver</a>
             </div>
     </div>
   </div>
@@ -95,6 +89,7 @@
 import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, {Draggable} from "@fullcalendar/interaction";
+import axios from 'axios'
 export default {
     name : 'ReservationDetail' ,
     components : {
@@ -138,6 +133,14 @@ export default {
       defaultPrice : 5000 ,
       day : 0 ,
       disponibilityRaw : [] ,
+      nbr_pers : '' ,
+      entry_hour : '' ,
+      leave_hour : '' ,
+      transport : '' ,
+      reference : '' ,
+      transfert : '' ,
+
+
 
     }
   } ,
@@ -191,7 +194,20 @@ export default {
                     if((e.start <= this.start && e.end > this.start)) can = false;
                 })
                 if(can){
-                  this.startDisplay = this.start.getDate() + '-' + (this.start.getMonth() + 1 )+ '-' + this.start.getFullYear()
+                  let month; 
+                  let day;
+                  if(this.start.getDate() < 10){
+                    day = '0'+this.start.getDate()
+                  }else{
+                    day = this.start.getDate()
+                  }
+
+                  if((this.start.getMonth() + 1) < 10 ){
+                      month = '0'+(parseInt(this.start.getMonth()) + 1)
+                  }else{
+                    month = parseInt(this.start.getMonth()) + 1
+                  }
+                      this.startDisplay = this.start.getFullYear() + '-'+ month + '-' + day
                 }else{
                   this.startDisplay = "Choisissez une date valide"
                 }
@@ -227,7 +243,22 @@ export default {
                     if((e.start <= this.end && e.end > this.end)) can = false;
                 })
                 if(can){
-                  this.endDisplay = this.end.getDate() + '-' + (this.end.getMonth() + 1 )+ '-' + this.end.getFullYear()
+
+                  let month; 
+                  let day;
+                  if(this.end.getDate() < 10){
+                    day = '0'+this.end.getDate()
+                  }else{
+                    day = this.end.getDate()
+                  }
+
+                  if((this.end.getMonth() + 1) < 10 ){
+                      month = '0'+(parseInt(this.end.getMonth()) + 1)
+                  }else{
+                    month = parseInt(this.end.getMonth()) + 1
+                  }
+
+                  this.endDisplay = this.end.getFullYear() + '-'+ month + '-' + day
                 }else{
                   this.endDisplay = "Choisissez une date valide"
                 }
@@ -271,6 +302,53 @@ export default {
     })
 
     return disponibility;
+
+    },
+
+    submitReservation(){
+      this.$store.commit('setNbr_pers' , this.nbr_pers);
+      this.$store.commit('setHour_enter' ,this.entry_hour);
+      this.$store.commit('setHour_leave' ,this.leave_hour);
+      this.$store.commit('setTransport' ,this.transport);
+      this.$store.commit('setTypeTransfert' ,this.transfert);
+      const toPay = this.defaultPrice * ((new Date(this.endDisplay).setHours(0,0,0,0) - new Date(this.start).setHours(0,0,0,0) ) / (1000 * 60 * 60 * 24 ) + 1)
+      this.$store.commit('setToPay' , toPay)
+      this.price = toPay
+
+    } ,
+    async sendReservation(){
+      const idLog = localStorage.getItem('idLog');
+      const nbr_pers = this.$store.state.nbr_pers;
+      const date_enter = this.startDisplay;
+      const date_leave = this.endDisplay;
+      const transport = this.$store.state.transport;
+      const hour_enter = this.$store.state.hour_enter;
+      const hour_leave = this.$store.state.hour_leave;
+      const reference = this.reference;
+      const typeTransfert = this.$store.state.transfert;
+      const toPay = this.$store.state.toPay;
+
+      await axios.post(process.env.VUE_APP_URL+'/reservation/' , {
+          logement : idLog ,
+          nbr_pers,
+          date_enter,
+          date_leave,
+          transport,
+          hour_enter,
+          hour_leave,
+          reference,
+          typeTransfert,
+          toPay
+      } , {
+        headers : {
+          Authorization : 'Bearer ' + localStorage.getItem('token')
+        }
+      }).then(() => {
+        console.log('reservtion send');
+      }).catch((error) => {
+          console.log('error while sending reservation : ',error);
+      })
+
 
     }
   }

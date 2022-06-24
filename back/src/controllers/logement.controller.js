@@ -52,8 +52,8 @@ class LogementController {
                     start : 'default' ,
                     end : 'default',
                     value : req.body.price
-                   } 
-                }] , 
+                   }
+                }],
                 images : image
             })
             newLogement.save()
@@ -75,6 +75,20 @@ class LogementController {
                 res.status(404).send('no logement')
             }
 
+        } catch (error) {
+            res.status(500).send(error)
+        }
+    }
+
+    static getOneLogement = async (req, res) => {
+        try {
+            const idLog = req.params.idLog;
+            const logement = await LogementModel.findById(idLog);
+            if(logement){
+                res.status(200).send(logement)
+            }else{
+                res.status(404).send('no logement')
+            }
         } catch (error) {
             res.status(500).send(error)
         }
