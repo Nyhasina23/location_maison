@@ -2,6 +2,7 @@ const { generateToken } = require('../modules/generateToken.js');
 const regex = require('../modules/regexp');
 const { UserModel } = require('../models/user.model.js');
 const { sha } = require('../modules/sha256.js');
+const jwtdecode = require('jwt-decode')
 const mongoose = require('mongoose');
 class userController {
     static edit = async (req, res) => {
@@ -40,6 +41,31 @@ class userController {
         }
 
     }
+
+    static update = async (req , res) => {
+        try {
+            const token = req.headers['authorization'].split(' ')[1];
+            const userId = jwtdecode(token).id;
+            await UserModel.findByIdAndUpdate(userId , 
+                {
+                    firstname : req.body.firstname ,
+                    lastname : req.body.lastname ,
+                    email : req.body.email ,
+                    address : req.body.address ,
+                    phoneNumber : req.body.phoneNumber ,
+                    password : req.body.password ,
+                    new : true
+                } , (error , docs) => {
+                    if(error){
+                        res.status(500).send(error)
+                    }else{
+                        res.status(200).send(docs)
+                    }
+                })
+        } catch (error) {
+            res.status(500).send()
+        }
+    }
 }
 const checkRegex = (firstname, lastname, email, password, phoneNumber) => {
 
@@ -70,7 +96,4 @@ const checkRegex = (firstname, lastname, email, password, phoneNumber) => {
 
 }
 
-
-
-
-module.exports = { signupController }
+module.exports = { userController }
