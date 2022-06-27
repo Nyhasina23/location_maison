@@ -20,6 +20,7 @@
                 <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date d'entrée</label>
                     <input type="text" v-model="startDisplay" disabled id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
                 </div>
                 <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date de sortie</label>
@@ -29,6 +30,7 @@
                  <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Heure d'entrée</label>
                     <input type="time" id="base-input" v-model="entry_hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                
                 </div>
                  <div class="mb-6">
                     <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Heure de sortie</label>
@@ -43,6 +45,7 @@
                  </select>
 
                 <!-- Main modal -->
+
                 <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                     <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                         <!-- Modal content -->
@@ -55,7 +58,8 @@
                                 <form class="space-y-6" action="#">
                                     <div>
                                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Référence</label>
-                                        <input v-model="reference" type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required>
+                                        <input v-model="reference" type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="">
+
                                     </div>
                                     <div>
                                         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Type de transfert</label>
@@ -69,8 +73,8 @@
                                     <p class="text-sm methode" >BNI : 108 1235 45 5452</p>
                                     <p class="text-sm methode" >Paypal : nyhasina@gmail.com</p>
                                     <p class="text-sm underline" >Total à payer</p>
-                                    <p class="text-xl">{{price}} AR</p>
-                                    <button type="submit" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider réservation</button>
+                                    <p class="text-xl">{{price ? price : '0'}} AR</p>
+                                    <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider réservation</button>
                                   
                                 </form>
                             </div>
@@ -78,7 +82,37 @@
                     </div>
                 </div> 
 
-                <a class="btn-primary" @click="submitReservation" data-modal-toggle="authentication-modal">Reserver</a>
+                <button class="btn-primary" data-modal-toggle="authentication-modal" @click="submitReservation">Reserver</button>
+            </div>
+
+            <div v-if="success" id="popup-modal" tabindex="-1" class="modals overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                      
+                        <div class="p-6 text-center check-modal">
+                            <img src="../assets/check.svg" class="img-check mb-4" alt="">
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Votre réservation à été envoyée</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="error" id="popup-modal" tabindex="-1" class="modals overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
+                      
+                        <div class="p-6 text-center check-modal">
+                            <img src="../assets/error.svg" class="img-check mb-4" alt="">
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Votre réservation n'a pas été envoyée , veuillez réessayer</h3>
+                            <div class="flex">
+                              <a href="/" data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                  Annuler
+                              </a>
+                              <button @click="disableError" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Réessayer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
     </div>
   </div>
@@ -139,14 +173,17 @@ export default {
       transport : '' ,
       reference : '' ,
       transfert : '' ,
-
-
+      success : false ,
+      error : false ,
 
     }
   } ,
 
  
   methods: {
+    disableError(){
+      this.error = false
+    },
     async mount(){
       document.getElementById('draggable-start').style.display = 'block'
       document.getElementById('draggable-end').style.display = 'block'
@@ -306,26 +343,25 @@ export default {
     },
 
     submitReservation(){
+
       this.$store.commit('setNbr_pers' , this.nbr_pers);
       this.$store.commit('setHour_enter' ,this.entry_hour);
       this.$store.commit('setHour_leave' ,this.leave_hour);
       this.$store.commit('setTransport' ,this.transport);
-      this.$store.commit('setTypeTransfert' ,this.transfert);
       const toPay = this.defaultPrice * ((new Date(this.endDisplay).setHours(0,0,0,0) - new Date(this.start).setHours(0,0,0,0) ) / (1000 * 60 * 60 * 24 ) + 1)
       this.$store.commit('setToPay' , toPay)
       this.price = toPay
 
+      
     } ,
     async sendReservation(){
-      const idLog = localStorage.getItem('idLog');
       const nbr_pers = this.$store.state.nbr_pers;
+      const idLog = this.$store.state.idLog;     
       const date_enter = this.startDisplay;
       const date_leave = this.endDisplay;
       const transport = this.$store.state.transport;
       const hour_enter = this.$store.state.hour_enter;
       const hour_leave = this.$store.state.hour_leave;
-      const reference = this.reference;
-      const typeTransfert = this.$store.state.transfert;
       const toPay = this.$store.state.toPay;
 
       await axios.post(process.env.VUE_APP_URL+'/reservation/' , {
@@ -336,17 +372,23 @@ export default {
           transport,
           hour_enter,
           hour_leave,
-          reference,
-          typeTransfert,
+          reference : this.reference,
+          typeTransfert : this.transfert,
           toPay
       } , {
         headers : {
           Authorization : 'Bearer ' + localStorage.getItem('token')
         }
-      }).then(() => {
-        console.log('reservtion send');
+      }).then(async () => {
+        this.success = true;
+        setTimeout( () => {
+            window.location.href = '/'
+          } , 2000)
       }).catch((error) => {
           console.log('error while sending reservation : ',error);
+          this.success = false;
+          this.error = true
+
       })
 
 
@@ -419,5 +461,21 @@ export default {
     width: 100%;
     align-items: flex-start;
     display: flex;
+}
+.img-check{
+  width : 3.5rem;
+}
+.check-modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+#popup-modal{
+  background: #000000ad;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

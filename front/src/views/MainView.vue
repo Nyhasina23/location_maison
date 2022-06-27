@@ -10,9 +10,10 @@
             </div>
         </div>
     </div>
+    <p class="mb-4 text-xl mt-4 l-dispo font-bold tracking-tight text-gray-500 dark:text-white">Logement disponibles</p>
   <div class="logementList">
-    <div class="oneLogement">
-      <img class="Logementmage" src="../../public/img(8).jpg" alt="">
+    <!-- <div class="oneLogement"> -->
+      <!-- <img class="Logementmage" src="../../public/img(8).jpg" alt="">
       <div class="secondSide">
         <p class="logementName">Villa Tsarasoa Avaradoha</p>
         <p class="logementType">Villa</p>
@@ -21,9 +22,26 @@
           <router-link to="/" class="detail btn">Détails</router-link>
           <router-link to="/" class="reserver btn">Réserver</router-link>
         </div>
-      </div>
+      </div> -->
+    <!-- </div> -->
+
+    <div v-for="logement in logements" v-bind:key="logement._id" class="flex flex-col oneLogement items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <img class="object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg" src="../assets/img(2).jpg" alt="">
+        <div class="flex flex-col w-full justify-between p-4 leading-normal">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{logement.name}}</h5>
+            <p class="mb-3 font-normal text-gray-500 dark:text-gray-400"> {{logement.description}} </p>
+            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.type}}</p>
+            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">200 000 Ar / jour</p>
+             <div class="duo flex justify-center">
+              <router-link to="/logement" class="detail btn" @click="getLogementId(logement._id)" >Détails</router-link>
+              <a href="/reservation/detail" class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
+            </div>
+        </div>
     </div>
+
+
   </div>
+  
   <transition name="fade" appear>
     <div class="modal-overlay" 
          v-if="showLoginModal" 
@@ -67,14 +85,9 @@
   </transition>
     
 <div class="mainLogement">
-
     <div class="logement">
+    <h2 class="mb-4 text-xl mt-4 font-bold tracking-tight text-gray-500 dark:text-white">Quelques photos du Logement</h2>
     </div>
-
-          
-
-          <h2>Quelques photos du Logement</h2>
-
           <swiper
           :slidesPerView="3" :spaceBetween="30" :pagination="{ clickable: true, }" :modules="modules" class="mySwiper">
           <swiper-slide><img src="../assets/img(1).jpg" alt=""></swiper-slide>
@@ -95,6 +108,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
 import FooterComponent from '../components/FooterComponent.vue'
+import axios from 'axios'
 export default {
     name : 'MainView' , 
     components : {
@@ -111,10 +125,22 @@ export default {
         return {
             showLoginModal: false,
             showSignupModal: false,
+            logements : ''
         
         }
     },
+    async mounted() {
+      await axios.get(process.env.VUE_APP_URL + '/logement/list')
+      .then(res => {
+        this.logements = res.data
+      }).catch(error => {
+        console.log(error);
+      })
+    },
     methods: {
+      getLogementId(id){
+        this.$store.commit('setIdLog' , id)
+      },
         showLogin(){
             this.showLoginModal = !this.showLoginModal
             this.showSignupModal = false
@@ -354,7 +380,7 @@ export default {
 .secondSide .price{
   text-align: left;
 }
-.secondSide .btn{
+.btn{
   background: var(--primary-color-4);
   margin-right: 1rem;
   color: white;
@@ -365,5 +391,16 @@ export default {
   background: var(--primary-color-5);
   transition: ease .3s all
   
+}
+.l-dispo{
+  margin : 1rem;
+  text-align: left;
+}
+.one-log{
+  height : 100%;
+}
+.oneLogement{
+  max-height : 18rem;
+  width : 100%;
 }
 </style>

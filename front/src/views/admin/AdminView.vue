@@ -161,9 +161,11 @@
                  </div>
                  <div class="mb-6">
                      <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Payé</label>
-                     <input type="text" v-model="payed" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                     <input type="text" v-model="payed" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                     <p v-if="payedError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ payedError }}</p>
+                 
                  </div>
-                 <button type="submit" @click="validChange" class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
+                 <button type="button" @click="validChange" class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
              </form>
           </div>
 
@@ -185,7 +187,8 @@ export default {
             reservation : '' ,
             oneReservation : '' ,
             logement : '' ,
-            payed : ''
+            payed : '',
+            payedError : ''
         }
     },
     async mounted() {
@@ -203,7 +206,7 @@ export default {
         }).catch(error => {
             console.log(error);
         })
-
+    
     },
 
     methods: {
@@ -219,15 +222,19 @@ export default {
             })
         },
         async validChange(){
+            if(this.payed == ''){
+            this.payedError = 'ce champ est requis'
+        }else{
             const idRes = localStorage.getItem('idRes')
             axios.put(process.env.VUE_APP_URL+'/reservation/validate/' , {
                 reservation : idRes , 
                 payed : this.payed,
             }).then(() => {
-                console.log('validé');
             }).catch(error => {
                 console.log(error);
             })
+        }
+            
         } ,
 
         toggleActive(e){

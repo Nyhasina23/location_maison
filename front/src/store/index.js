@@ -15,9 +15,13 @@ const store =  createStore({
             reference:'',
             typeTransfert:'',
             payed : '',
-            toPay: ''
+            toPay: '',
+            idLog : ''
     },
     mutations : {
+        setIdLog(state , value){
+            state.idLog  = value
+        } ,
         setToPay(state, value){
             state.toPay = value;
         },

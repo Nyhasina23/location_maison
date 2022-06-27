@@ -15,7 +15,7 @@ class reservationController {
             const contact = user.phoneNumber;
             const email = user.email;
             const logement = req.body.logement;
-            const nb_pers = req.body.nb_pers;
+            const nb_pers = req.body.nbr_pers;
             const date_enter = req.body.date_enter;
             const date_leave = req.body.date_leave;
             const transport = req.body.transport;
@@ -25,45 +25,52 @@ class reservationController {
             const typeTransfert = req.body.typeTransfert;
             const payed = req.body.payed;
             const toPay = req.body.toPay;
-
-            const newReservation = new ReservationModel({
-                firstname,
-                lastname,
-                logement,
-                address,
-                contact,
-                email,
-                nb_pers,
-                date_enter,
-                date_leave,
-                transport,
-                hour_enter,
-                hour_leave,
-                reference,
-                typeTransfert,
-                payed,
-                toPay
-            })
-
-
-            newReservation.save(async () => {
-                console.log(logement);
-                const _logement = await LogementModel.findById(logement)
-                _logement.reservation.push(newReservation._id)
-                _logement.save()
-                user.reservation.push(newReservation._id)
-                user.save()
-
-            })
-            const text = 'reference : ' + reference + ' type Transfert : ' + typeTransfert + ' Valeur : ' + payed
-            let isSent = await sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
-            if (isSent) {
-                res.status(200).send(true)
-            } else {
-                res.status(200).send(false)
+            if(nb_pers == '' || date_enter == '' || 
+             date_leave == '' || transport == '' || hour_enter == ''
+             || hour_leave == '' || reference == '' || typeTransfert == ''){
+                res.status(403).send()
+            }else{
+                const newReservation = new ReservationModel({
+                    firstname,
+                    lastname,
+                    logement,
+                    address,
+                    contact,
+                    email,
+                    nb_pers,
+                    date_enter,
+                    date_leave,
+                    transport,
+                    hour_enter,
+                    hour_leave,
+                    reference,
+                    typeTransfert,
+                    payed,
+                    toPay
+                })
+    
+    
+                newReservation.save(async () => {
+                    console.log(logement);
+                    const _logement = await LogementModel.findById(logement)
+                    _logement.reservation.push(newReservation._id)
+                    _logement.save()
+                    user.reservation.push(newReservation._id)
+                    user.save()
+    
+                })
+                const text = 'reference : ' + reference + ' type Transfert : ' + typeTransfert 
+                let isSent = await sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
+                if (isSent) {
+                    res.status(200).send(true)
+                } else {
+                    res.status(200).send(false)
+                }
             }
 
+
         } catch (error) {
+            console.log(error);
             res.status(500).send('error while make reservation')
         }
 
@@ -96,6 +103,7 @@ class reservationController {
             let color;
             let reservation = await ReservationModel.findById(reservationId);
             let logement = await LogementModel.findById(reservation.logement);
+            
             reservation.payed = reservation.payed + payed;
             if (reservation.payed < 0) {
                 reservation.payed = 0
