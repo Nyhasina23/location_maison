@@ -13,7 +13,7 @@
                         </span>
                     </router-link>
                 </li>
-                <li>
+                <li v-if="$store.state.isAuth">
                     <a href="">
                         <box-icon type='regular' name='book-content' ></box-icon>
                         <span>
@@ -21,7 +21,7 @@
                         </span>
                     </a>
                 </li>
-                <li>
+                <li v-if="!$store.state.isAuth">
                     <a href="">
                         <box-icon type='regular' name='user-plus' ></box-icon>
                         <span>
@@ -29,11 +29,27 @@
                         </span>
                     </a>
                 </li>
-                <li>
+                <li v-if="!$store.state.isAuth">
                     <a href="">
                         <box-icon type='regular' name='user-circle' ></box-icon>
                         <span>
                             Connexion
+                        </span>
+                    </a>
+                </li>
+                <li v-if="$store.state.isAuth">
+                    <a href="/user/account">
+                        <box-icon type='regular' name='user-circle' ></box-icon>
+                        <span>
+                            Profile
+                        </span>
+                    </a>
+                </li>
+                <li v-if="$store.state.isAuth" @click="logout">
+                    <a href="/">
+                        <box-icon type='regular' name='user-circle' ></box-icon>
+                        <span>
+                            Deconnexion
                         </span>
                     </a>
                 </li>
@@ -44,7 +60,12 @@
 
 <script>
 export default {
-    name : 'NavBar'
+    name : 'NavBar',
+    methods: {
+        logout(){
+            this.$store.commit('isAuthenticated' , false)
+        }
+    },
 }
 </script>
 

@@ -69,4 +69,8 @@ const checkRegex = (firstname, lastname, email, password, phoneNumber) => {
     return true;
 
 }
+
+
+
+
 module.exports = { signupController }

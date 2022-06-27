@@ -13,6 +13,7 @@ class signupController {
         let password = req.body.password;
         let address = req.body.address;
         let phoneNumber = req.body.phoneNumber;
+        console.log(firstname, lastname, email, password, phoneNumber);
         const regexChecked = checkRegex(firstname, lastname, email, password, phoneNumber);
         if (regexChecked) {
             password = sha(password);

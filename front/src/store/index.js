@@ -19,6 +19,9 @@ const store =  createStore({
             idLog : ''
     },
     mutations : {
+        isAuthenticated(state, value){
+        state.isAuth = value
+        },
         setIdLog(state , value){
             state.idLog  = value
         } ,

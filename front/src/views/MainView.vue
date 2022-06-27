@@ -12,18 +12,7 @@
     </div>
     <p class="mb-4 text-xl mt-4 l-dispo font-bold tracking-tight text-gray-500 dark:text-white">Logement disponibles</p>
   <div class="logementList">
-    <!-- <div class="oneLogement"> -->
-      <!-- <img class="Logementmage" src="../../public/img(8).jpg" alt="">
-      <div class="secondSide">
-        <p class="logementName">Villa Tsarasoa Avaradoha</p>
-        <p class="logementType">Villa</p>
-        <p class="price">A partir de<span> 200.000 ariary </span>/J </p>
-        <div class="duo">
-          <router-link to="/" class="detail btn">Détails</router-link>
-          <router-link to="/" class="reserver btn">Réserver</router-link>
-        </div>
-      </div> -->
-    <!-- </div> -->
+   
 
     <div v-for="logement in logements" v-bind:key="logement._id" class="flex flex-col oneLogement items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img class="object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg" src="../assets/img(2).jpg" alt="">
@@ -55,10 +44,14 @@
             <h3>Créer votre compte </h3>
             <p>Vous avez déjà un compte? <a href="#" @click="showSignup">Se connecter</a> </p>
             <div class="input-field">
-            <input type="email" placeholder="email...">
-            <input type="password" placeholder="Mot de passe">
-            <input type="password" placeholder="Confirmer...">
-            <button class="btn-submit">S'inscrire</button>
+            <input type="email" v-model="firstname" placeholder="firstname...">
+            <input type="email" v-model="lastname" placeholder="lastname...">
+            <input type="email" v-model="isMale" placeholder="isMale...">
+            <input type="email" v-model="address" placeholder="address...">
+            <input type="email" v-model="phoneNumber" placeholder="telephone...">
+            <input type="email" v-model="email" placeholder="email...">
+            <input type="password" v-model="password" placeholder="Mot de passe">
+            <button class="btn-submit" @click="signup">S'inscrire</button>
             </div>
         </div>
     </div>
@@ -76,9 +69,11 @@
             <h3>Se connecter </h3>
             <p>Vous n'avez pas de compte? <a href="#" @click="showLogin">S'inscrire</a> </p>
             <div class="input-field">
-            <input type="email" placeholder="email...">
-            <input type="password" placeholder="Mot de passe">
-            <button class="btn-submit">Connexion</button>
+            
+            <input type="email" v-model="email" placeholder="email...">
+            <input type="password" v-model="password" placeholder="Mot de passe">
+            <button class="btn-submit" @click="login">Connexion</button>
+            <p v-if="loginError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ loginError }}</p>
             </div>
         </div>
     </div>
@@ -125,7 +120,15 @@ export default {
         return {
             showLoginModal: false,
             showSignupModal: false,
-            logements : ''
+            logements : '',
+            email : '' ,
+            password : '' , 
+            loginError : '' ,
+            firstname : '' ,
+            lastname : '' ,
+            isMale : '' ,
+            address : '' ,
+            phoneNumber : ''
         
         }
     },
@@ -154,6 +157,34 @@ export default {
         },
         handleSelect(arg){
           console.log(arg)
+        } ,
+
+        async login(){
+          await axios.post(process.env.VUE_APP_URL+'/signin' , {
+            identity : this.email ,
+            password : this.password
+          }).then(() => {
+            this.$store.commit('isAuthenticated' , true)
+            this.showLoginModal = false
+          }).catch(() => {
+            this.loginError = 'email or password incorrect'
+          })
+        },
+
+        async signup(){
+          await axios.post(process.env.VUE_APP_URL+'/signup' , {
+              firstname : this.firstname,
+              lastname : this.lastname ,
+              email : this.email ,
+              isMale : this.isMale ,
+              password : this.password ,
+              address : this.address ,
+              phoneNumber : this.phoneNumber
+          }).then(() => {
+              console.log('signup done')
+          }).catch((error) => {
+              console.log(error)
+          })
         }
     },
 }
