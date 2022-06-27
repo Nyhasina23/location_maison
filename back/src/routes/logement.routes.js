@@ -29,6 +29,7 @@ const storage = multer.diskStorage({
 
 router.post('/add' ,upload.array('images', 10), LogementController.create )
 router.get('/list' , LogementController.getAll)
+router.get('/getOneLogement/:idLog' , LogementController.getOneLogement)
 router.delete('/remove/:idLog' , LogementController.delete)
 router.put('/:idLog' , LogementController.update)
 module.exports = router

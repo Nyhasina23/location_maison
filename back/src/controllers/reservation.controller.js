@@ -1,14 +1,15 @@
 const { ReservationModel } = require("../models/reservation.model");
-const {UserModel} = require('../models/user.model')
+const { UserModel } = require('../models/user.model')
 const jwtdecode = require('jwt-decode')
-const  {sendMail} = require('../modules/emailSend')
+const { sendMail } = require('../modules/emailSend')
+const { LogementModel } = require('../models/logement.model')
 class reservationController {
     static reserver = async (req, res) => {
         try {
             const token = req.headers['authorization'].split(' ')[1];
             const userId = jwtdecode(token).id;
             const user = await UserModel.findById(userId)
-            const firstname  = user.firstname ;
+            const firstname = user.firstname;
             const lastname = user.lastname;
             const address = user.address;
             const contact = user.phoneNumber;
@@ -23,6 +24,7 @@ class reservationController {
             const reference = req.body.reference;
             const typeTransfert = req.body.typeTransfert;
             const payed = req.body.payed;
+            const toPay = req.body.toPay;
 
             const newReservation = new ReservationModel({
                 firstname,
@@ -36,61 +38,188 @@ class reservationController {
                 date_leave,
                 transport,
                 hour_enter,
-                hour_leave ,
-                reference ,
-                typeTransfert ,
-                payed
+                hour_leave,
+                reference,
+                typeTransfert,
+                payed,
+                toPay
             })
-   
 
-            newReservation.save((docs) => {
+
+            newReservation.save(async () => {
+                console.log(logement);
+                const _logement = await LogementModel.findById(logement)
+                _logement.reservation.push(newReservation._id)
+                _logement.save()
                 user.reservation.push(newReservation._id)
                 user.save()
 
             })
-            const text = 'reference : '+reference+' type Transfert : '+typeTransfert + ' Valeur : '+payed 
-            sendMail(process.env.ADMIN_EMAIL , 'Payment reservation' , text)
+            const text = 'reference : ' + reference + ' type Transfert : ' + typeTransfert + ' Valeur : ' + payed
+            let isSent = await sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
+            if (isSent) {
+                res.status(200).send(true)
+            } else {
+                res.status(200).send(false)
+            }
 
         } catch (error) {
-            console.log(error);
             res.status(500).send('error while make reservation')
         }
 
     }
 
-    static getAllReservationUser = async (req , res) => {
+    static getAllReservationUser = async (req, res) => {
         try {
-            const user = await UserModel.findById('62a4e6440448de2994f26350')
-            .populate('reservation')
+            const token = req.headers['authorization'].split(' ')[1];
+            const userId = jwtdecode(token).id;
+            const user = await UserModel.findById(userId).populate('reservation')
             res.send(user.reservation)
         } catch (error) {
             res.status(500).send('Eroor while getting user reservations')
         }
+    }
+    static getOneReservationUSer = async (req, res) => {
+        try {
+            const idRes = req.params.idRes;
+            const reservation = await ReservationModel.findById(idRes.toString())
+            res.status(200).send(reservation)
+        } catch (error) {
+            res.status(500).send('Eroor while getting one reservation')
+        }
+
+    }
+    static validateReservation = async (req, res) => {
+        try {
+            const reservationId = req.body.reservation;
+            const payed = parseInt(req.body.payed);
+            let color;
+            let reservation = await ReservationModel.findById(reservationId);
+            let logement = await LogementModel.findById(reservation.logement);
+            reservation.payed = reservation.payed + payed;
+            if (reservation.payed < 0) {
+                reservation.payed = 0
+            }
+            if (reservation.payed == 0) {
+                reservation.state = 3;
+                color = "red";
+            } else if (reservation.payed < reservation.toPay) {
+                reservation.state = 2;
+                color = "blue";
+            } else {
+                reservation.state = 1;
+                color = "green";
+            }
+
+            if (reservation.isSeen) {
+                logement.disponibility.push({
+                    start: reservation.date_enter,
+                    end: reservation.date_leave,
+                    color,
+                    reservation: reservation._id.toString()
+                })
+                reservation.isSeen = false
+            } else {
+
+                console.log(logement.disponibility);
+                for (let i = 0; i < logement.disponibility.length; i++) {
+                    if (logement.disponibility[i].reservation == reservation._id.toString()) {
+                        logement.disponibility.splice(i, 1);
+                        await logement.save();
+                    }
+                }
+                logement.disponibility.push({
+                    start: reservation.date_enter,
+                    end: reservation.date_leave,
+                    color,
+                    reservation: reservation._id.toString()
+                })
+                await logement.save();
+                
+            }
+
+
+            let text = "Votre payement a été pris en compte";
+            sendMail(reservation.email, 'Payment reservation', text);
+            logement.save((err, docs) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(docs);
+                }
+            });
+            reservation.save();
+            console.log('tonga eto');
+            res.send(reservation);
+        } catch (error) {
+            res.status(500).send('Eroor while validating  reservations')
+            console.log(error);
+        }
 
     }
 
-    static validReservation = async (req , res) => {
-        const idRes = req.params.idRes;
-        await ReservationModel.findByIdAndUpdate( idRes , {
-            state : req.body.state , 
-            new : true
-        } , (error , docs) => {
-            if(error){
-                res.status(500).send('error while validating reservation');
-            }else{
-                res.send(docs);
-            }
-        })
+    static getAllReservationLogement = async (req, res) => {
+        try {
+            const idLog = req.params.idLog;
+            const reservationLog = await LogementModel.findById(idLog).populate('reservation')
+            res.status(200).send(reservationLog)
+        } catch (error) {
+            res.status(500).send('Eroor while getting  reservations logement')
+
+        }
+
     }
 
-    static getAllReservation = async (req , res) => {
-        await ReservationModel.find( (error , docs) => {
-            if(error){
-                res.status(500).send('error while geting all reservation');
-            }else{
-                res.send(docs);
+    static getAllReservation = async (req, res) => {
+        try {
+            const allRes = await ReservationModel.find().sort({ date: -1 })
+            res.status(200).send(allRes)
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+
+    static userAnnulation = async (req, res) => {
+        const reservationId = req.body.reservationId;
+        const reservation = await ReservationModel.findById(reservationId);
+        const logement = await LogementModel.findById(reservation.logement);
+        console.log(logement.disponibility);
+        for (let i = 0; i < logement.disponibility.length; i++) {
+            if (logement.disponibility[i].reservation == reservationId) {
+                logement.disponibility.splice(i, 1);
+                logement.save();
+                break;
             }
-        })
+        }
+        reservation.state = 4;
+        reservation.save();
+        let text = "L'annulation de votre réservation a bien été pris en compte";
+        sendMail(reservation.email, 'Annulation de reservation', text);
+        text = 'La reservation de ' + reservation.firstname + " " + reservation.lastname + " sur la résidence " + logement.name + " a été annulée";
+        sendMail(process.env.ADMIN_EMAIL, 'Annulation de reservation', text);
+        res.status(200).send("annulé")
+    }
+    static adminAnnulation = async (req, res) => {
+        const reservationId = req.body.reservationId;
+        const reservation = await ReservationModel.findById(reservationId);
+        const logement = await LogementModel.findById(reservation.logement);
+        console.log(logement.disponibility);
+        for (let i = 0; i < logement.disponibility.length; i++) {
+            if (logement.disponibility[i].reservation == reservationId) {
+                logement.disponibility.splice(i, 1);
+                logement.save();
+                break;
+            }
+        }
+        reservation.state = 4;
+        reservation.save();
+        let text = "Votre réservation sur la résidence " + logement.name + " a été annulée";
+        sendMail(reservation.email, 'Annulation de reservation', text);
+        text = "L'annulation de la réseravtion de" + reservation.firstname + " " + reservation.lastname + " sur la résidence " + logement.name + " a bien été pris en compte";
+        sendMail(process.env.ADMIN_EMAIL, 'Annulation de reservation', text);
+        res.status(200).send("annulé")
     }
 }
 module.exports = { reservationController };

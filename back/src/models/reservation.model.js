@@ -8,11 +8,19 @@ const reservationSchema = mongoose.Schema({
         type: Number , 
         default : 3
 
-    } ,
+    },
+    isSeen : {
+        type : Boolean,
+        default : true
+    },
     payed : {
         type : Number ,
+        default:0,
         require : true
-    } ,
+    },
+    toPay : {
+        type: Number,
+    },
     firstname : {
         type : String ,
         require : true
@@ -23,7 +31,7 @@ const reservationSchema = mongoose.Schema({
     } , 
     logement : {
         type : mongoose.Schema.Types.ObjectId , 
-        ref : 'reservation'
+        ref : 'logement'
     },
     address : {
         type : String ,
@@ -68,6 +76,10 @@ const reservationSchema = mongoose.Schema({
     typeTransfert : {
         type : String, 
         require : true
+    }, 
+    date : {
+        type : Date,
+        default : Date.now()
     }
    
 })
