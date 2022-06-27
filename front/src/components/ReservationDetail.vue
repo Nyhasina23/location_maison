@@ -155,6 +155,7 @@ export default {
        
        this.mount()
 
+
       })
     },
       data() {
@@ -187,8 +188,9 @@ export default {
     async mount(){
       document.getElementById('draggable-start').style.display = 'block'
       document.getElementById('draggable-end').style.display = 'block'
-      let disponibility = await this.getDisponibility();
 
+      let disponibility = await this.getDisponibility();
+      console.log(disponibility);
        let calendarElement = document.getElementById('calendar')
         let calendar = new Calendar(calendarElement , {
           initialView : 'dayGridMonth' ,
@@ -312,31 +314,27 @@ export default {
           
         calendar.render()
     } ,
-    getDisponibility(){
-    this.disponibilityRaw = [
-          {
-            title : 'test' , 
-            start : '2022-07-15',
-            end : '2022-07-17',
-            color : 'red'
-          } ,
-          {
-            title : 'test' , 
-            start : '2022-07-20',
-            end : '2022-07-23'
-          }
-      ]
+    async getDisponibility(){
+    const idLog = this.$store.state.idLog;
     let disponibility = []
-    this.disponibilityRaw.forEach(e => {
-      let start = new Date(e.start)
-      start.setHours(0,0,0,0)
-      let end = new Date(e.end)
-      end.setHours(0,0,0,0)
-      disponibility.push({
-        start , 
-        end
-      })
-    })
+    await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
+    .then((res) => {
+     
+        this.disponibilityRaw = res.data.disponibility;
+        this.disponibilityRaw.forEach(e => {
+          let start = new Date(e.start)
+          start.setHours(0,0,0,0)
+          let end = new Date(e.end)
+          end.setHours(0,0,0,0)
+          disponibility.push({
+            start , 
+            end ,
+            color : 'blue'
+          })
+        })
+    }).catch(error => {
+      console.log(error);
+    }) 
 
     return disponibility;
 
