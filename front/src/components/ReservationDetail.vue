@@ -329,7 +329,6 @@ export default {
           disponibility.push({
             start , 
             end ,
-            color : 'blue'
           })
         })
     }).catch(error => {

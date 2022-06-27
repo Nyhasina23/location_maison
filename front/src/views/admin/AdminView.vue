@@ -276,7 +276,7 @@ export default {
             this.showValidate = false;
             this.showReservation = false;
             this.showLogement = false;
-            localStorage.setItem('idLog' , id)
+            this.$store.commit('setIdLog' , id)
         }
     },
 }

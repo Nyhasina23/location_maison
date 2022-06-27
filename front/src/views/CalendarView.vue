@@ -25,7 +25,7 @@ export default {
     },
     async mounted() {
     
-    const idLog = localStorage.getItem('idLog')
+    const idLog = this.$store.state.idLog;
     await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
     .then((res) => {
         
