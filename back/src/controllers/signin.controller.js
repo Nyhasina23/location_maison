@@ -24,7 +24,7 @@ class signinController {
         const email = req.params.email;
         const user = await UserModel.findOne({ email });
         if (user) {
-
+            sendMail(email,"test","test")
             res.status(200).send("email sent");
         } else {
             res.status(403).send("Email does not exist");
