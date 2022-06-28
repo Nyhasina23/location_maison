@@ -287,7 +287,7 @@ export default {
     name : 'AdminView' ,
     data() {
         return {
-            showLogement : false ,
+            showLogement : true ,
             showReservation : false ,
             showValidate : false ,
             showCalendar : true ,
@@ -297,7 +297,7 @@ export default {
             userLogement : '' ,
             payed : '',
             payedError : '',
-            showAddLog : true ,
+            showAddLog : false ,
             logementName : '' ,
             logementType : '' ,
             logementDesc : '' ,
