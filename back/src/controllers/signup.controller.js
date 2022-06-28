@@ -5,41 +5,44 @@ const { sha } = require('../modules/sha256.js');
 const mongoose = require('mongoose');
 class signupController {
     static signup = async (req, res) => {
-        const _id = new mongoose.Types.ObjectId();
-        const firstname = req.body.firstname;
-        const lastname = req.body.lastname;
-        const email = req.body.email;
-        const isMale = req.body.isMale;
-        let password = req.body.password;
-        let address = req.body.address;
-        let phoneNumber = req.body.phoneNumber;
-        console.log(firstname, lastname, email, password, phoneNumber);
-        const regexChecked = checkRegex(firstname, lastname, email, password, phoneNumber);
-        if (regexChecked) {
-            password = sha(password);
-            const user = await UserModel.findOne({ email });
-            if (user) {
-                res.status(401).send("email allready used");
-            } else {
-                let newUser = new UserModel({
-                    _id,
-                    firstname,
-                    lastname,
-                    email,
-                    password,
-                    isMale,
-                    address,
-                    phoneNumber
-                })
-                newUser.save();
-                const token = generateToken(_id, email)
-
-                res.status(200).send(token);
+        try {
+            const _id = new mongoose.Types.ObjectId();
+            const firstname = req.body.firstname;
+            const lastname = req.body.lastname;
+            const email = req.body.email;
+            const isMale = req.body.isMale;
+            let password = req.body.password;
+            let address = req.body.address;
+            let phoneNumber = req.body.phoneNumber;
+            console.log(firstname, lastname, email, password, phoneNumber);
+            const regexChecked = checkRegex(firstname, lastname, email, password, phoneNumber);
+            if (regexChecked) {
+                password = sha(password);
+                const user = await UserModel.findOne({ email });
+                if (user) {
+                    res.status(401).send("email allready used");
+                } else {
+                    let newUser = new UserModel({
+                        _id,
+                        firstname,
+                        lastname,
+                        email,
+                        password,
+                        isMale,
+                        address,
+                        phoneNumber
+                    })
+                    newUser.save();
+                    const token = generateToken(_id, email)
+    
+                    res.status(200).send(token);
+                }
+            }else{
+                res.status(403).send("regexp");
             }
-        }else{
-            res.status(403).send("regexp");
+        } catch (error) {
+            res.status(500).send()
         }
-
     }
 }
 const checkRegex = (firstname, lastname, email, password, phoneNumber) => {

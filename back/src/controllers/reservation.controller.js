@@ -81,6 +81,7 @@ class reservationController {
             const token = req.headers['authorization'].split(' ')[1];
             const userId = jwtdecode(token).id;
             const user = await UserModel.findById(userId).populate('reservation')
+            console.log(user);
             res.send(user.reservation)
         } catch (error) {
             res.status(500).send('Eroor while getting user reservations')

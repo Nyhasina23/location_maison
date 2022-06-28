@@ -198,6 +198,7 @@ export default {
             }
         })
         .then((res) => {
+            console.log(res);
             this.reservation = res.data
         }).catch(error => {
             console.log(error);

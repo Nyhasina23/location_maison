@@ -7,6 +7,8 @@ import UserProfile from '../views/user/UserProfile.vue'
 import AdminView from '../views/admin/AdminView.vue'
 import CalendarView from '../views/CalendarView.vue'
 import LogementDetail from '../views/LogementDetail.vue'
+import SigninView from '../views/SigninView.vue'
+import SignupView from '../views/SignupView.vue'
 const routes = [
     { name: 'Home', path: '/', component: MainView, },
     { name : 'ReservationDetail' , path : '/reservation/detail' , component : ReservationDetail},
@@ -15,6 +17,8 @@ const routes = [
     { name : 'AdminView' , path : '/admin/reservation' , component : AdminView},
     { name : 'CalendarView' , path : '/logement/calendar' , component : CalendarView},
     { name : 'LogementDetail' , path : '/logement' , component : LogementDetail},
+    { name : 'Signin' , path : '/signin' , component : SigninView},
+    { name : 'Signup' , path : '/signup' , component : SignupView},
 ];
 
 

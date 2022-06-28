@@ -5,7 +5,7 @@
           <p class="siteName">Site de location</p>
             <h2>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</h2>
             <div class="header-btn">
-                <a class="btn-primary" href="#" @click="showLogin()">LANCEZ-VOUS</a>
+                <a class="btn-primary" href="#">LANCEZ-VOUS</a>
                 <a class="btn-second" href="#">RESERVER</a>
             </div>
         </div>
@@ -31,53 +31,6 @@
 
   </div>
   
-  <transition name="fade" appear>
-    <div class="modal-overlay" 
-         v-if="showLoginModal" 
-         @click="showLoginModal = false ">
-    </div>
-  </transition>
-  <transition name="pop" appear>
-    <div class="modal" role="dialog" v-if="showLoginModal">
-        <div class="login">
-
-            <h3>Créer votre compte </h3>
-            <p>Vous avez déjà un compte? <a href="#" @click="showSignup">Se connecter</a> </p>
-            <div class="input-field">
-            <input type="email" v-model="firstname" placeholder="firstname...">
-            <input type="email" v-model="lastname" placeholder="lastname...">
-            <input type="email" v-model="isMale" placeholder="isMale...">
-            <input type="email" v-model="address" placeholder="address...">
-            <input type="email" v-model="phoneNumber" placeholder="telephone...">
-            <input type="email" v-model="email" placeholder="email...">
-            <input type="password" v-model="password" placeholder="Mot de passe">
-            <button class="btn-submit" @click="signup">S'inscrire</button>
-            </div>
-        </div>
-    </div>
-  </transition>
-  <transition name="fade" appear>
-    <div class="modal-overlay" 
-         v-if="showSignupModal" 
-         @click="showSignupModal = false ">
-    </div>
-  </transition>  
-  <transition name="pop" appear>
-    <div class="modal" role="dialog" v-if="showSignupModal">
-        <div class="signup">
-
-            <h3>Se connecter </h3>
-            <p>Vous n'avez pas de compte? <a href="#" @click="showLogin">S'inscrire</a> </p>
-            <div class="input-field">
-            
-            <input type="email" v-model="email" placeholder="email...">
-            <input type="password" v-model="password" placeholder="Mot de passe">
-            <button class="btn-submit" @click="login">Connexion</button>
-            <p v-if="loginError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ loginError }}</p>
-            </div>
-        </div>
-    </div>
-  </transition>
     
 <div class="mainLogement">
     <div class="logement">
@@ -97,7 +50,6 @@
 </template>
 
 <script>
-
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -109,7 +61,7 @@ export default {
     components : {
         Swiper,
         SwiperSlide,
-        FooterComponent
+        FooterComponent ,
     } ,
     setup() {
     return {
@@ -118,12 +70,9 @@ export default {
   },
     data() {
         return {
-            showLoginModal: false,
-            showSignupModal: false,
             logements : '',
             email : '' ,
             password : '' , 
-            loginError : '' ,
             firstname : '' ,
             lastname : '' ,
             isMale : '' ,
@@ -144,48 +93,6 @@ export default {
       getLogementId(id){
         this.$store.commit('setIdLog' , id)
       },
-        showLogin(){
-            this.showLoginModal = !this.showLoginModal
-            this.showSignupModal = false
-        },
-        showSignup(){
-            this.showSignupModal = !this.showSignupModal
-            this.showLoginModal = false
-        },
-        handleDateClick(){
-            this.price = this.calendarOptions.events[0].price
-        },
-        handleSelect(arg){
-          console.log(arg)
-        } ,
-
-        async login(){
-          await axios.post(process.env.VUE_APP_URL+'/signin' , {
-            identity : this.email ,
-            password : this.password
-          }).then(() => {
-            this.$store.commit('isAuthenticated' , true)
-            this.showLoginModal = false
-          }).catch(() => {
-            this.loginError = 'email or password incorrect'
-          })
-        },
-
-        async signup(){
-          await axios.post(process.env.VUE_APP_URL+'/signup' , {
-              firstname : this.firstname,
-              lastname : this.lastname ,
-              email : this.email ,
-              isMale : this.isMale ,
-              password : this.password ,
-              address : this.address ,
-              phoneNumber : this.phoneNumber
-          }).then(() => {
-              console.log('signup done')
-          }).catch((error) => {
-              console.log(error)
-          })
-        }
     },
 }
 </script>
@@ -222,53 +129,6 @@ export default {
   color :white;
   border : var(--primary-color-4);
   margin-top: 0.5rem;
-}
-
-.modal {
-  position: absolute;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  text-align: center;
-  width: fit-content;
-  height: fit-content;
-  padding: 2rem;
-  border-radius: 0.2rem;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
-  background: #FFF;
-  z-index: 999;
-  transform: none;
-}
-.modal h1 {
-  margin: 0 0 1rem;
-}
-
-.modal-overlay {
-  content: '';
-  position: absolute;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 998;
-  background: #2c3e50;
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-
-.pop-enter-active{
-  opacity: 1;
-  transition: transform 0.4s cubic-bezier(1, 0, 1, 1), opacity 0.4s linear;
-}
-.pop-leave-active{
-  opacity: 1;
-  transition: transform 0.4s cubic-bezier(1, 0, 1, 1), opacity 0.4s linear;
-  transform: scale(0.3) translateY(-50%);
 }
 
 .header{

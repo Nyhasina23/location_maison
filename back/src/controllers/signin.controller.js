@@ -4,22 +4,27 @@ const { sha } = require('../modules/sha256.js');
 const { sendMail } = require('../modules/emailSend.js');
 class signinController {
     static signin = async (req, res) => {
-        const identity = req.body.identity;
-        let password = req.body.password;
-        password = sha(password);
-        const user = await UserModel.findOne({ email: identity })
-        if (user) {
-            if (user.password === password) {
-                //password correct
-                const token = generateToken(user._id, user.email);
-                res.status(200).send(token);
+        try {
+            const identity = req.body.identity;
+            let password = req.body.password;
+            password = sha(password);
+            const user = await UserModel.findOne({ email: identity })
+            if (user) {
+                if (user.password === password) {
+                    //password correct
+                    const token = generateToken(user._id, user.email);
+                    res.status(200).send(token);
+                } else {
+                    res.status(403).send("Identity or password incorrect");
+                }
             } else {
+    
                 res.status(403).send("Identity or password incorrect");
             }
-        } else {
-
-            res.status(403).send("Identity or password incorrect");
+        } catch (error) {
+            res.status(500).send()
         }
+      
     }
     static getRecoveryCode = async (req, res) => {
         const email = req.params.email;

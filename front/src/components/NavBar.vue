@@ -13,24 +13,16 @@
                         </span>
                     </router-link>
                 </li>
-                <li v-if="$store.state.isAuth">
-                    <a href="">
-                        <box-icon type='regular' name='book-content' ></box-icon>
-                        <span>
-                            Réservations
-                        </span>
-                    </a>
-                </li>
                 <li v-if="!$store.state.isAuth">
-                    <a href="">
+                    <a href="/signup">
                         <box-icon type='regular' name='user-plus' ></box-icon>
                         <span>
                             Inscription
                         </span>
                     </a>
                 </li>
-                <li v-if="!$store.state.isAuth">
-                    <a href="">
+                <li v-if="!$store.state.isAuth"  >
+                    <a href="/signin">
                         <box-icon type='regular' name='user-circle' ></box-icon>
                         <span>
                             Connexion
@@ -61,6 +53,8 @@
 <script>
 export default {
     name : 'NavBar',
+    components : {
+    } ,
     methods: {
         logout(){
             this.$store.commit('isAuthenticated' , false)
