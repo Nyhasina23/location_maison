@@ -140,34 +140,66 @@
 
 
           </div>
-          <div v-if="showValidate" class="editReservation">
-             <form>
-             <p class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</p>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nom</label>
-                     <input type="text" v-model="oneReservation.firstname" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@flowbite.com" required>
-                 </div>
-                 <div class="mb-6">
-                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Prénoms</label>
-                     <input type="text" v-model="oneReservation.lastname" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
-                 </div>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                     <input type="text" v-model="oneReservation.email" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
-                 </div>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Adresse</label>
-                     <input type="text" v-model="oneReservation.address" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
-                 </div>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Payé</label>
-                     <input type="text" v-model="payed" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                     <p v-if="payedError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ payedError }}</p>
-                 
-                 </div>
-                 <button type="button" @click="validChange" class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
-             </form>
+          <!-- <div v-if="showValidate" class="editReservation"> -->
+            <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="form">
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Vos informations</h3>
+                <form class="">
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nom</label>
+                    <input type="text" v-model="oneReservation.firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Prenoms</label>
+                    <input type="text" v-model="oneReservation.firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Email</label>
+                    <input type="text" v-model="oneReservation.email" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Adresse</label>
+                    <input type="text" v-model="oneReservation.address" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Date d'arrivée</label>
+                    <input type="text" v-model="oneReservation.date_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Date de départ</label>
+                    <input type="text" v-model="oneReservation.date_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Heure d'entrée</label>
+                    <input type="text" v-model="oneReservation.hour_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Heure de sortie</label>
+                    <input type="text" v-model="oneReservation.hour_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Payé</label>
+                    <input type="text" v-model="payed" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Logement réservé</label>
+                    <input type="text" v-model="userLogement" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p>
+                  
+                    </p>
+                    <p>
+                    </p>
+                </form>
+
+            </div>
+           
+                <div class="flex mt-4">
+                    <button @click="validChange" class="btn-valid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
+                </div>
+
           </div>
+             
 
       </div>
   </div>
@@ -187,6 +219,7 @@ export default {
             reservation : '' ,
             oneReservation : '' ,
             logement : '' ,
+            userLogement : '' ,
             payed : '',
             payedError : ''
         }
@@ -215,8 +248,12 @@ export default {
             localStorage.setItem('idRes' , id)
             const idRes = localStorage.getItem('idRes')
             await axios.get(process.env.VUE_APP_URL+'/reservation/oneReservation/'+idRes)
-            .then((res) => {
+            .then(async (res) => {
                 this.oneReservation = res.data
+                const idLog = res.data.logement;
+                const logement = await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
+                this.userLogement = logement.data.name
+
             }).catch(error => {
                 console.log(error);
             })
@@ -358,4 +395,110 @@ export default {
     border-bottom : 2px solid rgb(0, 132, 255);
 }
 
+* {
+  box-sizing: border-box;
+}
+
+/**************************************/
+@media (min-width: 700px) {
+  .wrapper {
+    overflow: hidden;
+  }
+  .wrapper > * {
+    float: left;
+    padding: 2em 2em;
+  }
+}
+
+@media (min-width: 700px) {
+  .contacts {
+    width: 30%;
+    min-height: 620px;
+  }
+}
+
+@media (min-width: 700px) {
+  .form {
+    padding:  2rem 2rem 0rem 2rem;
+  }
+}
+
+form p {
+  float: left;
+  width: 49%;
+}
+form p:not(:nth-child(2n)) {
+  margin-right: 2%;
+}
+form p:last-child {
+  clear: both;
+  width: 100%;
+}
+form p:nth-last-child(2) {
+  clear: both;
+  width: 100%;
+}
+
+/**************************************/
+body {
+  padding: 1rem;
+}
+
+.wrapper {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contacts {
+  background: #4b5195;
+  color: #fff;
+}
+
+.form {
+  background: #fff;
+}
+
+form label {
+  display: block;
+  float:left;
+}
+
+
+
+.contain {
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+}
+@media (min-width: 600px) {
+  .contain {
+    padding: 0;
+  }
+}
+
+h3,
+ul {
+  margin: 0;
+}
+
+h3 {
+  margin-bottom: 1rem;
+}
+
+.edit-profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width : 100%;
+}
+.btn-valid{
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
 </style>

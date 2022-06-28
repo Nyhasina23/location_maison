@@ -84,89 +84,49 @@
                     </div>
               </div>
           </div>
-          <div v-if="showLogement" class="w-full">
-                <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
-                        <div class="p-4">
-                            <label for="table-search" class="sr-only">Search</label>
-                            <div class="relative mt-1">
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                                </div>
-                                <input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
-                            </div>
-                        </div>
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        Nom 
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Type
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Description
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Réservations
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        <span class="sr-only">Calendar</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="log in logement" v-bind:key="log._id"  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                       {{log.name}}
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        {{log.type}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{log.description}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{log.reservation.length}}
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Calendar</router-link>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+          <div v-if="showLogement" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="form">
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Vos informations</h3>
+                <form class="">
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nom</label>
+                    <input type="text" v-model="firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Prenoms</label>
+                    <input type="text" v-model="lastname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Email</label>
+                    <input type="text" v-model="email" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Adresse</label>
+                    <input type="text" v-model="address" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nouveau mot de passe</label>
+                    <input type="password" v-model="password" placeholder="******" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Téléphone</label>
+                    <input type="text" v-model="phoneNumber" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p>
+                  
+                    </p>
+                    <p>
+                    </p>
+                </form>
 
-
+            </div>
+           
+                <div class="flex mt-4">
+                    <button @click="update" class="btn-valid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
+                </div>
 
           </div>
-          <div v-if="showValidate" class="editReservation">
-             <form>
-             <p class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</p>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nom</label>
-                     <input type="text" v-model="oneReservation.firstname" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@flowbite.com" required>
-                 </div>
-                 <div class="mb-6">
-                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Prénoms</label>
-                     <input type="text" v-model="oneReservation.lastname" id="password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
-                 </div>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                     <input type="text" v-model="oneReservation.email" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
-                 </div>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Adresse</label>
-                     <input type="text" v-model="oneReservation.address" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
-                 </div>
-                 <div class="mb-6">
-                     <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Payé</label>
-                     <input type="text" v-model="payed" id="repeat-password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                     <p v-if="payedError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ payedError }}</p>
-                 
-                 </div>
-             </form>
-          </div>
+
 
       </div>
   </div>
@@ -187,7 +147,14 @@ export default {
             oneReservation : '' ,
             logement : '' ,
             payed : '',
-            payedError : ''
+            payedError : '' ,
+            user : '',
+            email : '' ,
+            password : '' , 
+            firstname : '' ,
+            lastname : '' ,
+            address : '' ,
+            phoneNumber : ''
         }
     },
     async mounted() {
@@ -204,9 +171,17 @@ export default {
             console.log(error);
         })
 
-        await axios.get(process.env.VUE_APP_URL+'/logement/list')
-        .then((res) => {
-            this.logement = res.data
+        await axios.get(process.env.VUE_APP_URL+'/user/getOneUser' , {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('token')
+            }
+        }).then((res) => {
+            this.user = res.data ;
+            this.email = res.data.email ;
+            this.firstname = res.data.firstname;
+            this.lastname = res.data.lastname;
+            this.address = res.data.address;
+            this.phoneNumber = res.data.phoneNumber;
         }).catch(error => {
             console.log(error);
         })
@@ -214,6 +189,26 @@ export default {
     },
 
     methods: {
+        async update(){
+            await axios.put(process.env.VUE_APP_URL+'/user/update' , {
+                firstname : this.firstname ,
+                lastname : this.lastname ,
+                email : this.email ,
+                address : this.address ,
+                phoneNumber : this.phoneNumber ,
+                password : this.password 
+            },
+            {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('token')
+            }
+        }).then(() => {
+           console.log('update done');
+        }).catch(error => {
+            console.log(error);
+        })
+
+        },
        async getResId(id){
             this.showValidationView()
             localStorage.setItem('idRes' , id)
@@ -287,6 +282,10 @@ export default {
 </script>
 
 <style scoped>
+.btn-valid{
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
 .active{
     color : rgb(0, 132, 255);
     border-bottom : 2px solid rgb(0, 132, 255);
@@ -361,5 +360,113 @@ export default {
     color : rgb(0, 132, 255);
     border-bottom : 2px solid rgb(0, 132, 255);
 }
+.edit-profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width : 100%;
+}
+.input-field{
+    margin : 1rem;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+/**************************************/
+@media (min-width: 700px) {
+  .wrapper {
+    overflow: hidden;
+  }
+  .wrapper > * {
+    float: left;
+    padding: 2em 2em;
+  }
+}
+
+@media (min-width: 700px) {
+  .contacts {
+    width: 30%;
+    min-height: 620px;
+  }
+}
+
+@media (min-width: 700px) {
+  .form {
+    padding:  2rem 2rem 0rem 2rem;
+  }
+}
+
+form p {
+  float: left;
+  width: 49%;
+}
+form p:not(:nth-child(2n)) {
+  margin-right: 2%;
+}
+form p:last-child {
+  clear: both;
+  width: 100%;
+}
+form p:nth-last-child(2) {
+  clear: both;
+  width: 100%;
+}
+
+/**************************************/
+body {
+  padding: 1rem;
+}
+
+.wrapper {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contacts {
+  background: #4b5195;
+  color: #fff;
+}
+
+.form {
+  background: #fff;
+}
+
+form label {
+  display: block;
+  float:left;
+}
+
+
+
+.contain {
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+}
+@media (min-width: 600px) {
+  .contain {
+    padding: 0;
+  }
+}
+
+h3,
+ul {
+  margin: 0;
+}
+
+h3 {
+  margin-bottom: 1rem;
+}
+
+
 
 </style>

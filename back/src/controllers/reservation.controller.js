@@ -90,7 +90,7 @@ class reservationController {
     static getOneReservationUSer = async (req, res) => {
         try {
             const idRes = req.params.idRes;
-            const reservation = await ReservationModel.findById(idRes.toString())
+            const reservation = await ReservationModel.findById(idRes.toString());
             res.status(200).send(reservation)
         } catch (error) {
             res.status(500).send('Eroor while getting one reservation')

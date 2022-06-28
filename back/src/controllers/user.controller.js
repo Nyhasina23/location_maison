@@ -4,7 +4,7 @@ const { UserModel } = require('../models/user.model.js');
 const { sha } = require('../modules/sha256.js');
 const jwtdecode = require('jwt-decode')
 const mongoose = require('mongoose');
-class userController {
+class UserController {
     static edit = async (req, res) => {
         const _id = new mongoose.Types.ObjectId();
         const firstname = req.body.firstname;
@@ -41,6 +41,16 @@ class userController {
         }
 
     }
+    static getOneUser = async  (req ,res) => {
+        try {
+            const token = req.headers['authorization'].split(' ')[1];
+            const userId = jwtdecode(token).id;
+            const user = await UserModel.findById(userId)
+            res.status(200).send(user)
+        } catch (error) {
+            res.status(500).send()
+        }
+    }
 
     static update = async (req , res) => {
         try {
@@ -55,13 +65,8 @@ class userController {
                     phoneNumber : req.body.phoneNumber ,
                     password : req.body.password ,
                     new : true
-                } , (error , docs) => {
-                    if(error){
-                        res.status(500).send(error)
-                    }else{
-                        res.status(200).send(docs)
-                    }
                 })
+            res.status(200).send()
         } catch (error) {
             res.status(500).send()
         }
@@ -96,4 +101,4 @@ const checkRegex = (firstname, lastname, email, password, phoneNumber) => {
 
 }
 
-module.exports = { userController }
+module.exports = { UserController }
