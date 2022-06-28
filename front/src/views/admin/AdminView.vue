@@ -143,7 +143,7 @@
           <!-- <div v-if="showValidate" class="editReservation"> -->
             <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
             <div class="form">
-                <h3 class="mt-4 text-2xl mb-4 font-semibold">Vos informations</h3>
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</h3>
                 <form class="">
                     <p class="mb-2">
                     <label for="" class="mb-2">Nom</label>
