@@ -16,9 +16,13 @@ const store =  createStore({
             typeTransfert:'',
             payed : '',
             toPay: '',
-            idLog : ''
+            idLog : '' ,
+            modalite : ''
     },
     mutations : {
+        setModalite(state , value){
+            state.modalite = value ;
+        } ,
         isAuthenticated(state, value){
         state.isAuth = value
         },

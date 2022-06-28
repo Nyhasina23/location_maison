@@ -233,6 +233,7 @@ export default {
 }
 .logementList{
   display: flex;
+  flex-wrap: wrap;
 }
 .oneLogement{
   border-radius: .5rem;

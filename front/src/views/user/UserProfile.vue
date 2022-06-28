@@ -126,7 +126,68 @@
                 </div>
 
           </div>
+          <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="form">
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</h3>
+                <form class="">
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nom</label>
+                    <input type="text" v-model="oneReservation.firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Prenoms</label>
+                    <input type="text" v-model="oneReservation.firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Email</label>
+                    <input type="text" v-model="oneReservation.email" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Adresse</label>
+                    <input type="text" v-model="oneReservation.address" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Date d'arrivée</label>
+                    <input type="text" v-model="oneReservation.date_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Date de départ</label>
+                    <input type="text" v-model="oneReservation.date_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Heure d'entrée</label>
+                    <input type="text" v-model="oneReservation.hour_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Heure de sortie</label>
+                    <input type="text" v-model="oneReservation.hour_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nombre de personne</label>
+                    <input type="text" v-model="oneReservation.nbr_pers" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Heure de sortie</label>
+                    <input type="text" v-model="oneReservation.transport" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Montant Payé</label>
+                    <input type="text" v-model="oneReservation.payed" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Logement réservé</label>
+                    <input type="text" v-model="userLogement" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p>
+                  
+                    </p>
+                    <p>
+                    </p>
+                </form>
 
+            </div>
+        
+          </div>
 
       </div>
   </div>
@@ -154,7 +215,8 @@ export default {
             firstname : '' ,
             lastname : '' ,
             address : '' ,
-            phoneNumber : ''
+            phoneNumber : '',
+            userLogement : ''
         }
     },
     async mounted() {
@@ -175,13 +237,14 @@ export default {
             headers : {
                 Authorization : 'Bearer ' + localStorage.getItem('token')
             }
-        }).then((res) => {
+        }).then(async (res) => {
             this.user = res.data ;
             this.email = res.data.email ;
             this.firstname = res.data.firstname;
             this.lastname = res.data.lastname;
             this.address = res.data.address;
             this.phoneNumber = res.data.phoneNumber;
+           
         }).catch(error => {
             console.log(error);
         })
@@ -212,10 +275,13 @@ export default {
        async getResId(id){
             this.showValidationView()
             localStorage.setItem('idRes' , id)
-            const idRes = localStorage.getItem('idRes')
-            await axios.get(process.env.VUE_APP_URL+'/reservation/oneReservation/'+idRes)
-            .then((res) => {
+            // const idRes = localStorage.getItem('idRes')
+            await axios.get(process.env.VUE_APP_URL+'/reservation/oneReservation/'+id)
+            .then(async (res) => {
                 this.oneReservation = res.data
+                const idLog = res.data.logement;
+                const logement = await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
+                this.userLogement = logement.data.name
             }).catch(error => {
                 console.log(error);
             })

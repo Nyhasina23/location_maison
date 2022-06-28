@@ -2,8 +2,24 @@
   <div class="admin">
        <div class="leftSideBar">
           <ul>
-              <li @click="showLogementView">Logements</li>
-              <li @click="showReservationView">Réservations</li>
+              <li @click="showLogementView">
+                <span>
+                    <box-icon type='solid' name='building' class="mr-2"></box-icon>
+                    Logements
+                </span>
+              </li>
+              <li @click="showReservationView">
+                <span>
+                    <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
+                    Réservations
+                </span>
+              </li>
+              <li @click="showAddLogement">
+                <span>
+                    <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
+                    Ajouter Logement
+                </span>
+              </li>
           </ul>
       </div>
       <div class="right">
@@ -95,6 +111,7 @@
                                 <input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
                             </div>
                         </div>
+
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
@@ -140,7 +157,7 @@
 
 
           </div>
-          <!-- <div v-if="showValidate" class="editReservation"> -->
+       
             <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
             <div class="form">
                 <h3 class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</h3>
@@ -199,6 +216,64 @@
                 </div>
 
           </div>
+          <div v-if="showAddLog" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Ajouter un logement</h3>
+                <div class="form">
+                <form class="">
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nom du logement</label>
+                    <input type="text" v-model="logementName" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Type</label>
+                    <input type="text" v-model="logementType" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Description</label>
+                    <input type="text" v-model="logementDesc" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Surface</label>
+                    <input type="text" v-model="logementSurface" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Loyer</label>
+                    <input type="text" v-model="logementLoyer" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Adresse</label>
+                    <input type="text" v-model="logementAddress" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2"  >
+                    <label for="file-input" class="mb-2">Ajouter photos</label>
+                    <input type="file" @change="uploadFile" multiple id="file-input" accept="image/png, image/jpeg" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <div id="images">
+                    </div>
+                     <p class="mb-2">
+                    <label for="" class="mb-2">Modalité</label>
+                    </p>
+                    <p>
+                    
+                    </p>
+                    
+                </form>
+                
+            </div>
+              <div class="flex-col  mt-4">
+                  <div class="flex flex-wrap btn-category ml-4">
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="a"  type="button" > Parking</button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="b" type="button" > Cuisine </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="c" type="button" > Douche </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="d" type="button" > Eau chaude </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="e" type="button" > Wifi </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="f" type="button" > Télé satellite </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="g" type="button" > Salle de jeu </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="h" type="button" > Gardien </button>
+                  </div>
+              <button @click="addLogement" class="btn-valid mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
+            </div>
+          </div>
              
 
       </div>
@@ -212,7 +287,7 @@ export default {
     name : 'AdminView' ,
     data() {
         return {
-            showLogement : true ,
+            showLogement : false ,
             showReservation : false ,
             showValidate : false ,
             showCalendar : true ,
@@ -221,7 +296,15 @@ export default {
             logement : '' ,
             userLogement : '' ,
             payed : '',
-            payedError : ''
+            payedError : '',
+            showAddLog : true ,
+            logementName : '' ,
+            logementType : '' ,
+            logementDesc : '' ,
+            logementSurface : '' ,
+            logementLoyer : '' ,
+            logementAddress : '',
+            files: null,
         }
     },
     async mounted() {
@@ -240,6 +323,22 @@ export default {
             console.log(error);
         })
     
+        const mod = document.querySelectorAll('.mod');
+      let modalite = ''
+      for(let i=0; i<mod.length; i++){
+        mod[i].addEventListener('click' , () => {
+          mod[i].classList.toggle('actives')
+          
+          if(!mod[i].classList.contains('actives')){
+            modalite = modalite.replace(mod[i].dataset.value.toString() , '')
+          }else{
+            modalite+=mod[i].dataset.value
+          }
+        this.$store.commit('setModalite' , modalite)
+        console.log(this.$store.state.modalite);
+
+        })
+      }
     },
 
     methods: {
@@ -292,6 +391,7 @@ export default {
             this.showLogement = true;
             this.showReservation = false;
             this.showCalendar = false;
+            this.showAddLog = false;
             this.showValidate = false;
             
         },
@@ -299,6 +399,7 @@ export default {
             this.showReservation = true;
             this.showCalendar = false;
             this.showLogement = false;
+            this.showAddLog = false;
             this.showValidate = false;
             
         },
@@ -306,6 +407,7 @@ export default {
             this.showValidate = true;
             this.showReservation = false;
             this.showLogement = false;
+            this.showAddLog = false;
             this.showCalendar = false;
         },
         showCalendarView(id){
@@ -313,7 +415,40 @@ export default {
             this.showValidate = false;
             this.showReservation = false;
             this.showLogement = false;
+            this.showAddLog = false;
             this.$store.commit('setIdLog' , id)
+        } ,
+        showAddLogement(){
+            this.showAddLog = true;
+            this.showCalendar = false;
+            this.showValidate = false;
+            this.showReservation = false;
+            this.showLogement = false;
+        } ,
+       
+         uploadFile(event) {
+            this.files = event.target.files;
+        },
+        async addLogement(){
+            const formData = new FormData();
+            formData.append('name' , this.logementName)
+            formData.append('type' , this.logementType)
+            formData.append('description' , this.logementDesc)
+            formData.append('surface' , this.logementSurface)
+            formData.append('address' , this.logementAddress)
+            formData.append('modalite' , this.$store.state.modalite)
+            formData.append('price' , this.logementLoyer)
+            if(this.files){
+                    for (const i of Object.keys(this.files)) {
+                    formData.append("images", this.files[i]);
+                    }
+            }
+            await axios.post(process.env.VUE_APP_URL+'/logement/add' , formData)
+            .then(() => {
+                console.log('logement created');
+            }).catch((error) => {
+                console.log(error);
+            })
         }
     },
 }
@@ -501,4 +636,44 @@ h3 {
     margin-left: 2rem;
     margin-bottom: 2rem;
 }
+li span {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.leftSideBar ul li:hover{
+    background: rgba(255, 255, 255, 0.13);
+}
+li box-icon{
+    fill : white;
+}
+.btn-primary {
+  padding: 0.7rem 2rem 0.7rem 2rem;
+  background: var(--primary-color-4);
+  border-radius: 0.4rem;
+  color: #ffffff;
+  margin-top: 1.2rem;
+  transition: ease all .2s;
+}
+.btn-primary:hover{
+  background: var(--primary-color-5);
+  transition: ease all .2s;
+}
+
+  .btn-cat:hover{
+    background-color: var(--primary-color-3);
+    color:white;
+    transition: ease all .1s;
+  }
+
+  .actives{
+    background-color : var(--primary-color-4);
+    color: white;
+    transition: ease all .2s;
+  }
+  .btn-cat.actives:hover{
+    background-color : var(--primary-color-5);
+    transition: ease all .1s;
+  }
+
 </style>

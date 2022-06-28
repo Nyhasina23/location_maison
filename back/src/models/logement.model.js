@@ -17,7 +17,7 @@ const LogementSchema = mongoose.Schema({
         type : String ,
     } ,
     surface : {
-        type : Number ,
+        type : String ,
     } ,
     modalite : {
         // a = parking
@@ -27,7 +27,7 @@ const LogementSchema = mongoose.Schema({
         // e = wifi
         // f = tele satellite
         // g = salle de jeu
-        // h = gardie
+        // h = gardien
 
         type : String
     } ,

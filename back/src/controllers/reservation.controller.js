@@ -37,7 +37,7 @@ class reservationController {
                     address,
                     contact,
                     email,
-                    nb_pers,
+                    nbr_pers : nb_pers,
                     date_enter,
                     date_leave,
                     transport,
