@@ -3,25 +3,25 @@
   <div class="admin">
        <div class="leftSideBar">
           <ul>
-             <li @click="showAddLogement" class="cursor-pointer">
+             <li @click="showAddLogement" class="cursor-pointer mr-4 ml-4">
                 <span>
                     <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
                     Ajouter Logement
                 </span>
               </li>
-              <li @click="showLogementView" class="cursor-pointer">
+              <li @click="showLogementView" class="cursor-pointer mr-4 ml-4">
                 <span>
                     <box-icon type='solid' name='building' class="mr-2"></box-icon>
                     Logements
                 </span>
               </li>
-              <li @click="showReservationView" class="cursor-pointer">
+              <li @click="showReservationView" class="cursor-pointer mr-4 ml-4">
                 <span>
                     <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
                     Réservations
                 </span>
               </li>
-              <li @click="showUserView" class="cursor-pointer">
+              <li @click="showUserView" class="cursor-pointer mr-4 ml-4">
                 <span>
                     <box-icon type='solid' name='user' class="mr-2"></box-icon>
                     Utilisateurs
@@ -35,7 +35,7 @@
 
           <div v-if="showReservation" class="reservation">
               <div class="reservationContent">
-                  <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg reservations">
+                  <div class="relative w-full overflow-x-auto   sm:rounded-lg reservations">
                         <div class="p-4">
                             <label for="table-search" class="sr-only">Search</label>
                             <div class="relative mt-1">
@@ -108,16 +108,8 @@
               </div>
           </div>
           <div v-if="showLogement" class="w-full">
-                <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
-                        <div class="p-4">
-                            <label for="table-search" class="sr-only">Search</label>
-                            <div class="relative mt-1">
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                                </div>
-                                <input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
-                            </div>
-                        </div>
+                <div class="relative w-full overflow-x-auto sm:rounded-lg">
+                        <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des logements</h3>
 
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -151,22 +143,22 @@
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                        {{log.name}}
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-left">
                                         {{log.type}}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-left">
                                         {{log.price[0].date.value}} Ar
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-left">
                                         {{log.address}}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-left">
                                         {{log.surface}}
                                     </td>
-                                    <td class="px-6 py-4 text-center">
+                                    <td class="px-6 py-4 text-left">
                                         {{log.reservation.length}}
                                     </td>
-                                    <td class="px-6 py-4  flex">
+                                    <td class="px-6 py-4  flex w-full justify-end">
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                             <box-icon type='solid' name='calendar'  class="icons"></box-icon>
                                         </router-link>
@@ -189,7 +181,7 @@
                     </div>
           </div>
        
-            <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+            <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
             <div class="form">
                 <h3 class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</h3>
                 <form class="">
@@ -347,7 +339,7 @@
             </div>
           </div>
 
-          <div v-if="showEditLog" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+          <div v-if="showEditLog" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
                 <h3 class="mt-4 text-2xl mb-4 font-semibold">Modifier un logement</h3>
                 <div class="form">
                 <form class="">
@@ -398,8 +390,8 @@
             </div>
           </div>
 
-          <div v-if="showUser" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
-                 <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg reservations">
+          <div v-if="showUser" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
+                 <div class="relative w-full overflow-x-auto   sm:rounded-lg reservations">
                         <div class="p-4">
                             <label for="table-search" class="sr-only">Search</label>
                             <div class="relative mt-1">
@@ -790,7 +782,8 @@ export default {
 }
 .admin{
     display: flex;
-    height: 100%;
+    height: calc(100vh - 3.5rem);
+    
 }
 .leftSideBar{
     display: flex;
@@ -806,8 +799,7 @@ export default {
 }
 .leftSideBar ul li{
     font-size: 1.1rem;
-    margin-top:2rem;
-    margin-bottom:2rem;
+    margin-top:1rem;
     padding : 1rem;
     background: rgba(255, 255, 255, 0.041);
     border-radius : 0.5rem;
@@ -819,9 +811,8 @@ export default {
     display: flex;
     flex-direction : column;
     align-items: center;
-    margin : 1rem;
     flex : 7;
-    height: 100vh;
+    margin: 2rem;
 }
 .reservation{
     display : flex ;

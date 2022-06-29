@@ -18,7 +18,6 @@
         <img class="object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg" src="../assets/img(2).jpg" alt="">
         <div class="flex flex-col w-full justify-between p-4 leading-normal">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{logement.name}}</h5>
-            <p class="mb-3 font-normal text-gray-500 dark:text-gray-400"> {{logement.description}} </p>
             <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.type}}</p>
             <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.price[0].date.value}} Ar / jour</p>
              <div class="duo flex justify-center">

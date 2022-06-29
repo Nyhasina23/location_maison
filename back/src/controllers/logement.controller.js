@@ -119,17 +119,18 @@ class LogementController {
                         if (err) {
                             res.status(500).send('error')
                         } else {
-                            res.send('deleted')
+                            if(logement.reservation){
+                                logement.reservation.forEach(async e => {
+                                    await ReservationModel.findByIdAndDelete(e)
+                                })
+                            }
+                            logement.remove()
+                            
                         }
                     })
                 })
             }
-            if(logement.reservation){
-                logement.reservation.forEach(async e => {
-                    await ReservationModel.findByIdAndDelete(e)
-                })
-            }
-            logement.remove()
+            
 
         } catch (error) {
             console.log(error);

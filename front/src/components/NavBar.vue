@@ -69,7 +69,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: var(----soft-shadow);
+    box-shadow: var(--soft-shadow);
     padding : .5rem 1.5rem;
     
 }
