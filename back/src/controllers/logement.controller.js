@@ -133,21 +133,45 @@ class LogementController {
     }
 
     static update = (req, res) => {
-        const idLog = req.params.idLog;
-
-        LogementModel.findByIdAndUpdate(idLog, {
-            name: req.body.name,
-            free_logement: req.body.free_logement,
-            free_date: req.body.free_date,
-            price: req.body.price,
-        }, (err, docs) => {
-            if (err) {
-                console.log(err);
-                res.status(500).send('error while updating logement')
-            } else {
-                res.status(200).send(docs)
-            }
-        })
+        try {
+            const idLog = req.params.idLog;
+        const name = req.body.name;
+        const type = req.body.type;
+        const description = req.body.description;
+        const surface = req.body.surface;
+        const address = req.body.address;
+        const price = req.body.price;
+        if(name == '' || type == '' || description == '' || surface == '' || address == '' 
+            || price == ''
+        ){
+            res.status(403).send()
+        }else{
+            LogementModel.findByIdAndUpdate(idLog, {
+                name ,
+                type ,
+                description ,
+                surface ,
+                address ,
+                price: [{
+                   date : {
+                    start : 'default' ,
+                    end : 'default',
+                    value : price
+                   }
+                }],
+            }, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('error while updating logement')
+                } else {
+                    res.status(200).send(docs)
+                }
+            })
+        }
+        } catch (error) {
+            res.status(500).send()
+            
+        }
     }
 
 }

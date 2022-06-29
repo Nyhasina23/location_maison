@@ -146,9 +146,9 @@
                                     <td class="px-6 py-4">
                                         {{log.reservation.length}}
                                     </td>
-                                    <td class="px-6 py-4 text-right">
+                                    <td class="px-6 py-4 text-right flex">
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Calendar</router-link>
-                                        <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-8">Edit</router-link>
+                                        <li  @click="showEditLogement(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">Edit</li>
                                     </td>
                                 </tr>
                             </tbody>
@@ -200,9 +200,12 @@
                     <input type="text" v-model="payed" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
+                    <label for="" class="mb-2">Montat à payé</label>
+                    <input type="text" v-model="toPay" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
                     <label for="" class="mb-2">Logement réservé</label>
                     <input type="text" v-model="userLogement" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                    
                     </p>
                     <p>
                     </p>
@@ -277,7 +280,47 @@
               <button @click="addLogement" class="btn-valid mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
             </div>
           </div>
-             
+
+          <div v-if="showEditLog" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Modifier un logement</h3>
+                <div class="form">
+                <form class="">
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nom du logement</label>
+                    <input type="text" v-model="oneLogementName" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Type</label>
+                    <input type="text" v-model="oneLogementType" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Description</label>
+                    <input type="text" v-model="oneLogementDesc" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Surface</label>
+                    <input type="text" v-model="oneLogementSurface" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Loyer</label>
+                    <input type="text" v-model="oneLogementPrice" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Adresse</label>
+                    <input type="text" v-model="oneLogementAddress" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p>
+                    </p>
+                      <p>
+                    </p>
+                </form>
+                
+            </div>
+              <div class="flex-col  mt-4">
+                <p v-if="editLogError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ editLogError }}</p>
+                <button @click="editLogement" class="btn-valid mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
+            </div>
+          </div>
 
       </div>
   </div>
@@ -293,14 +336,24 @@ export default {
             showLogement : false ,
             showReservation : false ,
             showValidate : false ,
+            showEditLog : false ,
             showCalendar : true ,
             reservation : '' ,
+            oneLogementName : '' ,
+            oneLogementType : '' ,
+            oneLogementSurface : '' ,
+            oneLogementDesc : '' ,
+            oneLogementPrice : '' ,
+            oneLogementAddress : '' ,
             oneReservation : '' ,
+            oneLogement : '' ,
             logement : '' ,
             userLogement : '' ,
             payed : '',
+            toPay : '' ,
             payedError : '',
             addLogError : '',
+            editLogError : '',
             showAddLog : true ,
             logementName : '' ,
             logementType : '' ,
@@ -354,6 +407,8 @@ export default {
             await axios.get(process.env.VUE_APP_URL+'/reservation/oneReservation/'+idRes)
             .then(async (res) => {
                 this.oneReservation = res.data
+                this.payed = res.data.payed
+                this.toPay = res.data.toPay
                 const idLog = res.data.logement;
                 const logement = await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
                 this.userLogement = logement.data.name
@@ -397,6 +452,7 @@ export default {
             this.showReservation = false;
             this.showCalendar = false;
             this.showAddLog = false;
+            this.showEditLog = false;
             this.showValidate = false;
             
         },
@@ -405,6 +461,7 @@ export default {
             this.showCalendar = false;
             this.showLogement = false;
             this.showAddLog = false;
+            this.showEditLog = false;
             this.showValidate = false;
             
         },
@@ -413,6 +470,7 @@ export default {
             this.showReservation = false;
             this.showLogement = false;
             this.showAddLog = false;
+            this.showEditLog = false;
             this.showCalendar = false;
         },
         showCalendarView(id){
@@ -420,6 +478,7 @@ export default {
             this.showValidate = false;
             this.showReservation = false;
             this.showLogement = false;
+            this.showEditLog = false;
             this.showAddLog = false;
             this.$store.commit('setIdLog' , id)
         } ,
@@ -429,8 +488,30 @@ export default {
             this.showValidate = false;
             this.showReservation = false;
             this.showLogement = false;
+            this.showEditLog = false;
             window.location.reload()
           
+        } ,
+        async showEditLogement(id){
+            this.showEditLog = true;
+            this.showAddLog = false;
+            this.showCalendar = false;
+            this.showValidate = false;
+            this.showReservation = false;
+            this.showLogement = false;
+            this.$store.commit('setIdLog' , id)
+           await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+id)
+           .then((res) => {
+            this.oneLogementName = res.data.name
+            this.oneLogementType = res.data.type
+            this.oneLogementDesc = res.data.description
+            this.oneLogementSurface = res.data.surface
+            this.oneLogementPrice = res.data.price[0].date.value
+            this.oneLogementAddress = res.data.address
+           }).catch(error => {
+            console.log(error);
+           })
+           
         } ,
        
          uploadFile(event) {
@@ -453,10 +534,26 @@ export default {
             }
             await axios.post(process.env.VUE_APP_URL+'/logement/add' , formData)
             .then(() => {
-                console.log('logement created');
+                this.addLogError = ''
             }).catch((error) => {
                 this.addLogError = 'Veuillez vérifier tous les champs'
                 console.log(error);
+            })
+        } ,
+        async editLogement(){
+            const idLog = this.$store.state.idLog;
+            await axios.put(process.env.VUE_APP_URL+'/logement/'+idLog , {
+                name : this.oneLogementName,
+                type : this.oneLogementType,
+                description : this.oneLogementDesc,
+                surface : this.oneLogementSurface,
+                address : this.oneLogementAddress,
+                price : this.oneLogementPrice,
+            }).then(() => {
+                this.editLogError = ''
+            }).catch(error => {
+                console.log(error);
+                this.editLogError = 'Veuillez vérifier tous les champs'
             })
         }
     },
