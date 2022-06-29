@@ -23,7 +23,7 @@
             <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.price[0].date.value}} Ar / jour</p>
              <div class="duo flex justify-center">
               <a href="/logement" class="detail btn" @click="getLogementId(logement._id)" >Détails</a>
-              <a href="/reservation/detail" class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
+              <a :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
             </div>
         </div>
     </div>
@@ -234,6 +234,7 @@ export default {
 .logementList{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .oneLogement{
   border-radius: .5rem;

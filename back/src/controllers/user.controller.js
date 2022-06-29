@@ -1,6 +1,7 @@
 const { generateToken } = require('../modules/generateToken.js');
 const regex = require('../modules/regexp');
 const { UserModel } = require('../models/user.model.js');
+const { ReservationModel } = require('../models/reservation.model.js');
 const { sha } = require('../modules/sha256.js');
 const jwtdecode = require('jwt-decode')
 const mongoose = require('mongoose');
@@ -67,6 +68,28 @@ class UserController {
                     new : true
                 })
             res.status(200).send()
+        } catch (error) {
+            res.status(500).send()
+        }
+    }
+
+    static getAll = async (req ,res) => {
+        try {
+            const user = await UserModel.find()
+            res.status(200).send(user)
+        } catch (error) {
+            res.status(500).send()
+        }
+    } 
+
+    static delete = async (req , res) => {
+        try {
+            const idUser = req.params.id;
+            let user = await UserModel.findByIdAndDelete(idUser)
+            user.reservation.forEach(async e => {
+                await ReservationModel.findByIdAndDelete(e)
+            })
+            res.status(200).send(user)
         } catch (error) {
             res.status(500).send()
         }

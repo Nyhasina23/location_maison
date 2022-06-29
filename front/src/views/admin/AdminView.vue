@@ -20,6 +20,12 @@
                     Réservations
                 </span>
               </li>
+              <li @click="showUserView">
+                <span>
+                    <box-icon type='solid' name='user' class="mr-2"></box-icon>
+                    Utilisateurs
+                </span>
+              </li>
           </ul>
       </div>
       <div class="right">
@@ -28,7 +34,7 @@
 
           <div v-if="showReservation" class="reservation">
               <div class="reservationContent">
-                  <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+                  <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg reservations">
                         <div class="p-4">
                             <label for="table-search" class="sr-only">Search</label>
                             <div class="relative mt-1">
@@ -91,7 +97,7 @@
                                     <td class="px-6 py-4">
                                         {{  oneReservation.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
                                     </td>
-                                    <td class="px-6 py-4 text-right">
+                                    <td class="px-6 py-4 ">
                                         <a href="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                     </td>
                                 </tr>
@@ -146,7 +152,7 @@
                                     <td class="px-6 py-4">
                                         {{log.reservation.length}}
                                     </td>
-                                    <td class="px-6 py-4 text-right flex">
+                                    <td class="px-6 py-4  flex">
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Calendar</router-link>
                                         <li  @click="showEditLogement(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">Edit</li>
                                     </td>
@@ -196,6 +202,14 @@
                     <input type="text" v-model="oneReservation.hour_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
+                    <label for="" class="mb-2">Transport</label>
+                    <input type="text" v-model="oneReservation.transport" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Type de transfert</label>
+                    <input type="text" v-model="oneReservation.typeTransfert" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
                     <label for="" class="mb-2">Montant Payé</label>
                     <input type="text" v-model="payed" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
@@ -217,7 +231,20 @@
 
             </div>
            
-                <div class="flex mt-4">
+                <div class="flex-col mt-4">
+                    <div v-if="validError === true" class="flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Veuillez vérifier tous les champs</span> 
+                    </div>
+                  </div>
+
+                  <div v-if="validError === false" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Validation avec succès!</span>
+                    </div>
+                  </div>
                     <button @click="validChange" class="btn-valid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
                 </div>
 
@@ -275,7 +302,20 @@
                       <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="g" type="button" > Salle de jeu </button>
                       <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="h" type="button" > Gardien </button>
                   </div>
-                  <p v-if="addLogError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ addLogError }}</p>
+
+                  <div v-if="addLogError === true" class="flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Veuillez vérifier tous les champs</span> 
+                    </div>
+                  </div>
+
+                  <div v-if="addLogError === false" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Logement ajouté avec succès!</span>
+                    </div>
+                  </div>
 
               <button @click="addLogement" class="btn-valid mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
             </div>
@@ -317,10 +357,96 @@
                 
             </div>
               <div class="flex-col  mt-4">
-                <p v-if="editLogError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ editLogError }}</p>
+                  <div v-if="editLogError === true" class="flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Veuillez vérifier tous les champs</span> 
+                    </div>
+                  </div>
+
+                  <div v-if="editLogError === false" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Logement modifié avec succès!</span>
+                    </div>
+                  </div>
                 <button @click="editLogement" class="btn-valid mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
             </div>
           </div>
+
+          <div v-if="showUser" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+                 <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg reservations">
+                        <div class="p-4">
+                            <label for="table-search" class="sr-only">Search</label>
+                            <div class="relative mt-1">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                                </div>
+                                <input type="text" id="table-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
+                            </div>
+                        </div>
+
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nom 
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Prénoms
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Email
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Adresse
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Téléphone
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Edit</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="user in users" v-bind:key="user._id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        {{user.firstname}}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{user.lastname}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{user.email}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{user.address}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{user.phoneNumber}}
+                                    </td>
+                                 
+                                    <td class="px-6 py-4 ">
+                                        <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Supprimer</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="userDeletedAlert === true" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                            <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <div>
+                                <span class="font-medium">Utilisateur supprimé avec succès!</span>
+                            </div>
+                        </div>
+                    </div>
+          </div>
+
+
+            
+
+
+
 
       </div>
   </div>
@@ -337,6 +463,7 @@ export default {
             showReservation : false ,
             showValidate : false ,
             showEditLog : false ,
+            showUser : false ,
             showCalendar : true ,
             reservation : '' ,
             oneLogementName : '' ,
@@ -354,6 +481,7 @@ export default {
             payedError : '',
             addLogError : '',
             editLogError : '',
+            validError : '' ,
             showAddLog : true ,
             logementName : '' ,
             logementType : '' ,
@@ -362,6 +490,8 @@ export default {
             logementLoyer : '' ,
             logementAddress : '',
             files: null,
+            users : '',
+            userDeletedAlert : false
         }
     },
     async mounted() {
@@ -426,8 +556,10 @@ export default {
                 reservation : idRes , 
                 payed : this.payed,
             }).then(() => {
+                this.validError = false
             }).catch(error => {
                 console.log(error);
+                this.validError = true
             })
         }
             
@@ -453,6 +585,7 @@ export default {
             this.showCalendar = false;
             this.showAddLog = false;
             this.showEditLog = false;
+            this.showUser = false;
             this.showValidate = false;
             
         },
@@ -462,6 +595,7 @@ export default {
             this.showLogement = false;
             this.showAddLog = false;
             this.showEditLog = false;
+            this.showUser = false;
             this.showValidate = false;
             
         },
@@ -471,6 +605,7 @@ export default {
             this.showLogement = false;
             this.showAddLog = false;
             this.showEditLog = false;
+            this.showUser = false;
             this.showCalendar = false;
         },
         showCalendarView(id){
@@ -480,6 +615,7 @@ export default {
             this.showLogement = false;
             this.showEditLog = false;
             this.showAddLog = false;
+            this.showUser = false;
             this.$store.commit('setIdLog' , id)
         } ,
         showAddLogement(){
@@ -489,8 +625,25 @@ export default {
             this.showReservation = false;
             this.showLogement = false;
             this.showEditLog = false;
+            this.showUser = false;
             window.location.reload()
-          
+        } ,
+        async showUserView(){
+            this.showUser = true;
+            this.showAddLog = false;
+            this.showCalendar = false;
+            this.showValidate = false;
+            this.showReservation = false;
+            this.showLogement = false;
+            this.showEditLog = false;
+
+            await axios.get(process.env.VUE_APP_URL+'/user')
+            .then((res) => {
+                this.users = res.data
+            }).catch((error) => {
+                console.log(error);
+            })
+
         } ,
         async showEditLogement(id){
             this.showEditLog = true;
@@ -534,12 +687,13 @@ export default {
             }
             await axios.post(process.env.VUE_APP_URL+'/logement/add' , formData)
             .then(() => {
-                this.addLogError = ''
+                this.addLogError = false
             }).catch((error) => {
-                this.addLogError = 'Veuillez vérifier tous les champs'
+                this.addLogError = true
                 console.log(error);
             })
         } ,
+        
         async editLogement(){
             const idLog = this.$store.state.idLog;
             await axios.put(process.env.VUE_APP_URL+'/logement/'+idLog , {
@@ -550,13 +704,22 @@ export default {
                 address : this.oneLogementAddress,
                 price : this.oneLogementPrice,
             }).then(() => {
-                this.editLogError = ''
+                this.editLogError = false
             }).catch(error => {
                 console.log(error);
-                this.editLogError = 'Veuillez vérifier tous les champs'
+                this.editLogError = true
+            })
+        },
+
+        async deleteUser(id){
+            await axios.delete(process.env.VUE_APP_URL+'/user/'+id)
+            .then(() => {
+                this.userDeletedAlert = true
+            }).catch((error) => {
+                console.log(error);
             })
         }
-    },
+    }
 }
 </script>
 
@@ -735,7 +898,7 @@ h3 {
 .edit-profile{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: start;
     width : 100%;
 }
 .btn-valid{
@@ -781,5 +944,12 @@ li box-icon{
     background-color : var(--primary-color-5);
     transition: ease all .1s;
   }
-
+.reservations{
+    overflow-y: scroll;
+    max-height: 100vh;
+}
+.alert{
+    margin-left : 2rem;
+    width : fit-content;
+}
 </style>
