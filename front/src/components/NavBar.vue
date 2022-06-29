@@ -13,6 +13,14 @@
                         </span>
                     </router-link>
                 </li>
+                <li v-if=" adminStatus > 1 && $store.state.isAuth">
+                    <a href="/admin">
+                        <box-icon type='regular' name='user-plus' ></box-icon>
+                        <span>
+                            Administration
+                        </span>
+                    </a>
+                </li>
                 <li v-if="!$store.state.isAuth">
                     <a href="/signup">
                         <box-icon type='regular' name='user-plus' ></box-icon>
@@ -51,13 +59,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name : 'NavBar',
     components : {
     } ,
+    data() {
+        return{
+           adminStatus : 0 
+        }
+    },
+    mounted(){
+        this.getAdminStatus();
+    },
     methods: {
         logout(){
             this.$store.commit('isAuthenticated' , false)
+        },
+        async getAdminStatus(){
+            await axios.get(process.env.VUE_APP_URL+'/user/getOneUser' , {
+                headers : {
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (res) => {
+                this.adminStatus = res.data.role;
+            }).catch(error => {
+                console.log(error);
+            })
         }
     },
 }

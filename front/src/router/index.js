@@ -14,7 +14,7 @@ const routes = [
     { name : 'ReservationDetail' , path : '/reservation/detail' , component : ReservationDetail},
     { name : 'UserReservation' , path : '/reservation/list' , component : UserReservation},
     { name : 'UserProfile' , path : '/user/account' , component : UserProfile},
-    { name : 'AdminView' , path : '/admin/reservation' , component : AdminView},
+    { name : 'AdminView' , path : '/admin' , component : AdminView},
     { name : 'CalendarView' , path : '/logement/calendar' , component : CalendarView},
     { name : 'LogementDetail' , path : '/logement' , component : LogementDetail},
     { name : 'Signin' , path : '/signin' , component : SigninView},

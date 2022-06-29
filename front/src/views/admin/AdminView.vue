@@ -1,6 +1,6 @@
 /* eslint-disable */
 <template>
-  <div class="admin">
+  <div v-if="roleStatus" class="admin">
        <div class="leftSideBar">
           <ul>
              <li @click="showAddLogement" class="cursor-pointer mr-4 ml-4">
@@ -510,11 +510,15 @@ export default {
             users : '',
             userDeletedAlert : false,
             isWaitAddLogement: false,
-            logementDeletedAlert : false
+            logementDeletedAlert : false,
+            roleStatus: 0
         }
     },
     async mounted() {
-              
+        await this.getRoleStatus();
+        if(2>this.roleStatus){
+            this.$router.push('/')
+        }
         await axios.get(process.env.VUE_APP_URL+'/reservation')
         .then((res) => {
             this.reservation = res.data
@@ -690,7 +694,7 @@ export default {
             this.files = event.target.files;
         },
         async addLogement(){
-                this.isWaitAddLogement = true;
+            this.isWaitAddLogement = true;
             
             const formData = new FormData();
             formData.append('name' , this.logementName)
@@ -747,6 +751,17 @@ export default {
             .then(() => {
                 this.logementDeletedAlert = true
             }).catch((error) => {
+                console.log(error);
+            })
+        },
+        async getRoleStatus(){
+            await axios.get(process.env.VUE_APP_URL+'/user/getOneUser' , {
+                headers : {
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (res) => {
+                this.roleStatus = res.data.role;
+            }).catch(error => {
                 console.log(error);
             })
         }

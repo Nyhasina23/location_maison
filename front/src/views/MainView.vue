@@ -4,9 +4,9 @@
         <div class="header-container">
           <p class="siteName">Site de location</p>
             <h2>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500</h2>
-            <div class="header-btn">
-                <a class="btn-primary" href="#">LANCEZ-VOUS</a>
-                <a class="btn-second" href="#">RESERVER</a>
+            <div v-if="!$store.state.isAuth"  class="header-btn">
+                <router-link class="btn-primary" to="/signin">LANCEZ-VOUS</router-link>
+                <router-link class="btn-second" to="/signup">RESERVER</router-link>
             </div>
         </div>
     </div>

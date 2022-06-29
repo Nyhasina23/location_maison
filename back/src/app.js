@@ -19,9 +19,14 @@ const  signupRoutes = require('./routes/signup.routes.js')
 const  logementRoutes = require('./routes/logement.routes.js')
 const  reservationRoutes = require('./routes/reservation.routes.js')
 const  userRoutes = require('./routes/user.routes.js')
+const  globalRoutes = require('./routes/global.routes.js')
 app.use('/signin' , signinRoutes);
 app.use('/signup' , signupRoutes);
 app.use('/logement' , logementRoutes);
 app.use('/reservation' , reservationRoutes);
 app.use('/user' , userRoutes);
+app.use('/global',globalRoutes);
+
+const path = require('path');
+app.use('/public', express.static(path.join(__dirname, '/public')));
 module.exports = {app}
