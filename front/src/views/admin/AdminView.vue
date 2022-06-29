@@ -160,9 +160,6 @@
                             </tbody>
                         </table>
                     </div>
-
-
-
           </div>
        
             <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto shadow-md sm:rounded-lg">
