@@ -146,10 +146,10 @@
                                     <td class="px-6 py-4">
                                         {{log.type}}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 ">
                                         {{log.description}}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-center">
                                         {{log.reservation.length}}
                                     </td>
                                     <td class="px-6 py-4  flex">
