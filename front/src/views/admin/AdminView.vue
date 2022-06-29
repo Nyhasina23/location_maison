@@ -99,7 +99,7 @@
                                         {{  oneReservation.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
                                     </td>
                                     <td class="px-6 py-4 ">
-                                        <a href="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <router-link to="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons" ></box-icon></router-link>
                                     </td>
                                 </tr>
                             </tbody>
@@ -163,16 +163,29 @@
                                     <td class="px-6 py-4">
                                         {{log.surface}}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-center">
                                         {{log.reservation.length}}
                                     </td>
                                     <td class="px-6 py-4  flex">
-                                        <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Calendar</router-link>
-                                        <li  @click="showEditLogement(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">Edit</li>
+                                        <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            <box-icon type='solid' name='calendar'  class="icons"></box-icon>
+                                        </router-link>
+                                        <li  @click="showEditLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
+                                            <box-icon type='solid' name='edit' class="icons" ></box-icon>
+                                        </li>
+                                        <li  @click="deleteLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
+                                            <box-icon type='solid' name='trash' class="icons"></box-icon>
+                                        </li>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div v-if="logementDeletedAlert === true" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                            <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <div>
+                                <span class="font-medium">Logement supprimé avec succès!</span>
+                            </div>
+                        </div>
                     </div>
           </div>
        
@@ -439,7 +452,7 @@
                                     </td>
                                  
                                     <td class="px-6 py-4 ">
-                                        <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Supprimer</a>
+                                        <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='trash' class="icons"></box-icon></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -450,6 +463,7 @@
                                 <span class="font-medium">Utilisateur supprimé avec succès!</span>
                             </div>
                         </div>
+                        
                     </div>
           </div>
 
@@ -503,7 +517,8 @@ export default {
             files: null,
             users : '',
             userDeletedAlert : false,
-            isWaitAddLogement: false
+            isWaitAddLogement: false,
+            logementDeletedAlert : false
         }
     },
     async mounted() {
@@ -731,6 +746,14 @@ export default {
             await axios.delete(process.env.VUE_APP_URL+'/user/'+id)
             .then(() => {
                 this.userDeletedAlert = true
+            }).catch((error) => {
+                console.log(error);
+            })
+        } ,
+        async deleteLogement(id){
+             await axios.delete(process.env.VUE_APP_URL+'/logement/remove/'+id)
+            .then(() => {
+                this.logementDeletedAlert = true
             }).catch((error) => {
                 console.log(error);
             })
@@ -979,5 +1002,11 @@ li box-icon{
 }
 tr{
     height: 2rem;
+}
+.li-link{
+    cursor: pointer;
+}
+.icons{
+    fill : rgb(8, 39, 59)
 }
 </style>

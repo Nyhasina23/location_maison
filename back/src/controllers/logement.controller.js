@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const {LogementModel} = require("../models/logement.model")
 const { ImageModel } = require('../models/image.model')
+const { ReservationModel } = require('../models/reservation.model')
 const dirname = require('../../getDirname')
 const resizeImg = require('resize-img');
 const fs = require('fs');
@@ -111,17 +112,21 @@ class LogementController {
             const idLog = req.params.idLog;
             const logement = await LogementModel.findById(idLog)
 
-            if (logement.image) {
+            if (logement.images) {
 
-                logement.image.forEach(imageID => {
+                logement.images.forEach(imageID => {
                     ImageModel.findByIdAndDelete(imageID, (err, docs) => {
                         if (err) {
                             res.status(500).send('error')
                         } else {
-                            logement.remove()
                             res.send('deleted')
                         }
                     })
+                })
+            }
+            if(logement.reservation){
+                logement.reservation.forEach(async e => {
+                    await ReservationModel.findByIdAndDelete(e)
                 })
             }
             logement.remove()
