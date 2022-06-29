@@ -2,6 +2,12 @@
   <div class="admin">
        <div class="leftSideBar">
           <ul>
+             <li @click="showAddLogement">
+                <span>
+                    <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
+                    Ajouter Logement
+                </span>
+              </li>
               <li @click="showLogementView">
                 <span>
                     <box-icon type='solid' name='building' class="mr-2"></box-icon>
@@ -12,12 +18,6 @@
                 <span>
                     <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
                     Réservations
-                </span>
-              </li>
-              <li @click="showAddLogement">
-                <span>
-                    <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
-                    Ajouter Logement
                 </span>
               </li>
           </ul>
@@ -148,6 +148,7 @@
                                     </td>
                                     <td class="px-6 py-4 text-right">
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Calendar</router-link>
+                                        <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-8">Edit</router-link>
                                     </td>
                                 </tr>
                             </tbody>
@@ -195,16 +196,18 @@
                     <input type="text" v-model="oneReservation.hour_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Payé</label>
+                    <label for="" class="mb-2">Montant Payé</label>
                     <input type="text" v-model="payed" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
                     <label for="" class="mb-2">Logement réservé</label>
                     <input type="text" v-model="userLogement" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    
                     </p>
                     <p>
-                  
                     </p>
+                    <p v-if="payedError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ payedError }}</p>
+
                     <p>
                     </p>
                 </form>
@@ -254,9 +257,7 @@
                     <label for="" class="mb-2">Modalité</label>
                     </p>
                     <p>
-                    
                     </p>
-                    
                 </form>
                 
             </div>
@@ -271,6 +272,8 @@
                       <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="g" type="button" > Salle de jeu </button>
                       <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="h" type="button" > Gardien </button>
                   </div>
+                  <p v-if="addLogError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ addLogError }}</p>
+
               <button @click="addLogement" class="btn-valid mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
             </div>
           </div>
@@ -287,7 +290,7 @@ export default {
     name : 'AdminView' ,
     data() {
         return {
-            showLogement : true ,
+            showLogement : false ,
             showReservation : false ,
             showValidate : false ,
             showCalendar : true ,
@@ -297,7 +300,8 @@ export default {
             userLogement : '' ,
             payed : '',
             payedError : '',
-            showAddLog : false ,
+            addLogError : '',
+            showAddLog : true ,
             logementName : '' ,
             logementType : '' ,
             logementDesc : '' ,
@@ -322,10 +326,10 @@ export default {
         }).catch(error => {
             console.log(error);
         })
-    
+
         const mod = document.querySelectorAll('.mod');
-      let modalite = ''
-      for(let i=0; i<mod.length; i++){
+        let modalite = ''
+        for(let i=0; i<mod.length; i++){
         mod[i].addEventListener('click' , () => {
           mod[i].classList.toggle('actives')
           
@@ -339,6 +343,7 @@ export default {
 
         })
       }
+
     },
 
     methods: {
@@ -359,7 +364,7 @@ export default {
         },
         async validChange(){
             if(this.payed == ''){
-            this.payedError = 'ce champ est requis'
+            this.payedError = 'Veuillez vérifier tous les champs'
         }else{
             const idRes = localStorage.getItem('idRes')
             axios.put(process.env.VUE_APP_URL+'/reservation/validate/' , {
@@ -424,12 +429,15 @@ export default {
             this.showValidate = false;
             this.showReservation = false;
             this.showLogement = false;
+            window.location.reload()
+          
         } ,
        
          uploadFile(event) {
             this.files = event.target.files;
         },
         async addLogement(){
+        
             const formData = new FormData();
             formData.append('name' , this.logementName)
             formData.append('type' , this.logementType)
@@ -439,14 +447,15 @@ export default {
             formData.append('modalite' , this.$store.state.modalite)
             formData.append('price' , this.logementLoyer)
             if(this.files){
-                    for (const i of Object.keys(this.files)) {
-                    formData.append("images", this.files[i]);
-                    }
+               for (const i of Object.keys(this.files)) {
+               formData.append("images", this.files[i]);
+               }
             }
             await axios.post(process.env.VUE_APP_URL+'/logement/add' , formData)
             .then(() => {
                 console.log('logement created');
             }).catch((error) => {
+                this.addLogError = 'Veuillez vérifier tous les champs'
                 console.log(error);
             })
         }

@@ -39,25 +39,37 @@ class LogementController {
                 image.push(newImg._id)
                 newImg.save();
             }
-
-            const newLogement = new LogementModel({
-                name: req.body.name,
-                type: req.body.type,
-                description: req.body.description,
-                surface: req.body.surface,
-                address: req.body.address,
-                modalite: req.body.modalite,
-                price: [{
-                   date : {
-                    start : 'default' ,
-                    end : 'default',
-                    value : req.body.price
-                   }
-                }],
-                images : image
-            })
-            newLogement.save()
-            res.status(200).send('created')
+            const name = req.body.name;
+            const type = req.body.type;
+            const description = req.body.description;
+            const surface = req.body.surface;
+            const address = req.body.address;
+            const modalite = req.body.modalite;
+            const price = req.body.price;
+            if(name == '' || type == '' || description == '' || surface == '' || address == '' 
+            || price == '' || image == ''
+            ){
+                res.status(403).send()
+            }else{
+                const newLogement = new LogementModel({
+                    name ,
+                    type ,
+                    description ,
+                    surface ,
+                    address ,
+                    modalite ,
+                    price: [{
+                       date : {
+                        start : 'default' ,
+                        end : 'default',
+                        value : price
+                       }
+                    }],
+                    images : image
+                })
+                newLogement.save()
+                res.status(200).send('created')
+            }
 
         } catch (error) {
             res.status(500).send('error server')

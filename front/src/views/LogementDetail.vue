@@ -39,19 +39,23 @@
                         </td>
                        
                     </tr>
-                    <tr class="bg-white dark:bg-gray-800">
-                        <th scope="row" class="px-6 py-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
-                            Modalité
-                        </th>
-                        <td class="px-6 py-4">
-                            {{logement.modalite}}
-                        </td>
-                     
-                    </tr>
                 </tbody>
             </table>
         </div>
 
+        <div class="flex-col mt-2 mb-2">
+                  <h2 class="font-bold text-gray-600 dark:text-white whitespace-nowrap mb-2" >Modalités</h2>
+                  <div class="flex flex-wrap btn-category">
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="a"  type="button" > Parking</button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="b" type="button" > Cuisine </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="c" type="button" > Douche </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="d" type="button" > Eau chaude </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="e" type="button" > Wifi </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="f" type="button" > Télé satellite </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="g" type="button" > Salle de jeu </button>
+                      <button  class="btn-cat mod text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="h" type="button" > Gardien </button>
+                  </div>
+        </div>
 
 
         <div class="flex">
@@ -84,6 +88,22 @@ export default {
         await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
         .then(res => {
             this.logement = res.data
+
+            let mod = document.querySelectorAll('.mod');
+            let modArray = []
+            let modArrayInclude = []
+             for(let i=0; i<mod.length; i++){
+              modArray.push(mod[i].dataset.value)
+            }
+            const str = res.data.modalite.split('')
+            modArrayInclude = str
+            for(let j=0 ; j < modArray.length; j++){
+              if(modArray.includes(modArrayInclude[j])){
+                document.querySelectorAll( `[data-value= ${modArrayInclude[j]}]` )[0].classList.add('actives')
+              }
+            }
+
+
         }).catch(error => {
             console.log(error);
         })
@@ -146,4 +166,14 @@ export default {
     font-size : 1.2rem;
     font-weight: 600;
 }
+ .actives{
+    background-color : var(--primary-color-4);
+    color: white;
+    transition: ease all .2s;
+  }
+ .btn-cat:hover{
+    background-color: var(--primary-color-3);
+    color:white;
+    transition: ease all .1s;
+  }
 </style>

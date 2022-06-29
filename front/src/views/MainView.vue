@@ -22,7 +22,7 @@
             <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.type}}</p>
             <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">200 000 Ar / jour</p>
              <div class="duo flex justify-center">
-              <router-link to="/logement" class="detail btn" @click="getLogementId(logement._id)" >Détails</router-link>
+              <a href="/logement" class="detail btn" @click="getLogementId(logement._id)" >Détails</a>
               <a href="/reservation/detail" class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
             </div>
         </div>
