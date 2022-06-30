@@ -34,7 +34,6 @@ class UserController {
                 })
                 newUser.save();
                 const token = generateToken(_id, email)
-
                 res.status(200).send(token);
             }
         } else {

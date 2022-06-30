@@ -12,8 +12,7 @@
     </div>
     <p class="mb-4 text-xl mt-4 l-dispo font-bold tracking-tight text-gray-500 dark:text-white">Logement disponibles</p>
   <div class="logementList">
-   
-
+  
     <div v-for="logement in logements" v-bind:key="logement._id" class="flex flex-col oneLogement items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img class="object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg" src="../assets/img(2).jpg" alt="">
         <div class="flex flex-col w-full justify-between p-4 leading-normal">
@@ -26,8 +25,6 @@
             </div>
         </div>
     </div>
-
-
   </div>
   
     
