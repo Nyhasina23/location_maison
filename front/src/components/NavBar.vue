@@ -7,48 +7,42 @@
             <ul>
                 <li>
                     <router-link to="/">  
-                        <box-icon type='regular' name='home'></box-icon>
-                        <span>
+                        <span class="navText">
                             Accueil
                         </span>
                     </router-link>
                 </li>
                 <li v-if=" adminStatus > 1 && $store.state.isAuth">
                     <a href="/admin">
-                        <box-icon type='regular' name='user-plus' ></box-icon>
-                        <span>
+                        <span class="navText">
                             Administration
                         </span>
                     </a>
                 </li>
                 <li v-if="!$store.state.isAuth">
                     <a href="/signup">
-                        <box-icon type='regular' name='user-plus' ></box-icon>
-                        <span>
+                        <span class="navText">
                             Inscription
                         </span>
                     </a>
                 </li>
                 <li v-if="!$store.state.isAuth"  >
                     <a href="/signin">
-                        <box-icon type='regular' name='user-circle' ></box-icon>
-                        <span>
+                        <span class="navText">
                             Connexion
                         </span>
                     </a>
                 </li>
                 <li v-if="$store.state.isAuth">
                     <a href="/user/account">
-                        <box-icon type='regular' name='user-circle' ></box-icon>
-                        <span>
+                        <span class="navText">
                             Profile
                         </span>
                     </a>
                 </li>
                 <li v-if="$store.state.isAuth" @click="logout">
                     <a href="/">
-                        <box-icon type='regular' name='user-circle' ></box-icon>
-                        <span>
+                        <span class="navText">
                             Deconnexion
                         </span>
                     </a>
@@ -109,22 +103,25 @@ export default {
     list-style-type: none;
     display: flex;
 }
+.links ul li{
+    color : var(--primary-color-5);
+    border-radius: .5rem;
+}
 .links{
     margin-right: 1rem;
 }
 .links ul li a {
-    margin-right: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     align-content: center;
     text-decoration: none;
-    color : #000;
+}
+.navText{
+    font-weight: 600;
 }
 .links ul li :hover  {
-    color : var(--primary-color-4);
-    fill : var(--primary-color-4);
-
+    background:var(--primary-color-3-transp)
 }
 .links ul li a span  {
     padding : 0.5rem;
