@@ -39,6 +39,24 @@
                         </td>
                        
                     </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                            Chambres
+                        </th>
+                        <td class="px-6 py-4">
+                            {{logement.chambre}}
+                        </td>
+                       
+                    </tr>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                            Nombre de personnes
+                        </th>
+                        <td class="px-6 py-4">
+                            {{logement.pers_max}}
+                        </td>
+                       
+                    </tr>
                 </tbody>
             </table>
         </div>

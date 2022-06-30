@@ -283,6 +283,14 @@
                         <input type="text" v-model="logementSurface" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
+                        <label for="" class="mb-2">Chambres</label>
+                        <input type="text" v-model="logementChambre" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Nombre de personnes</label>
+                        <input type="text" v-model="logementPers" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
                         <label for="" class="mb-2">Loyer</label>
                         <input type="text" v-model="logementLoyer" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
@@ -355,6 +363,14 @@
                     <p class="mb-2">
                         <label for="" class="mb-2">Surface</label>
                         <input type="text" v-model="oneLogementSurface" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Chambres</label>
+                        <input type="text" v-model="oneLogementChambre" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Nombre de personnes</label>
+                        <input type="text" v-model="oneLogementPers" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
                         <label for="" class="mb-2">Loyer</label>
@@ -478,6 +494,8 @@ export default {
             oneLogementDesc : '' ,
             oneLogementPrice : '' ,
             oneLogementAddress : '' ,
+            oneLogementChambre : '' ,
+            oneLogementPers : '' ,
             oneReservation : '' ,
             oneLogement : '' ,
             logement : '' ,
@@ -493,6 +511,8 @@ export default {
             logementType : '' ,
             logementDesc : '' ,
             logementSurface : '' ,
+            logementChambre : '' ,
+            logementPers : '' ,
             logementLoyer : '' ,
             logementAddress : '',
             files: null,
@@ -671,6 +691,8 @@ export default {
             this.oneLogementType = res.data.type
             this.oneLogementDesc = res.data.description
             this.oneLogementSurface = res.data.surface
+            this.oneLogementChambre = res.data.chambre
+            this.oneLogementPers = res.data.pers_max
             this.oneLogementPrice = res.data.price[0].date.value
             this.oneLogementAddress = res.data.address
            }).catch(error => {
@@ -691,6 +713,8 @@ export default {
             formData.append('description' , this.logementDesc)
             formData.append('surface' , this.logementSurface)
             formData.append('address' , this.logementAddress)
+            formData.append('chambre' , this.logementChambre)
+            formData.append('pers_max' , this.logementPers)
             formData.append('modalite' , this.$store.state.modalite)
             formData.append('price' , this.logementLoyer)
             if(this.files){
@@ -717,6 +741,8 @@ export default {
                 type : this.oneLogementType,
                 description : this.oneLogementDesc,
                 surface : this.oneLogementSurface,
+                chambre : this.oneLogementChambre,
+                pers_max : this.oneLogementPers,
                 address : this.oneLogementAddress,
                 price : this.oneLogementPrice,
             }).then(() => {

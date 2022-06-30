@@ -15,15 +15,15 @@
   
     <div v-for="logement in logements" v-bind:key="logement._id" class="flex flex-col oneLogement items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img class="object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg" src="../assets/img(2).jpg" alt="">
-        <div class="flex flex-col w-full justify-between p-4 leading-normal">
+        <div class="flex flex-col w-full justify-start items-start p-4 leading-normal">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{logement.name}}</h5>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{logement.type}}</p>
-            <div class="flex justify-center  w-full mb-4">
-              <p class="flex items-center mr-4" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>2</p>
-              <p class="flex items-center ml-4" ><box-icon type='solid' class="mr-1" name='group'></box-icon>5</p>
+            <div class="flex justify-start  w-full mb-2 mt-5">
+              <p class="flex items-center mr-2 text-sm" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>{{logement.chambre}} chambres</p>
+              <p class="flex items-center ml-2 text-sm" ><box-icon type='solid' class="mr-1" name='group'></box-icon>{{logement.pers_max}} personnes</p>
             </div>
-            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.price[0].date.value}} Ar / jour</p>
-             <div class="duo flex justify-center">
+            <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{logement.price[0].date.value}} Ar <span class="text-sm font-normal text-gray-500">/ jour</span> </p>
+             <div class="duo flex justify-start w-full">
               <a href="/logement" class="detail btn " @click="getLogementId(logement._id)" >Détails</a>
               <a :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
             </div>
@@ -274,16 +274,16 @@ export default {
   text-align: left;
 }
 .btn{
-  background: var(--primary-color-4);
   margin-right: 1rem;
-  color: white;
-  padding: .5rem 1rem;
   border-radius: .5rem;
+  background-color : var(--primary-color-4);
+  padding : 0.5rem 1rem 0.5rem 1rem;
+  color:white;
+  font-size: 0.9rem;
 }
 .btn:hover{
-  background: var(--primary-color-5);
-  transition: ease .3s all
-  
+  transition: ease .3s all;
+  background-color : var(--primary-color-5);
 }
 .l-dispo{
   margin : 1rem;
