@@ -106,8 +106,8 @@ export default {
 .links ul li{
     color : var(--primary-color-5);
     border-radius: .5rem;
-    margin-left : .25rem;
-    margin-right: .25rem;
+    margin-left : .45rem;
+    margin-right: .45rem;
 }
 .links{
     margin-right: 1rem;
@@ -120,7 +120,7 @@ export default {
     text-decoration: none;
 }
 .navText{
-    font-weight: 600;
+    font-weight: 400;
 }
 .links ul li :hover,
 .links ul li.active  {

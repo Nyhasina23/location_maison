@@ -837,9 +837,9 @@ export default {
     color : rgb(247, 247, 247);
     list-style-type: none;
 }
-.leftSideBar ul li span{
+/* .leftSideBar ul li span{
     margin-left: 1rem;
-}
+} */
 .right{
     display: flex;
     flex-direction : column;
