@@ -12,7 +12,7 @@
                         </span>
                     </router-link>
                 </li>
-                <li v-if=" adminStatus > 1 && $store.state.isAuth">
+                <li  v-if=" adminStatus > 1 && $store.state.isAuth">
                     <a href="/admin">
                         <span class="navText">
                             Administration
@@ -106,6 +106,8 @@ export default {
 .links ul li{
     color : var(--primary-color-5);
     border-radius: .5rem;
+    margin-left : .25rem;
+    margin-right: .25rem;
 }
 .links{
     margin-right: 1rem;
@@ -120,8 +122,11 @@ export default {
 .navText{
     font-weight: 600;
 }
-.links ul li :hover  {
-    background:var(--primary-color-3-transp)
+.links ul li :hover,
+.links ul li.active  {
+    background:var(--primary-color-3-transp);
+    border-radius: .5rem;
+    transition: ease all .2s;
 }
 .links ul li a span  {
     padding : 0.5rem;

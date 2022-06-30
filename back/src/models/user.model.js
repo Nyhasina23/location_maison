@@ -5,6 +5,9 @@ const UserSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    concat:{
+        type:String,
+    },
     firstname: {
         type: String,
     },

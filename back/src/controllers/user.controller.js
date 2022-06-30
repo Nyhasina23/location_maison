@@ -6,6 +6,9 @@ const { sha } = require('../modules/sha256.js');
 const jwtdecode = require('jwt-decode')
 const mongoose = require('mongoose');
 class UserController {
+    static search = async (req, res) => {
+
+    }
     static edit = async (req, res) => {
         const _id = new mongoose.Types.ObjectId();
         const firstname = req.body.firstname;
