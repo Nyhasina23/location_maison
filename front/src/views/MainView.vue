@@ -25,7 +25,7 @@
             <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{logement.price[0].date.value}} Ar <span class="text-sm font-normal text-gray-500">/ jour</span> </p>
              <div class="duo flex justify-start w-full">
               <a href="/logement" class="detail btn " @click="getLogementId(logement._id)" >Détails</a>
-              <a :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
+              <a v-if="$store.state.isAuth" :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
             </div>
         </div>
     </div>
@@ -85,6 +85,7 @@ export default {
       await axios.get(process.env.VUE_APP_URL + '/logement/list')
       .then(res => {
         this.logements = res.data
+        console.log(res.data)
       }).catch(error => {
         console.log(error);
       })
