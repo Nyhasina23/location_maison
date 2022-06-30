@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    <p class="mb-4 text-xl mt-4 l-dispo font-bold tracking-tight text-gray-500 dark:text-white">Logement disponibles</p>
+    <p class="mb-4 text-xl mt-4 l-dispo font-semibold tracking-tight text-gray-500 dark:text-white">Logement disponibles</p>
   <div class="logementList">
    
 
@@ -18,10 +18,14 @@
         <img class="object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg" src="../assets/img(2).jpg" alt="">
         <div class="flex flex-col w-full justify-between p-4 leading-normal">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{logement.name}}</h5>
-            <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.type}}</p>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{logement.type}}</p>
+            <div class="flex justify-center  w-full mb-4">
+              <p class="flex items-center mr-4" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>2</p>
+              <p class="flex items-center ml-4" ><box-icon type='solid' class="mr-1" name='group'></box-icon>5</p>
+            </div>
             <p class="mb-3 font-bold text-gray-700 dark:text-gray-400">{{logement.price[0].date.value}} Ar / jour</p>
              <div class="duo flex justify-center">
-              <a href="/logement" class="detail btn" @click="getLogementId(logement._id)" >Détails</a>
+              <a href="/logement" class="detail btn " @click="getLogementId(logement._id)" >Détails</a>
               <a :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
             </div>
         </div>
@@ -33,7 +37,7 @@
     
 <div class="mainLogement">
     <div class="logement">
-    <h2 class="mb-4 text-xl mt-4 font-bold tracking-tight text-gray-500 dark:text-white">Quelques photos du Logement</h2>
+    <h2 class="mb-4 text-xl mt-4 font-semibold tracking-tight text-gray-500 dark:text-white">Quelques photos du Logement</h2>
     </div>
           <swiper
           :slidesPerView="3" :spaceBetween="30" :pagination="{ clickable: true, }" :modules="modules" class="mySwiper">

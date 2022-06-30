@@ -45,6 +45,8 @@ class LogementController {
             const description = req.body.description;
             const surface = req.body.surface;
             const address = req.body.address;
+            const chambre = req.body.chambre;
+            const pers_max = req.body.pers_max;
             const modalite = req.body.modalite;
             const price = req.body.price;
             if(name == '' || type == '' || description == '' || surface == '' || address == '' 
@@ -58,6 +60,8 @@ class LogementController {
                     description ,
                     surface ,
                     address ,
+                    chambre ,
+                    pers_max,
                     modalite ,
                     price: [{
                        date : {

@@ -31,6 +31,12 @@ const LogementSchema = mongoose.Schema({
 
         type : String
     } ,
+    chambre : { 
+        type : Number
+    } , 
+    pers_max : {
+        type : Number
+    } ,
     images : [{
         type : mongoose.Schema.Types.ObjectId ,
         ref : 'image'
