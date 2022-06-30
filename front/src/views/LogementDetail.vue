@@ -84,7 +84,7 @@
     </div>
     <div class="logement-footers relative  overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex-col">
-            <p>350000 Ar / jour</p>
+            <p>{{price}} Ar / jour</p>
         </div>
 
         <a href="/reservation/detail" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "  @click="getLogementId(logement._id)">Réserver</a>
@@ -98,7 +98,8 @@ export default {
     name : 'LogementDetail' ,
     data() {
         return {
-            logement : ''
+            logement : '' ,
+            price : ''
         }
     },
     async mounted () {
@@ -106,6 +107,7 @@ export default {
         await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
         .then(res => {
             this.logement = res.data
+            this.price = res.data.price[0].date.value
 
             let mod = document.querySelectorAll('.mod');
             let modArray = []

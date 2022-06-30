@@ -97,6 +97,34 @@ class reservationController {
         }
 
     }
+
+    static getReservationAcompte = async (req , res) => {
+        try {
+            const reservation = await ReservationModel.find({state : 2})
+            res.status(200).send(reservation)
+        } catch (error) {
+            res.status(500).send()
+        }
+    }
+
+    static getReservationPayed = async (req , res) => {
+        try {
+            const reservation = await ReservationModel.find({state : 1})
+            res.status(200).send(reservation)
+        } catch (error) {
+            res.status(500).send()
+        }
+    }
+
+    static getReservationNotPayed = async (req , res) => {
+        try {
+            const reservation = await ReservationModel.find({state : 3})
+            res.status(200).send(reservation)
+        } catch (error) {
+            res.status(500).send()
+        }
+    }
+
     static validateReservation = async (req, res) => {
         try {
             const reservationId = req.body.reservation;
