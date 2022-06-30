@@ -148,6 +148,8 @@ class LogementController {
         const name = req.body.name;
         const type = req.body.type;
         const description = req.body.description;
+        const chambre = req.body.chambre;
+        const pers_max = req.body.pers_max;
         const surface = req.body.surface;
         const address = req.body.address;
         const price = req.body.price;
@@ -160,6 +162,8 @@ class LogementController {
                 name ,
                 type ,
                 description ,
+                chambre , 
+                pers_max ,
                 surface ,
                 address ,
                 price: [{
