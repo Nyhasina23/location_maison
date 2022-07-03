@@ -14,7 +14,7 @@
   <div class="logementList">
   
     <div v-for="logement in logements" v-bind:key="logement._id" class="flex flex-col oneLogement items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img class="object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg" src="../assets/img(2).jpg" alt="">
+        <img  :class="'x'+logement._id+' logement object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg'" src="../assets/img(2).jpg" alt="">
         <div class="flex flex-col w-full justify-start items-start p-4 leading-normal">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{logement.name}}</h5>
             <p class="mb-3 font-normal text-gray-400 dark:text-gray-400">{{logement.type}}</p>
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+
+import getImage from '../services/getImages.js';
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -83,9 +85,22 @@ export default {
     },
     async mounted() {
       await axios.get(process.env.VUE_APP_URL + '/logement/list')
-      .then(res => {
+      .then(async (res) => {
         this.logements = res.data
-        console.log(res.data)
+        
+        setTimeout(async () =>{
+
+          for(let i = 0; i<res.data.length;i++){
+            const imageUrl = await getImage.get(res.data[i].images[0]);
+            console.log(imageUrl)
+            const tempId = ".x"+res.data[i]._id
+
+            console.log(tempId)
+            const image = document.querySelector(tempId)
+            console.log(image)
+            image.setAttribute('src', imageUrl)
+          }
+        },2000)
       }).catch(error => {
         console.log(error);
       })
