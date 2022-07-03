@@ -94,6 +94,8 @@ export default {
     justify-content: space-between;
     box-shadow: var(--soft-shadow);
     padding : .5rem 1.5rem;
+    max-width: 100vw;
+    overflow: hidden;
     
 }
 .navBar .logo{
@@ -123,10 +125,12 @@ export default {
     font-weight: 400;
 }
 .links ul li :hover,
+.links ul li :focus,
 .links ul li.active  {
     background:var(--primary-color-3-transp);
     border-radius: .5rem;
     transition: ease all .2s;
+
 }
 .links ul li a span  {
     padding : 0.5rem;
