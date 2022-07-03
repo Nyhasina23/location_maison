@@ -2,8 +2,8 @@
   <div class="main">
     <div class="header">
         <div class="header-container">
-          <p class="siteName">Site de location</p>
-            <h2 class="font-light" >Vous êtes à la recherche d’une maison à louer ? Venez découvrir sur notre site les annonces immobilières de maisons en location. De nombreux logements pourront répondre à vos besoins et exigences </h2>
+          <p class="siteName"> {{$t("site_location")}} </p>
+            <h2 class="font-light" > {{$t("header_text")}} </h2>
             <div v-if="!$store.state.isAuth"  class="header-btn">
                 <router-link class="btn-primary" to="/signin">LANCEZ-VOUS</router-link>
                 <router-link class="btn-second" to="/signup">RESERVER</router-link>
