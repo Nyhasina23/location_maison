@@ -110,6 +110,8 @@ class LogementController {
             res.status(500).send(error)
         }
     }
+    
+    
 
     static delete = async (req, res) => {
         try {

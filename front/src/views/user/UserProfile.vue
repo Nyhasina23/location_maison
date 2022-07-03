@@ -15,25 +15,6 @@
                   <div class="relative w-full overflow-x-auto   sm:rounded-lg">
                         <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">Vos réservations</h3>
 
-                        <table class="mb-4" >
-                             <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" @click="toggleActive" id="link1"  class="px-6 py-3 link active">
-                                        Toutes les réservations
-                                    </th>
-                                    <th scope="col" @click="toggleActive" id="link2"  class="px-6 py-3 link ">
-                                        Non Payé 
-                                    </th>
-                                    <th scope="col" @click="toggleActive" id="link3" class="px-6 py-3 link">
-                                        Avec acompte 
-                                    </th>
-                                    <th scope="col" @click="toggleActive" id="link4" class="px-6 py-3 link">
-                                        Payé
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>

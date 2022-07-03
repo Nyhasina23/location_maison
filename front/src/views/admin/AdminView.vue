@@ -41,16 +41,16 @@
                         <table class="mb-4" >
                              <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" @click="toggleActive" id="link1"  class="px-6 py-3 link active">
+                                    <th scope="col" @click="toggleActive($event); allReservation();" id="link1"  class="px-6 py-3 link active">
                                         Toutes les réservations
                                     </th>
-                                    <th scope="col" @click="toggleActive" id="link2"  class="px-6 py-3 link ">
+                                    <th scope="col" @click="toggleActive($event); reservationNotPayed(); " id="link2"  class="px-6 py-3 link ">
                                         Non Payé 
                                     </th>
-                                    <th scope="col" @click="toggleActive" id="link3" class="px-6 py-3 link">
+                                    <th scope="col" @click="toggleActive($event); reservationAcompte();" id="link3" class="px-6 py-3 link">
                                         Avec acompte 
                                     </th>
-                                    <th scope="col" @click="toggleActive" id="link4" class="px-6 py-3 link">
+                                    <th scope="col" @click="toggleActive($event); reservationPayed()" id="link4" class="px-6 py-3 link">
                                         Payé
                                     </th>
                                 </tr>
@@ -611,6 +611,39 @@ export default {
               }
             }
         } ,
+
+        async allReservation(){
+            await axios.get(process.env.VUE_APP_URL+'/reservation/')
+            .then(res => {
+                this.reservation = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        async reservationNotPayed(){
+            await axios.get(process.env.VUE_APP_URL+'/reservation/notPayed')
+            .then(res => {
+                this.reservation = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        async reservationAcompte(){
+            await axios.get(process.env.VUE_APP_URL+'/reservation/acompte')
+            .then(res => {
+                this.reservation = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        async reservationPayed(){
+            await axios.get(process.env.VUE_APP_URL+'/reservation/payed')
+            .then(res => {
+                this.reservation = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
         showLogementView(){
             this.showLogement = true;
             this.showReservation = false;
