@@ -8,5 +8,17 @@
     "people" : "Olona" ,
     "accomodation_photo" : "Sary sasantsasany amin'ny trano",
     "contact" : "Hifandray aminay",
-    "detail" : "Bebe kokoa"
+    "detail" : "Bebe kokoa",
+    "home" : "Fandraisana",
+    "administration" : "Fitantanana",
+    "signup" : "Manoratra anarana",
+    "signin" : "Miditra" ,
+    "profile" : "Mombamomba",
+    "logout" : "Mivoaka",
+    "se_connecter" : "Hiditra amin'ny tranokala",
+    "connexion" : "Hiditra",
+    "email" : "Mailaka" , 
+    "password": "Teny miafina",
+    "not_account" : "Tsy manana kaonty ianao?",
+    "inscrire" : "Hisoratra anarana"
 }

@@ -8,42 +8,42 @@
                 <li>
                     <router-link to="/">  
                         <span class="navText">
-                            Accueil
+                            {{$t("home")}}
                         </span>
                     </router-link>
                 </li>
                 <li  v-if=" adminStatus > 1 && $store.state.isAuth">
                     <a href="/admin">
                         <span class="navText">
-                            Administration
+                             {{$t("administration")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="!$store.state.isAuth">
                     <a href="/signup">
                         <span class="navText">
-                            Inscription
+                             {{$t("signup")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="!$store.state.isAuth"  >
                     <a href="/signin">
                         <span class="navText">
-                            Connexion
+                             {{$t("signin")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="$store.state.isAuth">
                     <a href="/user/account">
                         <span class="navText">
-                            Profile
+                             {{$t("profile")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="$store.state.isAuth" @click="logout">
                     <a href="/">
                         <span class="navText">
-                            Deconnexion
+                             {{$t("logout")}}
                         </span>
                     </a>
                 </li>

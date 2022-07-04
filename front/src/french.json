@@ -8,5 +8,17 @@
     "people" : "personnes" ,
     "accomodation_photo" : "QUELQUES PHOTOS DU LOGEMENT",
     "contact" : "Contactez-nous",
-    "detail" : "détails"
+    "detail" : "détails",
+    "home" : "Accueil",
+    "administration" : "Administration",
+    "signup" : "Inscription",
+    "signin" : "Connexion" ,
+    "profile" : "Profil",
+    "logout" : "Deconnexion",
+    "se_connecter" : "Se connecter",
+    "connexion" : "Connexion",
+    "email" : "Adresse éléctronique" , 
+    "password": "Mot de passe",
+    "not_account" : "Vous n'avez pas de compte?",
+    "inscrire" : "S'inscrire"
 }
