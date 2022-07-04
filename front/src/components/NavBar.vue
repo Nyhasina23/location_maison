@@ -47,6 +47,12 @@
                         </span>
                     </a>
                 </li>
+                 <!-- Language -->
+                <div id="lang-switch">
+                    <img src="../assets/32271_madagascar_flag_icon.png" alt="" class="mg" @click="switchMg">
+                    <img src="https://cdn3.iconfinder.com/data/icons/finalflags/256/France-Flag.png" class="fr" @click="switchFr">
+                    <img src="https://cdn3.iconfinder.com/data/icons/finalflags/256/United-Kingdom-flag.png" class="en" @click="switchEn">
+                </div>
             </ul>
         </div>
     </div>
@@ -66,6 +72,9 @@ export default {
     },
     mounted(){
         this.getAdminStatus();
+        document.querySelector('.mg').classList.add(localStorage.getItem('mg-lang-class'))
+        document.querySelector('.fr').classList.add(localStorage.getItem('fr-lang-class'))
+        document.querySelector('.en').classList.add(localStorage.getItem('en-lang-class'))
     },
     methods: {
         logout(){
@@ -81,12 +90,77 @@ export default {
             }).catch(error => {
                 console.log(error);
             })
+        } ,
+        switchMg(){
+            document.querySelector('.mg').classList.add("active-flag");
+            document.querySelector('.en').classList.remove("active-flag");
+            localStorage.setItem("lang", "mg");
+            localStorage.setItem('mg-lang-class' , 'active-flag' )
+            localStorage.removeItem('en-lang-class')
+            localStorage.removeItem('fr-lang-class')
+            window.location.reload();
+         
+        },
+        switchFr(){
+            document.querySelector('.fr').classList.add("active-flag");
+            document.querySelector('.en').classList.remove("active-flag");
+            localStorage.setItem("lang", "fr");
+            localStorage.setItem('fr-lang-class' , 'active-flag' )
+            localStorage.removeItem('en-lang-class')
+            localStorage.removeItem('mg-lang-class')
+            window.location.reload();
+         
+        },
+        switchEn(){
+            document.querySelector('.en').classList.add("active-flag");
+            document.querySelector('.fr').classList.remove("active-flag");
+            localStorage.setItem("lang", "en");
+            localStorage.setItem('en-lang-class' , 'active-flag' )
+            localStorage.removeItem('fr-lang-class')
+            localStorage.removeItem('mg-lang-class')
+            window.location.reload();
         }
     },
 }
 </script>
 
 <style scoped>
+#lang-switch img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+  transition: all .5s;
+  margin: auto 3px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#lang-switch{
+  display: flex;
+}
+#lang-switch img:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.fr_lang,
+.en_lang {
+  display: none;
+  transition: display .5s;
+}
+
+/* Language */
+.active-lang {
+  display: flex !important;
+  transition: display .5s;
+}
+
+.active-flag {
+  transition: all .5s;
+  opacity: 1 !important;
+}
+
 
 .navBar{
     display: flex;
