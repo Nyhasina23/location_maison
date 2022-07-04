@@ -29,5 +29,24 @@
     "have_account" : "Avez-vous déjà un compte? ",
     "male" :"Masculin",
     "female" : "Féminin",
-    "day" : "jour"
+    "day" : "jour",
+    "book_head" : "Veuillez faire glisser les deux boutons sur le calendrier pour choisir votre date de réservation",
+    "try" : "Réessayer",
+    "entry_date" : "Date d'entrée",
+    "release_date" : "Date de sortie",
+    "info" : "Vos informations",
+    "nbr_pers" : "Nombre de personnes" ,
+    "entry_time" : "Heure d'entrée",
+    "exit_time" : "Heure de sortie",
+    "transport" : "Transport",
+    "AT" : "Avec transport aller",
+    "ST" : "Sans transport",
+    "AR" : "Avec transport aller et retour",
+    "payemnt_ref" : "Veuillez entrer la référence de votre paiement" ,
+    "ref" : "Référence" ,
+    "transfer" : "Type de transfert",
+    "toPay" : "Total à payer" ,
+    "confirm_res" : "Valider réservation",
+    "booking" : "Réservations"
+
 }

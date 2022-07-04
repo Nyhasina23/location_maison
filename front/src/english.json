@@ -36,7 +36,18 @@
     "release_date" : "release date",
     "info" : "Your informations",
     "nbr_pers" : "Person number" ,
-    "entry_tile" : "Entry time",
+    "entry_time" : "Entry time",
     "exit_time" : "Exit time",
-    "transport" : "transportation"
+    "transport" : "transportation",
+    "AT" : "with one-way transport",
+    "ST" : "without transportation",
+    "AR" : "with return transport",
+    "payemnt_ref" : "Please enter your payment reference" ,
+    "ref" : "Reference" ,
+    "transfer" : "Transfer type",
+    "toPay" : "Total to pay" ,
+    "confirm_res" : "Confirm",
+    "booking" : "Booking"
+
+
 }

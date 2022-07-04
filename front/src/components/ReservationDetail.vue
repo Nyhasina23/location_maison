@@ -2,46 +2,46 @@
   <div class="logementModal">
       <div class="logement-content">
             <div class="logement-img">
-              <p class="para text-2xl mb-2 font-semibold">Réservations</p>
-              <p class="mb-8 para text-left">Veuillez glisser les deux boutons sur le calendrier pour choisir votre date de réservation</p>
+              <p class="para text-2xl mb-2 font-semibold"> {{$t('bookings')}} </p>
+              <p class="mb-8 para text-left"> {{$t('book_head')}} </p>
               <div class="flex w-full ">
                   <button @click="mount" class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Reéssayer</button>
-                  <div id="draggable-start" class="toDrag">Date d'entrée</div>
-                  <div id="draggable-end"  class="toDrag" >Date d'arrivée</div>
+                  <div id="draggable-start" class="toDrag"> {{$t('entry_date')}} </div>
+                  <div id="draggable-end"  class="toDrag" > {{$t('release_date')}} </div>
               </div>
                   <div class="calendar" id="calendar"></div>
             </div>
             <div class="logement-detail">
-                <h1 class="text-xl mb-10 mt-4 font-semibold">Vos Informations</h1>
+                <h1 class="text-xl mb-10 mt-4 font-semibold"> {{$t('info')}} </h1>
                 <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre de personne</label>
+                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('nbr_pers')}} </label>
                     <input type="number" v-model="nbr_pers" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date d'entrée</label>
+                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('entry_date')}} </label>
                     <input type="text" v-model="startDisplay" disabled id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
                 </div>
                 <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date de sortie</label>
+                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('release_date')}} </label>
                     <input type="text" v-model="endDisplay" disabled id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 
                  <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Heure d'entrée</label>
+                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('entry_time')}} </label>
                     <input type="time" id="base-input" v-model="entry_hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 
                 </div>
                  <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Heure de sortie</label>
+                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('exit_time')}} </label>
                     <input type="time" id="base-input" v-model="leave_hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
 
-                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Transport</label>
+                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{$t('transport')}}</label>
                  <select id="countries" v-model="transport" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="AT" >AT avec transport aller </option>
-                    <option value="ST" >ST sans transport</option>
-                    <option value="AR" >AR avec aller et retour</option>
+                    <option value="AT" >{{$t('AT')}} </option>
+                    <option value="ST" > {{$t('ST')}}</option>
+                    <option value="AR" > {{$t('AR')}}</option>
                  </select>
 
                 <!-- Main modal -->
@@ -54,15 +54,15 @@
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                             </button>
                             <div class="py-6 px-6 lg:px-8">
-                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Veuillez entrer la référence de votre paiement</h3>
+                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"> {{$t('payment_ref')}}</h3>
                                 <form class="space-y-6" action="#">
                                     <div>
-                                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Référence</label>
+                                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('ref')}}</label>
                                         <input v-model="reference" type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="">
 
                                     </div>
                                     <div>
-                                        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Type de transfert</label>
+                                        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{$t('transfer')}}</label>
                                          <select id="countries" v-model="transfert" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                              <option>MVola</option>
                                              <option>BNI</option>
@@ -72,9 +72,9 @@
                                     <p class="text-sm methode" >Mvola : +2613489758426</p>
                                     <p class="text-sm methode" >BNI : 108 1235 45 5452</p>
                                     <p class="text-sm methode" >Paypal : nyhasina@gmail.com</p>
-                                    <p class="text-sm underline" >Total à payer</p>
+                                    <p class="text-sm underline" > {{$t('toPay')}}</p>
                                     <p class="text-xl">{{price ? price : '0'}} AR</p>
-                                    <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider réservation</button>
+                                    <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> {{$t('confirm_res')}}</button>
                                   
                                 </form>
                             </div>
