@@ -1,4 +1,12 @@
 {
     "site_location" : "Location site",
-    "header_text" : "Are you looking for a house to rent? Come and discover on our site the real estate advertisements of houses for rent. Many accommodations can meet your needs and requirements"
+    "header_text" : "Are you looking for a house to rent? Come and discover on our site the real estate advertisements of houses for rent. Many accommodations can meet your needs and requirements",
+    "started" : "Get started",
+    "reserve" : "book",
+    "accomodation" : "ACCOMMODATION AVAILABLE",
+    "bedrooms" : "bedrooms",
+    "people" : "people" ,
+    "accomodation_photo" : "SOME PHOTOS OF THE ACCOMMODATION",
+    "contact" : "contact us",
+    "detail" : "More"
 }

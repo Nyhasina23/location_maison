@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="line"></div>
         <div class="social-content">
-            <h4>Contactez-nous</h4>
+            <h4>{{$t("contact")}}</h4>
             <div class="flex">
                 <h5 class="flex justify-center"><box-icon type='solid' class="icons mr-2" name='phone-call'></box-icon> 03325145698 </h5>
                 <h5 class="flex justify-center"><box-icon type='logo' class="icons mr-2"  name='facebook-circle'></box-icon> nyhasina finaritra </h5>

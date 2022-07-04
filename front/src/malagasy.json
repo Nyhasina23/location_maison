@@ -1,4 +1,12 @@
 {
-    "site_location" : "Tranokala",
-    "header_text" : "Mitady trano hofaina ve ianao? Tongava ary fantaro ato amin'ny tranokalanay ny dokam-barotra momba ny trano hofaina. Toerana maro no afaka mahafeno ny filanao sy ny zavatra ilainao"
+    "site_location" : "Tranonkala fanofana",
+    "header_text" : "Mitady trano hofaina ve ianao? Tongava ary fantaro ato amin'ny tranokalanay ny dokam-barotra momba ny trano hofaina. Toerana maro no afaka mahafeno ny filanao sy ny zavatra ilainao",
+    "started" : "Manomboka",
+    "reserve" : "Hamandrika",
+    "accomodation" : "Trano malalaka",
+    "bedrooms" : "Hefitra",
+    "people" : "Olona" ,
+    "accomodation_photo" : "Sary sasantsasany amin'ny trano",
+    "contact" : "Hifandray aminay",
+    "detail" : "Bebe kokoa"
 }
