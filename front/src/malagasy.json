@@ -20,5 +20,14 @@
     "email" : "Mailaka" , 
     "password": "Teny miafina",
     "not_account" : "Tsy manana kaonty ianao?",
-    "inscrire" : "Hisoratra anarana"
+    "inscrire" : "Hisoratra anarana",
+    "firstname" : "Anarana",
+    "lastname" : "Fanampiny" ,
+    "gender" : "Lahy na Vavy" ,
+    "address" : "Toeram-ponenana",
+    "phone" : "Laharana finday" ,
+    "have_account" : "Efa manana kaonty ianao? ",
+    "male" :"Lahy",
+    "female" : "Vavy",
+    "day" : "isanandro"
 }

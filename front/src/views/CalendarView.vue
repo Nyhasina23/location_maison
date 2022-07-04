@@ -33,7 +33,7 @@ export default {
         let dispo =  res.data.disponibility;
         for(let i = 0; i<dispo.length; i++){
           const date = new Date(dispo[i].end);
-          date.setDate(date.getDate());
+          date.setDate(date.getDate() + 1);
           dispo[i].end = date;
           dispo[i].allDay = true;
         }

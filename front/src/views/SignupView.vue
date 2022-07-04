@@ -4,7 +4,7 @@
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <div class="py-6 px-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"> {{$t('')}} </h3>
+                    <h3 class="mb-4 text-xl text-center font-medium text-gray-900 dark:text-white"> {{$t('inscrire')}} </h3>
                     <form class="space-y-6" action="#">
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$t('firstname')}} </label>

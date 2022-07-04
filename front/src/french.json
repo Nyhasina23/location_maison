@@ -20,5 +20,14 @@
     "email" : "Adresse éléctronique" , 
     "password": "Mot de passe",
     "not_account" : "Vous n'avez pas de compte?",
-    "inscrire" : "S'inscrire"
+    "inscrire" : "S'inscrire",
+    "firstname" : "Nom",
+    "lastname" : "Prénoms" ,
+    "gender" : "Sexe" ,
+    "address" : "Adresse",
+    "phone" : "Téléphone" ,
+    "have_account" : "Avez-vous déjà un compte? ",
+    "male" :"Masculin",
+    "female" : "Féminin",
+    "day" : "jour"
 }

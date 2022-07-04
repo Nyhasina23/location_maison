@@ -2,7 +2,7 @@
     "site_location" : "Location site",
     "header_text" : "Are you looking for a house to rent? Come and discover on our site the real estate advertisements of houses for rent. Many accommodations can meet your needs and requirements",
     "started" : "Get started",
-    "reserve" : "book",
+    "reserve" : "Book",
     "accomodation" : "ACCOMMODATION AVAILABLE",
     "bedrooms" : "bedrooms",
     "people" : "people" ,
@@ -28,5 +28,15 @@
     "phone" : "Phone" ,
     "have_account" : "Already have an account?",
     "male" :"Male",
-    "female" : "Female"
+    "female" : "Female",
+    "day" : "day",
+    "book_head" : "please slide the two buttons on the calendar to choose your booking date",
+    "try" : "Try again",
+    "entry_date" : "entry date",
+    "release_date" : "release date",
+    "info" : "Your informations",
+    "nbr_pers" : "Person number" ,
+    "entry_tile" : "Entry time",
+    "exit_time" : "Exit time",
+    "transport" : "transportation"
 }
