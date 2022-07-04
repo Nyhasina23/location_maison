@@ -2,15 +2,15 @@
   <div class="main">
     <div class="header">
         <div class="header-container">
-          <p class="siteName">Site de location</p>
-            <h2 class="font-light" >Vous êtes à la recherche d’une maison à louer ? Venez découvrir sur notre site les annonces immobilières de maisons en location. De nombreux logements pourront répondre à vos besoins et exigences </h2>
+          <p class="siteName"> {{$t("site_location")}} </p>
+            <h2 class="font-light" > {{$t("header_text")}} </h2>
             <div v-if="!$store.state.isAuth"  class="header-btn">
-                <router-link class="btn-primary" to="/signin">LANCEZ-VOUS</router-link>
-                <router-link class="btn-second" to="/signup">RESERVER</router-link>
+                <router-link class="btn-primary uppercase" to="/signin">{{$t("started")}}</router-link>
+                <router-link class="btn-second uppercase" to="/signup">{{$t("reserve")}}</router-link>
             </div>
         </div>
     </div>
-    <p class="mb-4 text-sm mt-4 l-dispo font-semibold uppercase text-gray-500 dark:text-white text-center">Logement disponibles</p>
+    <p class="mb-4 text-sm mt-4 l-dispo font-semibold uppercase text-gray-500 dark:text-white text-center">{{$t("accomodation")}}</p>
   <div class="logementList">
   
     <div v-for="logement in logements" v-bind:key="logement._id" class="flex flex-col oneLogement items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -19,13 +19,13 @@
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{logement.name}}</h5>
             <p class="mb-3 font-normal text-gray-400 dark:text-gray-400">{{logement.type}}</p>
             <div class="flex justify-start  w-full mb-2 mt-5">
-              <p class="flex items-center mr-2 text-sm" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>{{logement.chambre}} chambres</p>
-              <p class="flex items-center ml-2 text-sm" ><box-icon type='solid' class="mr-1" name='group'></box-icon>{{logement.pers_max}} personnes</p>
+              <p class="flex items-center mr-2 text-sm" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>{{logement.chambre}} {{$t("bedrooms")}}</p>
+              <p class="flex items-center ml-2 text-sm" ><box-icon type='solid' class="mr-1" name='group'></box-icon>{{logement.pers_max}} {{$t("people")}}</p>
             </div>
             <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{logement.price[0].date.value}} Ar <span class="text-sm font-normal text-gray-500">/ jour</span> </p>
              <div class="duo flex justify-start w-full">
-              <a href="/logement" class="detail btn " @click="getLogementId(logement._id)" >Détails</a>
-              <a v-if="$store.state.isAuth" :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >Réserver</a>
+              <a href="/logement" class="detail btn " @click="getLogementId(logement._id)" >{{$t("detail")}}</a>
+              <a v-if="$store.state.isAuth" :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >{{$t("reserve")}}</a>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
     
 <div class="mainLogement">
     <div class="logement justify-center">
-    <h2 class="mb-4 text-sm mt-4 font-semibold uppercase text-gray-500 dark:text-white text-center">Quelques photos du Logement</h2>
+    <h2 class="mb-4 text-sm mt-4 font-semibold uppercase text-gray-500 dark:text-white text-center">{{$t("accomodation_photo")}}</h2>
     </div>
           <swiper
           :slidesPerView="3" :spaceBetween="30" :pagination="{ clickable: true, }" :modules="modules" class="mySwiper">
