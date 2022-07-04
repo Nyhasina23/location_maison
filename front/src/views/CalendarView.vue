@@ -35,6 +35,7 @@ export default {
           const date = new Date(dispo[i].end);
           date.setDate(date.getDate());
           dispo[i].end = date;
+          dispo[i].allDay = true;
         }
 
        let calendar = new Calendar(calendarElement , {
