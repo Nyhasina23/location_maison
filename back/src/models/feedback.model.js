@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 const FeedbackSchema = mongoose.Schema({
     author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref : 'users'
+        type: String,
     },
     content:{
         type:String,
