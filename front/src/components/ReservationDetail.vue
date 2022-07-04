@@ -5,7 +5,7 @@
               <p class="para text-2xl mb-2 font-semibold"> {{$t('bookings')}} </p>
               <p class="mb-8 para text-left"> {{$t('book_head')}} </p>
               <div class="flex w-full ">
-                  <button @click="mount" class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Reéssayer</button>
+                  <button @click="mount" class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">{{$t('try')}}</button>
                   <div id="draggable-start" class="toDrag"> {{$t('entry_date')}} </div>
                   <div id="draggable-end"  class="toDrag" > {{$t('release_date')}} </div>
               </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div> 
 
-                <button class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-modal-toggle="authentication-modal" @click="submitReservation">Reserver</button>
+                <button class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-modal-toggle="authentication-modal" @click="submitReservation">{{$t('reserve')}}</button>
             </div>
 
             <div v-if="success" id="popup-modal" tabindex="-1" class="modals overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">

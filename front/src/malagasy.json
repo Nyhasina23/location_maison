@@ -42,7 +42,7 @@
     "AT" : "Miaraka amin'ny fitaterana tokana",
     "ST" : "Tsy misy fitanterana",
     "AR" : "Miaraka amin'ny fitaterana mandroso miverina",
-    "payemnt_ref" : "Ampidiro azafady ny tondro fandoavanao" ,
+    "payment_ref" : "Ampidiro azafady ny tondro fandoavanao" ,
     "ref" : "Famantarana" ,
     "transfer" : "Karazana famindrana",
     "toPay" : "Vola haloa" ,

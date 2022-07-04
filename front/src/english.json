@@ -42,7 +42,7 @@
     "AT" : "with one-way transport",
     "ST" : "without transportation",
     "AR" : "with return transport",
-    "payemnt_ref" : "Please enter your payment reference" ,
+    "payment_ref" : "Please enter your payment reference" ,
     "ref" : "Reference" ,
     "transfer" : "Transfer type",
     "toPay" : "Total to pay" ,
