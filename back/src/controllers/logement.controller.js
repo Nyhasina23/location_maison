@@ -84,10 +84,11 @@ class LogementController {
 
     static getAll = async (req, res) => {
         try {
-
+            
             const logement = await LogementModel.find()
             if (logement) {
                 res.status(200).send(logement)
+                console.log("eto");
             } else {
                 res.status(404).send('no logement')
             }

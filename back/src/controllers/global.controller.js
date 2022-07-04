@@ -24,7 +24,9 @@ class globalContoller {
             const image = await ImageModel.findById(idImage);
             const result = image.url.replace('public/','');
             res.status(200).send(result);
+            console.log(result);
         } catch (error){
+            console.log(error);
             res.status(200).send("");
         }
     }
