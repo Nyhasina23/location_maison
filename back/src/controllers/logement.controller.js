@@ -41,8 +41,10 @@ class LogementController {
             }
             const name = req.body.name;
             const type = req.body.type;
-            const description = req.body.description;
-            console.log("desc" ,description)
+            const descriptionFR = req.body.descriptionFR;
+            const descriptionMG = req.body.descriptionMG;
+            const descriptionEN = req.body.descriptionEN;
+            const description = [descriptionFR, descriptionMG, descriptionEN];
             const surface = req.body.surface;
             const address = req.body.address;
             const chambre = req.body.chambre;
@@ -84,7 +86,7 @@ class LogementController {
 
     static getAll = async (req, res) => {
         try {
-            
+
             const logement = await LogementModel.find()
             if (logement) {
                 res.status(200).send(logement)
@@ -149,7 +151,10 @@ class LogementController {
             const idLog = req.params.idLog;
             const name = req.body.name;
             const type = req.body.type;
-            const description = req.body.description;
+            const descriptionFR = req.body.descriptionFR;
+            const descriptionMG = req.body.descriptionMG;
+            const descriptionEN = req.body.descriptionEN;
+            const description = [descriptionFR, descriptionMG, descriptionEN];
             const chambre = req.body.chambre;
             const pers_max = req.body.pers_max;
             const surface = req.body.surface;
@@ -189,6 +194,6 @@ class LogementController {
 
         }
     }
-    
+
 }
 module.exports = { LogementController }

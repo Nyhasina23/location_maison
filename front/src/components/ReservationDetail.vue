@@ -190,7 +190,6 @@ export default {
       document.getElementById('draggable-end').style.display = 'block'
 
       let disponibility = await this.getDisponibility();
-      console.log(disponibility);
        let calendarElement = document.getElementById('calendar')
         let calendar = new Calendar(calendarElement , {
           initialView : 'dayGridMonth' ,
@@ -331,6 +330,12 @@ export default {
             end ,
           })
         })
+        let dispo =  res.data.disponibility;
+        for(let i = 0; i<dispo.length; i++){
+          const date = new Date(dispo[i].end);
+          date.setDate(date.getDate());
+          dispo[i].end = date;
+        }
     }).catch(error => {
       console.log(error);
     }) 

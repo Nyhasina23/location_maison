@@ -391,16 +391,16 @@
                     </p>
                     <p class="mb-2">
                         <label for="" class="mb-2">Description (en)</label>
-                        <textarea rows="4" v-model="logementDescEN" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+                        <textarea rows="4" v-model="oneLogementDescEN" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
                     </p>
                     <p class="mb-2">
                         <label for="" class="mb-2">Description (mg)</label>
-                        <textarea rows="4" v-model="logementDescMG" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+                        <textarea rows="4" v-model="oneLogementDescMG" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
                     </p>
                 
                     <p class="mb-2">
                         <label for="" class="mb-2">Description (fr)</label>
-                        <textarea rows="4" v-model="logementDescFR" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
+                        <textarea rows="4" v-model="oneLogementDescFR" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
                     </p>
                     <p></p>
                     <p></p>
@@ -519,11 +519,15 @@ export default {
             showEditLog : false ,
             showUser : false ,
             showCalendar : true ,
+            showAddLog : true ,
             reservation : '' ,
             oneLogementName : '' ,
             oneLogementType : '' ,
             oneLogementSurface : '' ,
-            oneLogementDesc : '' ,
+            oneLogementDesc : [] ,
+            oneLogementDescFR : '' ,
+            oneLogementDescMG : '' ,
+            oneLogementDescEN : '' ,
             oneLogementPrice : '' ,
             oneLogementAddress : '' ,
             oneLogementChambre : '' ,
@@ -538,7 +542,6 @@ export default {
             addLogError : '',
             editLogError : '',
             validError : '' ,
-            showAddLog : true ,
             logementName : '' ,
             logementType : '' ,
             logementDescFR : '' ,
@@ -773,12 +776,14 @@ export default {
            .then((res) => {
             this.oneLogementName = res.data.name
             this.oneLogementType = res.data.type
-            this.oneLogementDesc = res.data.description
             this.oneLogementSurface = res.data.surface
             this.oneLogementChambre = res.data.chambre
             this.oneLogementPers = res.data.pers_max
             this.oneLogementPrice = res.data.price[0].date.value
             this.oneLogementAddress = res.data.address
+            this.oneLogementDescFR = res.data.description[0]
+            this.oneLogementDescMG = res.data.description[1]
+            this.oneLogementDescEN = res.data.description[2]
            }).catch(error => {
             console.log(error);
            })
@@ -790,11 +795,13 @@ export default {
         },
         async addLogement(){
             this.isWaitAddLogement = true;
-            this.logementDesc = [this.logementDescFR,this.logementDescMG,this.logementDescEN]
+            console.log(this.logementDesc)
             const formData = new FormData();
             formData.append('name' , this.logementName)
             formData.append('type' , this.logementType)
-            formData.append('description' , this.logementDesc)
+            formData.append('descriptionFR' , this.logementDescFR)
+            formData.append('descriptionMG' , this.logementDescMG)
+            formData.append('descriptionEN' , this.logementDescEN)
             formData.append('surface' , this.logementSurface)
             formData.append('address' , this.logementAddress)
             formData.append('chambre' , this.logementChambre)
@@ -820,10 +827,14 @@ export default {
         
         async editLogement(){
             const idLog = this.$store.state.idLog;
+            this.oneLogementDesc[0,1,2] = [this.oneLogementDescFR,this.oneLogementDescMG,this.oneLogementDescEN]
+
             await axios.put(process.env.VUE_APP_URL+'/logement/'+idLog , {
                 name : this.oneLogementName,
                 type : this.oneLogementType,
-                description : this.oneLogementDesc,
+                descriptionFR : this.oneLogementDescFR,
+                descriptionMG : this.oneLogementDescMG,
+                descriptionEN : this.oneLogementDescEN,
                 surface : this.oneLogementSurface,
                 chambre : this.oneLogementChambre,
                 pers_max : this.oneLogementPers,

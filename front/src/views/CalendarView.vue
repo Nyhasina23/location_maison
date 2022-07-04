@@ -30,13 +30,19 @@ export default {
     .then((res) => {
         
        let calendarElement = document.getElementById('calendar')
-       
+        let dispo =  res.data.disponibility;
+        for(let i = 0; i<dispo.length; i++){
+          const date = new Date(dispo[i].end);
+          date.setDate(date.getDate());
+          dispo[i].end = date;
+        }
+
        let calendar = new Calendar(calendarElement , {
           initialView : 'dayGridMonth' ,
           plugins : [dayGridPlugin , interactionPlugin] ,
           editable : false ,
           droppable : true ,
-          events : res.data.disponibility ,
+          events : dispo,
         })
           
     calendar.render()

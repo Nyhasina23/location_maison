@@ -5,7 +5,7 @@
       <img  class="singleImage" v-for="(imageData,i) in imagesData" v-bind:key="i" @click="swipper(i)" :src="imageData" alt=""/>
     </div>
         <h1 class="mt-4 mb-4">{{logement.name}} </h1>
-        <p class="mb-4"> {{logement.description}} </p>  
+        <p class="mb-4"> {{description}} </p>  
         <div class="relative mb-8 overflow-x-auto shadowed sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -104,7 +104,8 @@ export default {
             price : '',
             imagesList:[],
             imagesData:[],
-            imagesBlur:[]
+            imagesBlur:[],
+            description:""
         }
     },
     async mounted () {
@@ -112,6 +113,15 @@ export default {
         await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
         .then(async res => {
             this.logement = res.data;
+            const lang = localStorage.getItem('lang');
+            if(lang=="mg"){
+                this.description = res.data.description[1]
+            }else if(lang == "fr"){
+                this.description = res.data.description[0]
+            }else{
+                this.description = res.data.description[2]
+
+            }
             this.imagesList = res.data.images;
             console.log(res.data.images)
             this.price = res.data.price[0].date.value;
