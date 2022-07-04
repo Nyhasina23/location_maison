@@ -3,47 +3,61 @@ const regex = require('../modules/regexp');
 const { UserModel } = require('../models/user.model.js');
 const { ReservationModel } = require('../models/reservation.model.js');
 const { sha } = require('../modules/sha256.js');
-const jwtdecode = require('jwt-decode')
+const jwtdecode = require('jwt-decode');
 const mongoose = require('mongoose');
+const { sendMail } = require('../modules/emailSend');
+
 class UserController {
-    static search = async (req, res) => {
-
-    }
-    static edit = async (req, res) => {
-        const _id = new mongoose.Types.ObjectId();
-        const firstname = req.body.firstname;
-        const lastname = req.body.lastname;
-        const email = req.body.email;
-        const isMale = req.body.isMale;
-        let password = req.body.password;
-        let address = req.body.address;
-        let phoneNumber = req.body.phoneNumber;
-        const regexChecked = checkRegex(firstname, lastname, email, password, phoneNumber);
-        if (regexChecked) {
-            password = sha(password);
-            const user = await UserModel.findOne({ email });
-            if (user) {
-                res.status(401).send("email allready used");
-            } else {
-                let newUser = new UserModel({
-                    _id,
-                    firstname,
-                    lastname,
-                    email,
-                    password,
-                    isMale,
-                    address,
-                    phoneNumber
-                })
-                newUser.save();
-                const token = generateToken(_id, email)
-                res.status(200).send(token);
-            }
-        } else {
-            res.status(403).send("regexp");
+    static getAllAdmin = async (req, res) => {
+        try {
+            const admins = await UserModel.find({ role: { $gt: 0 } });
+            res.status(200).send(admins);
+        } catch (error) {
+            res.status(500).send();
+            console.log(error);
         }
+    }
+    static setAdminStatus = async (req, res) => {
+        try{
+            const status = req.body.status;
+            const userId = req.body.userId;
+            const token = req.headers['authorization'].split(' ')[1];
+    
+            const mainUserId = jwtdecode(token).id;
+            let mainUser = await UserModel.findById(mainUserId);
+            if (mainUser.role > 1) {
+                let user = await UserModel.findById(userId);
+                user.role = status;
+                const text = "Votre rôle a été modifié";
+                const isSent = await sendMail(user.email, 'Promotion', text);
+                if(isSent){
+                    user.save();
+                    res.status(200).send("User role updated");
+                }else{
+                    res.status(401).send("Error while sending email");
+                }
+            } else {
+                res.status(403).send("you are not an admin");
+            }
+        }catch(error){
+            res.status(500).send("internal server error")
+            console.log(error)
+        }
+        
 
     }
+    static search = async (req, res) => {
+        const filter = req.params.filter;
+        try {
+            const users = await UserModel.find({ concat: { $regex: filter, $options: "i" } });
+            res.status(200).send(users)
+        } catch (error) {
+            res.status(500).send("error while searching user");
+            console.log(error);
+        }
+    }
+
+
     static getOneUser = async (req, res) => {
         try {
             const token = req.headers['authorization'].split(' ')[1];
@@ -55,6 +69,7 @@ class UserController {
         }
     }
 
+
     static update = async (req, res) => {
         try {
             const firstname = req.body.firstname;
@@ -63,6 +78,7 @@ class UserController {
             let password = req.body.password;
             let address = req.body.address;
             let phoneNumber = req.body.phoneNumber;
+            let concat = firstname + " " + lastname + " " + email + " " + address + " " + phoneNumber;
             let isYet = false;
             const token = req.headers['authorization'].split(' ')[1];
             const userId = jwtdecode(token).id;
@@ -88,6 +104,7 @@ class UserController {
                             address,
                             phoneNumber,
                             password,
+                            concat,
                             new: true
                         })
                 } else {
@@ -98,10 +115,10 @@ class UserController {
                 console.log("password");
                 res.status(403).send("password")
             }
-            if(!isYet){
-                if(isValid){
+            if (!isYet) {
+                if (isValid) {
                     res.status(200).send()
-                }else{
+                } else {
                     console.log("not valid");
                     res.status(403).send()
                 }
