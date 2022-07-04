@@ -13,21 +13,21 @@ export default {
 }
 </script>
 
+
 <style>
 *{
-  margin : 0;
-  padding : 0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  --tw-ring-color:none
 }
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,800;1,900&display=swap');
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  font-family: 'Poppins', sans-serif;
-  
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+  --tw-ring-color:none;
+  --tw-ring-shadow:none;
 }
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :root {
   --font: "Ubuntu";
   --main-white: #fff;
@@ -77,5 +77,76 @@ export default {
   );
   --soft-shadow :  0 2px 12px 0 rgb(0 0 0 / 10%);
   --hard-shadow :  2px 4px 14px 2px #0974d433;
+}
+
+::-webkit-scrollbar {
+  width: 0.8em;
+  display:none;
+}
+::-webkit-scrollbar-track {
+  background: var(--primary-color-1);
+  border-radius: 100vw;
+  margin-block: 0.5em;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color-4);
+  border-radius: 100vw;
+  border: 0.2em solid var(--primary-color-2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color-5);
+  border: 0.2em solid var(--primary-color-3);
+}
+
+@supports (scrollbar-color: var(--primary-color-4) var(--primary-color-1)) {
+  * {
+    scrollbar-color: var(--primary-color-4) var(--primary-color-1);
+    scrollbar-width: thin;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout:none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust:none;             /* prevent webkit from resizing text to fit */
+    -webkit-tap-highlight-color:rgba(0,0,0,0); /* prevent tap highlight color / shadow */
+    -webkit-user-select:none;
+}
+body {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.shadowed{
+  box-shadow: var(--soft-shadow)
+}
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* overflow: hidden; */
+}
+.text-gradient-small {
+  background: var(--primary-gradient-2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient-big {
+  background: var(--primary-gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

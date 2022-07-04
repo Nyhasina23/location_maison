@@ -24,7 +24,7 @@
         </div>
         <div class="logement-content-search">
             <div class="logement-img-search">
-                <img src="../../assets/img(2).jpg" alt="">
+                <img src="../../assets/placeholder.jpg" alt="">
             </div>
             <div class="logement-detail-search">
                 <h5>150000 Ar / jour</h5>

@@ -6,8 +6,8 @@
               <p class="mb-8 para text-left">Veuillez glisser les deux boutons sur le calendrier pour choisir votre date de réservation</p>
               <div class="flex w-full ">
                   <button @click="mount" class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Reéssayer</button>
-                  <div id="draggable-start" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Date d'entrée</div>
-                  <div id="draggable-end"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" >Date d'arrivée</div>
+                  <div id="draggable-start" class="toDrag">Date d'entrée</div>
+                  <div id="draggable-end"  class="toDrag" >Date d'arrivée</div>
               </div>
                   <div class="calendar" id="calendar"></div>
             </div>
@@ -190,7 +190,6 @@ export default {
       document.getElementById('draggable-end').style.display = 'block'
 
       let disponibility = await this.getDisponibility();
-      console.log(disponibility);
        let calendarElement = document.getElementById('calendar')
         let calendar = new Calendar(calendarElement , {
           initialView : 'dayGridMonth' ,
@@ -331,6 +330,13 @@ export default {
             end ,
           })
         })
+        let dispo =  res.data.disponibility;
+        for(let i = 0; i<dispo.length; i++){
+          const date = new Date(dispo[i].end);
+          date.setDate(date.getDate());
+          dispo[i].end = date;
+          dispo[i].allDay = true;
+        }
     }).catch(error => {
       console.log(error);
     }) 
@@ -395,6 +401,26 @@ export default {
 </script>
 
 <style scoped>
+.toDrag{
+  margin:8px;
+  padding: 1px 2px;
+  border-radius: 3px;
+  font-size: .85em;
+  position: relative;
+  white-space: nowrap;
+  background-color: #3788d8;
+  border: 1px solid #3788d8;
+  display: block;
+  font-stretch: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  box-sizing: inherit;
+  color: white;
+  height:fit-content;
+  width: 155px;
+  
+}
 .text-sm.methode{
   margin-top : 0 !important;
   padding: 0 !important;
