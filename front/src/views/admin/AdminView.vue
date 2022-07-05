@@ -92,7 +92,7 @@
                                         {{  oneReservation.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
                                     </td>
                                     <td class="px-6 py-4 ">
-                                        <router-link to="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons" ></box-icon></router-link>
+                                        <router-link to="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons edit" ></box-icon></router-link>
                                     </td>
                                 </tr>
                             </tbody>
@@ -153,13 +153,13 @@
                                     </td>
                                     <td class="px-6 py-4  flex w-full justify-end">
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            <box-icon type='solid' name='calendar'  class="icons"></box-icon>
+                                            <box-icon type='solid' name='calendar'  class="icons calendars"></box-icon>
                                         </router-link>
                                         <li  @click="showEditLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
-                                            <box-icon type='solid' name='edit' class="icons" ></box-icon>
+                                            <box-icon type='solid' name='edit' class="icons edit" ></box-icon>
                                         </li>
                                         <li  @click="deleteLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
-                                            <box-icon type='solid' name='trash' class="icons"></box-icon>
+                                            <box-icon type='solid' name='trash' class="icons trash"></box-icon>
                                         </li>
                                     </td>
                                 </tr>
@@ -486,7 +486,7 @@
                                     </td>
                                  
                                     <td class="px-6 py-4 ">
-                                        <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='trash' class="icons"></box-icon></a>
+                                        <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='trash' class="icons trash"></box-icon></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1040,6 +1040,7 @@ form label {
   margin-right: auto;
   padding: 1em;
 }
+
 @media (min-width: 600px) {
   .contain {
     padding: 0;
@@ -1133,5 +1134,14 @@ tr{
 }
 input[disabled]{
     background : #e5e5e5
+}
+.trash:hover{
+    fill : red;
+}
+.edit:hover{
+    fill : rgb(8, 235, 8);
+}
+.calendars:hover{
+    fill : blue;
 }
 </style>
