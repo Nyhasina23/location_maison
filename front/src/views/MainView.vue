@@ -22,7 +22,7 @@
               <p class="flex items-center mr-2 text-sm" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>{{logement.chambre}} {{$t("bedrooms")}}</p>
               <p class="flex items-center ml-2 text-sm" ><box-icon type='solid' class="mr-1" name='group'></box-icon>{{logement.pers_max}} {{$t("people")}}</p>
             </div>
-            <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{logement.price[0].date.value}} Ar <span class="text-sm font-normal text-gray-500">/ jour</span> </p>
+            <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{logement.price[0].date.value}} Ar <span class="text-sm font-normal text-gray-500">/ {{$t('day')}}</span> </p>
              <div class="duo flex justify-start w-full">
               <a href="/logement" class="detail btn " @click="getLogementId(logement._id)" >{{$t("detail")}}</a>
               <a :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >{{$t("reserve")}}</a>
