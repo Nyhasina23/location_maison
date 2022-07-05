@@ -151,7 +151,7 @@ export default {
 }
 
 .header{
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.418)), url('../assets/img(4).jpg');
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.404), rgba(0, 0, 0, 0.418)), url('../assets/img(9).jpg');
     width: 100%;
     height: 30rem;
     background-size: cover;
