@@ -42,7 +42,7 @@
     "AT" : "Avec transport aller",
     "ST" : "Sans transport",
     "AR" : "Avec transport aller et retour",
-    "payemnt_ref" : "Veuillez entrer la référence de votre paiement" ,
+    "payment_ref" : "Veuillez entrer la référence de votre paiement" ,
     "ref" : "Référence" ,
     "transfer" : "Type de transfert",
     "toPay" : "Total à payer" ,
