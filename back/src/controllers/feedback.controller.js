@@ -34,7 +34,6 @@ class FeedbackController {
         try {
             const feedback = await FeedbackModel.find()
             res.status(200).send(feedback)
-        
         } catch (error) {
             res.status(500).send()
 
