@@ -263,6 +263,7 @@ export default {
                 let can = false ;
                 this.end = new Date(info.start)
                 this.end.setHours(0,0,0,0)
+                
                 if(this.start){
                     if(this.start <= this.end) can =  true
                     if(can){
@@ -308,6 +309,7 @@ export default {
                   this.endDisplay = this.end.getFullYear() + '-'+ month + '-' + day
                 }else{
                   this.endDisplay = "Choisissez une date valide"
+                  this.end = false;
                 }
                return can;
               }
