@@ -3,7 +3,7 @@
   <div v-if="roleStatus" class="admin">
        <div class="leftSideBar">
           <ul>
-             <li @click="showAddLogement" class="cursor-pointer mr-4 ml-4">
+             <li v-if="roleStatus > 1" @click="showAddLogement" class="cursor-pointer mr-4 ml-4">
                 <span>
                     <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
                     Ajouter Logement
@@ -25,6 +25,12 @@
                 <span>
                     <box-icon type='solid' name='user' class="mr-2"></box-icon>
                     Utilisateurs
+                </span>
+              </li>
+              <li @click="showEmployee" class="cursor-pointer mr-4 ml-4">
+                <span>
+                    <box-icon type='solid' name='user-detail' class="mr-2"></box-icon>
+                    Employés
                 </span>
               </li>
           </ul>
@@ -133,13 +139,13 @@
                             </thead>
                             <tbody>
                                 <tr v-for="log in logement" v-bind:key="log._id"  class="maxHeightLogement bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                    <td class="px-6 py-4 font-medium text-gray-900">
                                        {{log.name}}
-                                    </th>
+                                    </td>
                                     <td class="px-6 py-4 text-left">
                                         {{log.type}}
                                     </td>
-                                    <td class="px-6 py-4 text-left">
+                                    <td class="px-6 py-4 text-left whitespace-nowrap">
                                         {{log.price[0].date.value}} Ar
                                     </td>
                                     <td class="px-6 py-4 text-left">
@@ -559,7 +565,8 @@ export default {
             userDeletedAlert : false,
             isWaitAddLogement: false,
             logementDeletedAlert : false,
-            roleStatus: 0
+            roleStatus: 0,
+            
         }
     },
     async mounted() {
@@ -601,6 +608,17 @@ export default {
     },
 
     methods: {
+        async getAdminStatus(){
+            await axios.get(process.env.VUE_APP_URL+'/user/getOneUser' , {
+                headers : {
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(async (res) => {
+                this.adminStatus = res.data.role;
+            }).catch(error => {
+                console.log(error);
+            })
+        },
         async searchUser(){
             this.isWaitSearchUser = true;
             let filter ='@'
