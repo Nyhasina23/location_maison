@@ -339,6 +339,7 @@ export default {
       overflow-x:scroll;
       height: 14rem;
       display:flex;
+      cursor:grab;
       
     }
     #allImages.active {

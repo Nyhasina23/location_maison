@@ -1,6 +1,8 @@
 <template>
   <NavBar />
-  <router-view></router-view>
+  <div class="body">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -112,6 +114,11 @@ export default {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none; 
+}
+.body{
+  margin-top:3.5rem;
+  max-width: 100vw;
+  min-width:100vw;
 }
 input,
 textarea,

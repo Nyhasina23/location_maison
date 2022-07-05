@@ -190,6 +190,10 @@ export default {
       document.getElementById('draggable-end').style.display = 'block'
 
       let disponibility = await this.getDisponibility();
+      console.log(this.disponibilityRaw)
+      for(let i=0; i<this.disponibilityRaw.length; i++){
+        this.disponibilityRaw[i].color = "#3788d8"
+      }
        let calendarElement = document.getElementById('calendar')
         let calendar = new Calendar(calendarElement , {
           initialView : 'dayGridMonth' ,
@@ -214,6 +218,7 @@ export default {
                     if(dateCount > 0 ){
                       for(let i = 0 ; i < dateCount; i++) {
                         for(let j = 0; j < disponibility.length; j++) {
+
                           if( disponibility[j].start >= this.start && disponibility[j].end <= this.end){
                             can = false
                           }
@@ -229,7 +234,9 @@ export default {
                 }
 
                 disponibility.forEach(e => {
-                    if((e.start <= this.start && e.end > this.start)) can = false;
+                    const date = new Date(e.end);
+                    let tempEnd = date.setDate(date.getDate()+1);
+                    if((e.start <= this.start && tempEnd > this.start)) can = false;
                 })
                 if(can){
                   let month; 
@@ -277,9 +284,11 @@ export default {
                   if(this.end >= now ) can =  true
                 }
                 disponibility.forEach(e => {
-                  
-                    if((e.start <= this.end && e.end > this.end)) can = false;
+                    const date = new Date(e.end);
+                    let tempEnd = date.setDate(date.getDate()+1);
+                    if((e.start <= this.end && tempEnd > this.end)) can = false;
                 })
+                
                 if(can){
 
                   let month; 

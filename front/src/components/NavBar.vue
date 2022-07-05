@@ -169,7 +169,12 @@ export default {
     box-shadow: var(--soft-shadow);
     padding : .5rem 1.5rem;
     max-width: 100vw;
+    min-width: 100vw;
     overflow: hidden;
+    position: fixed;
+    top: 0;
+    left:0;
+    background: white;
     
 }
 .navBar .logo{
