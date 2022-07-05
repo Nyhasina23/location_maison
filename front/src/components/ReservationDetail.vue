@@ -165,7 +165,7 @@ export default {
       startDisplay : '' ,
       endDisplay : '' ,
       price : 0 ,
-      defaultPrice : 5000 ,
+      defaultPrice : '' ,
       day : 0 ,
       disponibilityRaw : [] ,
       nbr_pers : '' ,
@@ -327,7 +327,7 @@ export default {
     let disponibility = []
     await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+idLog)
     .then((res) => {
-     
+        this.defaultPrice = res.data.price[0].date.value
         this.disponibilityRaw = res.data.disponibility;
         this.disponibilityRaw.forEach(e => {
           let start = new Date(e.start)
