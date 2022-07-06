@@ -533,10 +533,17 @@
           <div v-if="showFeedback" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
             <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Vos feedbacks</h3>
             <div class="form feedback">
-                     <a v-for="feedback in feedbacks" v-bind:key="feedback._id" href="#" class="block mb-2 p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                        <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white"> {{feedback.author}} </h5>
-                        <p class="font-normal text-gray-700 dark:text-gray-400"> {{feedback.content}} </p>
-                        <p class="font-normal text-gray-700 dark:text-gray-400 mt-4 note ">{{feedback.note}} / 10</p>
+                     <a v-for="feedback in feedbacks" v-bind:key="feedback._id" href="#" class="flex block mb-2 p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div class="w-full">
+                            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white"> {{feedback.author}} </h5>
+                            <p class="font-normal text-gray-700 dark:text-gray-400"> {{feedback.content}} </p>
+                            <p class="font-normal text-gray-700 dark:text-gray-400 mt-4 note ">{{feedback.note}} / 10</p>
+                        </div>
+                        <div class="emoji">
+                            <img v-if="feedback.note > 8" src="../../assets/smile.png" alt="">
+                            <img v-if="feedback.note >= 5 && feedback.note < 8" src="../../assets/rolling.png" alt="">
+                            <img v-if="feedback.note < 5" src="../../assets/sad.png" alt="">
+                        </div>
                     </a>
             </div>
           </div>
@@ -1255,5 +1262,11 @@ input[disabled]{
 .px-6 {
     padding-left: 1.5rem;
     padding-right: 0;
+}
+.emoji{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
 }
 </style>
