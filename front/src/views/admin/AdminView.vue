@@ -3,31 +3,31 @@
   <div v-if="roleStatus" class="admin">
        <div class="leftSideBar">
           <ul>
-             <li @click="showAddLogement" class="cursor-pointer mr-4 ml-4">
+             <li @click="showAddLogement" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
                     Ajouter Logement
                 </span>
               </li>
-              <li @click="showLogementView" class="cursor-pointer mr-4 ml-4">
+              <li @click="showLogementView" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='building' class="mr-2"></box-icon>
                     Logements
                 </span>
               </li>
-              <li @click="showReservationView" class="cursor-pointer mr-4 ml-4">
+              <li @click="showReservationView" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
                     Réservations
                 </span>
               </li>
-              <li @click="showUserView" class="cursor-pointer mr-4 ml-4">
+              <li @click="showUserView" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='user' class="mr-2"></box-icon>
                     Utilisateurs
                 </span>
               </li>
-              <li @click="showFeedbackView" class="cursor-pointer mr-4 ml-4">
+              <li @click="showFeedbackView" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='smile' class="mr-2"></box-icon>
                     Feedbacks
@@ -42,7 +42,7 @@
           <div v-if="showReservation" class="reservation">
               <div class="reservationContent">
                   <div class="relative w-full overflow-x-auto   sm:rounded-lg reservations">
-                        <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des réservations</h3>
+                        <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des réservations</h3>
 
                         <table class="mb-4" >
                              <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 dark:text-gray-400">
@@ -95,7 +95,7 @@
                                         {{res.date_leave}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{  oneReservation.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
+                                        {{  res.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
                                     </td>
                                     <td class="px-6 py-4 ">
                                         <router-link to="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons edit" ></box-icon></router-link>
@@ -106,9 +106,8 @@
                     </div>
               </div>
           </div>
-          <div v-if="showLogement" class="w-full">
-                <div class="relative w-full overflow-x-auto sm:rounded-lg">
-                        <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des logements</h3>
+          <div v-if="showLogement" class="relative w-full overflow-x-auto sm:rounded-lg">
+                        <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des logements</h3>
 
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -157,7 +156,7 @@
                                     <td class="px-6 py-4 text-left">
                                         {{log.reservation.length}}
                                     </td>
-                                    <td class="px-6 py-4  flex w-full justify-end">
+                                    <td class="px-6 py-4  flex w-full justify-center">
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                             <box-icon type='solid' name='calendar'  class="icons calendars"></box-icon>
                                         </router-link>
@@ -177,7 +176,6 @@
                                 <span class="font-medium">Logement supprimé avec succès!</span>
                             </div>
                         </div>
-                    </div>
           </div>
        
             <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
@@ -434,7 +432,7 @@
 
           <div v-if="showUser" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
                  <div class="relative w-full overflow-x-auto   sm:rounded-lg reservations">
-                        <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des utilisateurs</h3>
+                        <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des utilisateurs</h3>
                         <div class="flex">
                             
                             <input type="text" v-model="searchFilter" placeholder="Rechercher" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
@@ -507,7 +505,7 @@
                     </div>
           </div>
           <div v-if="showFeedback" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
-            <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">Vos feedbacks</h3>
+            <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Vos feedbacks</h3>
             <div class="form feedback">
                      <a v-for="feedback in feedbacks" v-bind:key="feedback._id" href="#" class="block mb-2 p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                         <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white"> {{feedback.author}} </h5>
@@ -962,7 +960,8 @@ export default {
     align-items: center;
     flex : 2;
     background: rgb(26, 33, 41);
-    width : 100%;
+    min-width: 15.4rem;
+    max-width: 15.4rem;
 
 }
 .leftSideBar ul{
@@ -1196,5 +1195,9 @@ input[disabled]{
 .note{
     font-size: 0.7rem;
     color : rgb(156, 156, 156);
+}
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 0;
 }
 </style>
