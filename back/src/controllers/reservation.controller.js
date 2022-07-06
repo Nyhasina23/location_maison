@@ -225,7 +225,6 @@ class reservationController {
             const user = await UserModel.findById(userId);
             const userPassword = user.password
             const password = sha(req.body.password);
-            console.log(password  ,' === ' , userPassword);
             if(password === userPassword){
                 const reservationId = req.body.reservationId;
                 const reservation = await ReservationModel.findById(reservationId);
@@ -255,24 +254,43 @@ class reservationController {
        
     }
     static adminAnnulation = async (req, res) => {
-        const reservationId = req.body.reservationId;
-        const reservation = await ReservationModel.findById(reservationId);
-        const logement = await LogementModel.findById(reservation.logement);
-        console.log(logement.disponibility);
-        for (let i = 0; i < logement.disponibility.length; i++) {
-            if (logement.disponibility[i].reservation == reservationId) {
-                logement.disponibility.splice(i, 1);
-                logement.save();
-                break;
+
+        try {
+            const token = req.headers['authorization'].split(' ')[1];
+            const userId = jwtdecode(token).id;
+            const user = await UserModel.findById(userId);
+            const userPassword = user.password
+            const password = sha(req.body.password);
+            if(password === userPassword){
+                const reservationId = req.body.reservationId;
+                const reservation = await ReservationModel.findById(reservationId);
+                const logement = await LogementModel.findById(reservation.logement);
+             
+                for (let i = 0; i < logement.disponibility.length; i++) {
+                    if (logement.disponibility[i].reservation == reservationId) {
+                        logement.disponibility.splice(i, 1);
+                        logement.save();
+                        break;
+                    }
+                }
+                reservation.state = 4;
+                reservation.save();
+                let text = "Votre réservation sur la résidence " + logement.name + " a été annulée";
+                sendMail(reservation.email, 'Annulation de reservation', text);
+                text = "L'annulation de la réseravtion de" + reservation.firstname + " " + reservation.lastname + " sur la résidence " + logement.name + " a bien été pris en compte";
+                sendMail(process.env.ADMIN_EMAIL, 'Annulation de reservation', text);
+                res.status(200).send("annulé")
+            }else{
+                res.status(403).send()
             }
+
+           
+        } catch (error) {
+            res.status(500).send()
         }
-        reservation.state = 4;
-        reservation.save();
-        let text = "Votre réservation sur la résidence " + logement.name + " a été annulée";
-        sendMail(reservation.email, 'Annulation de reservation', text);
-        text = "L'annulation de la réseravtion de" + reservation.firstname + " " + reservation.lastname + " sur la résidence " + logement.name + " a bien été pris en compte";
-        sendMail(process.env.ADMIN_EMAIL, 'Annulation de reservation', text);
-        res.status(200).send("annulé")
+
+
+       
     }
 }
 module.exports = { reservationController };
