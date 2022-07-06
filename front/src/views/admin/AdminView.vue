@@ -540,7 +540,8 @@
                             <p class="font-normal text-gray-700 dark:text-gray-400 mt-4 note ">{{feedback.note}} / 10</p>
                         </div>
                         <div class="emoji">
-                            <img v-if="feedback.note > 8" src="../../assets/smile.png" alt="">
+                            <img v-if="feedback.note = 10" src="../../assets/star.png" alt="">
+                            <img v-if="feedback.note > 8 && feedback.note < 10" src="../../assets/smile.png" alt="">
                             <img v-if="feedback.note >= 5 && feedback.note < 8" src="../../assets/rolling.png" alt="">
                             <img v-if="feedback.note < 5" src="../../assets/sad.png" alt="">
                         </div>
