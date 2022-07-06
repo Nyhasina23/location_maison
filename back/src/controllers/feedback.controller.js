@@ -8,14 +8,21 @@ class FeedbackController {
             const userId = jwtdecode(token).id;
             const user = await UserModel.findById(userId)
             const author =  user.firstname+' '+user.lastname
-            const feedback = new FeedbackModel({
-                author ,
-                content : req.body.content ,
-                note : req.body.note
-            })
-
-            feedback.save()
-            res.status(200).send()
+            const content = req.body.content;
+            const note = req.body.note;
+            console.log(content , ' - ' ,note);
+            if(content == '' || note == ''){
+                res.status(500).send()
+            }else{
+                const feedback = new FeedbackModel({
+                    author ,
+                    content,
+                    note 
+                })
+    
+                feedback.save()
+                res.status(200).send()
+            }
 
         } catch (error) {
             console.log(error);
@@ -27,7 +34,6 @@ class FeedbackController {
         try {
             const feedback = await FeedbackModel.find()
             res.status(200).send(feedback)
-        
         } catch (error) {
             res.status(500).send()
 

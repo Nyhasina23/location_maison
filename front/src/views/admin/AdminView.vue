@@ -33,6 +33,13 @@
                     Employés
                 </span>
               </li>
+
+              <li @click="showFeedbackView" class="cursor-pointer mr-4 ml-4">
+                <span>
+                    <box-icon type='solid' name='smile' class="mr-2"></box-icon>
+                    Feedbacks
+                </span>
+              </li>
           </ul>
       </div>
       <div class="right">
@@ -98,7 +105,7 @@
                                         {{  oneReservation.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
                                     </td>
                                     <td class="px-6 py-4 ">
-                                        <router-link to="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons" ></box-icon></router-link>
+                                        <router-link to="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons edit" ></box-icon></router-link>
                                     </td>
                                 </tr>
                             </tbody>
@@ -159,13 +166,13 @@
                                     </td>
                                     <td class="px-6 py-4  flex w-full justify-end">
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            <box-icon type='solid' name='calendar'  class="icons"></box-icon>
+                                            <box-icon type='solid' name='calendar'  class="icons calendars"></box-icon>
                                         </router-link>
                                         <li  @click="showEditLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
-                                            <box-icon type='solid' name='edit' class="icons" ></box-icon>
+                                            <box-icon type='solid' name='edit' class="icons edit" ></box-icon>
                                         </li>
                                         <li  @click="deleteLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
-                                            <box-icon type='solid' name='trash' class="icons"></box-icon>
+                                            <box-icon type='solid' name='trash' class="icons trash"></box-icon>
                                         </li>
                                     </td>
                                 </tr>
@@ -492,7 +499,7 @@
                                     </td>
                                  
                                     <td class="px-6 py-4 ">
-                                        <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='trash' class="icons"></box-icon></a>
+                                        <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='trash' class="icons trash"></box-icon></a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -505,6 +512,16 @@
                         </div>
                         
                     </div>
+          </div>
+          <div v-if="showFeedback" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
+            <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">Vos feedbacks</h3>
+            <div class="form feedback">
+                     <a v-for="feedback in feedbacks" v-bind:key="feedback._id" href="#" class="block mb-2 p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white"> {{feedback.author}} </h5>
+                        <p class="font-normal text-gray-700 dark:text-gray-400"> {{feedback.content}} </p>
+                        <p class="font-normal text-gray-700 dark:text-gray-400 mt-4 note ">{{feedback.note}} / 10</p>
+                    </a>
+            </div>
           </div>
 
       </div>
@@ -527,6 +544,7 @@ export default {
             showUser : false ,
             showCalendar : true ,
             showAddLog : true ,
+            showFeedback : false,
             reservation : '' ,
             oneLogementName : '' ,
             oneLogementType : '' ,
@@ -566,7 +584,7 @@ export default {
             isWaitAddLogement: false,
             logementDeletedAlert : false,
             roleStatus: 0,
-            
+            feedbacks : ''
         }
     },
     async mounted() {
@@ -605,6 +623,8 @@ export default {
         })
       }
 
+      this.getFeedback()
+
     },
 
     methods: {
@@ -615,6 +635,14 @@ export default {
                 }
             }).then(async (res) => {
                 this.adminStatus = res.data.role;
+                }).catch(error => {
+                console.log(error);
+            })
+        },
+        async getFeedback(){
+            await axios.get(process.env.VUE_APP_URL+'/feedback')
+            .then(res => {
+                this.feedbacks = res.data
             }).catch(error => {
                 console.log(error);
             })
@@ -725,6 +753,7 @@ export default {
             this.showEditLog = false;
             this.showUser = false;
             this.showValidate = false;
+            this.showFeedback = false;
             
         },
         showReservationView(){
@@ -735,6 +764,7 @@ export default {
             this.showEditLog = false;
             this.showUser = false;
             this.showValidate = false;
+            this.showFeedback = false;
             
         },
         showValidationView(){
@@ -745,6 +775,7 @@ export default {
             this.showEditLog = false;
             this.showUser = false;
             this.showCalendar = false;
+            this.showFeedback = false;
         },
         showCalendarView(id){
             this.showCalendar = true;
@@ -753,6 +784,7 @@ export default {
             this.showLogement = false;
             this.showEditLog = false;
             this.showAddLog = false;
+            this.showFeedback = false;
             this.showUser = false;
             this.$store.commit('setIdLog' , id)
         } ,
@@ -763,8 +795,19 @@ export default {
             this.showReservation = false;
             this.showLogement = false;
             this.showEditLog = false;
+            this.showFeedback = false;
             this.showUser = false;
             window.location.reload()
+        } ,
+        showFeedbackView(){
+            this.showFeedback = true;
+            this.showAddLog = false;
+            this.showCalendar = false;
+            this.showValidate = false;
+            this.showReservation = false;
+            this.showLogement = false;
+            this.showEditLog = false;
+            this.showUser = false;
         } ,
         async showUserView(){
             this.showUser = true;
@@ -773,6 +816,7 @@ export default {
             this.showValidate = false;
             this.showReservation = false;
             this.showLogement = false;
+            this.showFeedback = false;
             this.showEditLog = false;
 
             await axios.get(process.env.VUE_APP_URL+'/user/search/@')
@@ -789,6 +833,7 @@ export default {
             this.showCalendar = false;
             this.showValidate = false;
             this.showReservation = false;
+            this.showFeedback = false;
             this.showLogement = false;
             this.$store.commit('setIdLog' , id)
            await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+id)
@@ -1058,6 +1103,7 @@ form label {
   margin-right: auto;
   padding: 1em;
 }
+
 @media (min-width: 600px) {
   .contain {
     padding: 0;
@@ -1151,5 +1197,22 @@ tr{
 }
 input[disabled]{
     background : #e5e5e5
+}
+.trash:hover{
+    fill : red;
+}
+.edit:hover{
+    fill : rgb(8, 235, 8);
+}
+.calendars:hover{
+    fill : blue;
+}
+.feedback{
+    overflow-y: scroll;
+    max-height: (100vh - 3rem);
+}
+.note{
+    font-size: 0.7rem;
+    color : rgb(156, 156, 156);
 }
 </style>
