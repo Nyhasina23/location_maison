@@ -32,7 +32,7 @@ class FeedbackController {
 
     static getAll = async  (req , res) => {
         try {
-            const feedback = await FeedbackModel.find()
+            const feedback = await FeedbackModel.find().sort({date : '-1'})
             res.status(200).send(feedback)
         } catch (error) {
             res.status(500).send()
