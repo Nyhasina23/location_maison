@@ -26,7 +26,7 @@
                         </span>
                     </a>
                 </li>
-                <li v-if="!$store.state.isAuth"  >
+                <li v-if="!$store.state.isAuth" >
                     <a href="/signin">
                         <span class="navText">
                              {{$t("signin")}}
@@ -70,8 +70,9 @@ export default {
            adminStatus : 0 
         }
     },
-    mounted(){
-        this.getAdminStatus();
+    async mounted(){
+        await this.getAdminStatus();
+        
         document.querySelector('.mg').classList.add(localStorage.getItem('mg-lang-class'))
         document.querySelector('.fr').classList.add(localStorage.getItem('fr-lang-class'))
         document.querySelector('.en').classList.add(localStorage.getItem('en-lang-class'))
@@ -90,7 +91,7 @@ export default {
             }).catch(error => {
                 console.log(error);
             })
-        } ,
+        },
         switchMg(){
             document.querySelector('.mg').classList.add("active-flag");
             document.querySelector('.en').classList.remove("active-flag");
