@@ -4,44 +4,44 @@
             <h1>Site Location</h1>
         </div>
         <div class="links">
-            <ul>
+            <ul class="nav-menu">
                 <li>
-                    <router-link to="/">  
+                    <router-link to="/"  class="nav-link">  
                         <span class="navText">
                             {{$t("home")}}
                         </span>
                     </router-link>
                 </li>
                 <li  v-if=" adminStatus > 1 && $store.state.isAuth">
-                    <a href="/admin">
+                    <a href="/admin"  class="nav-link">
                         <span class="navText">
                              {{$t("administration")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="!$store.state.isAuth">
-                    <a href="/signup">
+                    <a href="/signup"  class="nav-link">
                         <span class="navText">
                              {{$t("signup")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="!$store.state.isAuth" >
-                    <a href="/signin">
+                    <a href="/signin"  class="nav-link">
                         <span class="navText">
                              {{$t("signin")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="$store.state.isAuth">
-                    <a href="/user/account">
+                    <a href="/user/account"  class="nav-link">
                         <span class="navText">
                              {{$t("profile")}}
                         </span>
                     </a>
                 </li>
                 <li v-if="$store.state.isAuth" @click="logout">
-                    <a href="/">
+                    <a href="/"  class="nav-link">
                         <span class="navText">
                              {{$t("logout")}}
                         </span>
@@ -54,6 +54,12 @@
                     <img src="https://cdn3.iconfinder.com/data/icons/finalflags/256/United-Kingdom-flag.png" class="en" @click="switchEn">
                 </div>
             </ul>
+        </div>
+        <div class="menu" @click="showMenu" >
+            <!-- <img @click="showMenu" src="../assets/bx-menu.svg" alt=""> -->
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
     </div>
 </template>
@@ -120,6 +126,26 @@ export default {
             localStorage.removeItem('fr-lang-class')
             localStorage.removeItem('mg-lang-class')
             window.location.reload();
+        },
+
+        showMenu(){
+            const hamburger = document.querySelector(".menu");
+            const navMenu = document.querySelector(".nav-menu");
+
+            function mobileMenu() {
+                hamburger.classList.toggle("active");
+                navMenu.classList.toggle("active");
+            }
+            mobileMenu()
+
+            const navLink = document.querySelectorAll(".nav-link");
+
+            navLink.forEach(n => n.addEventListener("click", closeMenu));
+
+            function closeMenu() {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+            }
         }
     },
 }
@@ -215,6 +241,72 @@ export default {
 }
 .links ul li a span  {
     padding : 0.5rem;
+}
+
+.menu{
+    display : none;
+}
+.bar {
+    display: block;
+    width: 20px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #101010;
+}
+/* responsivity */
+
+
+@media only screen and (max-width: 768px) {
+    .navBar{
+        padding : 1rem 1.5rem;
+    }
+    .links ul {
+        position: fixed;
+        left: -100%;
+        top:3.8rem;
+        flex-direction: column;
+        background: rgb(26, 33, 41);
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+    }
+
+    .links ul.active {
+        left: 0;
+    }
+
+    .links ul li {
+        margin: 1rem 0;
+        color:white;
+    }
+
+    .menu {
+        display: block;
+        cursor: pointer;
+    }
+
+    #lang-switch{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .menu.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
 }
 
 </style>

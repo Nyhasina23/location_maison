@@ -144,7 +144,7 @@ body {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .text-gradient-small {
   background: var(--primary-gradient-2);

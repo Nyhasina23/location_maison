@@ -318,4 +318,53 @@ export default {
   max-height : 18rem;
   width : 100%;
 }
+
+/* responsivity */
+
+@media only screen and (max-width:768px){
+  
+  .main{
+    overflow: hidden;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .header-container p {
+    font-size : 1.5rem;
+    text-align: left;
+    width:90%;
+  }
+  .oneLogement{
+    max-height: fit-content;
+    height: fit-content;
+  }
+
+  .header-container h2 {
+    text-align: left;
+    color: white;
+    margin-bottom: 1rem;
+    width : 90%;
+    font-size : 0.8rem;
+}
+  .header{
+    width : 100vw;
+    height : 20rem;
+  }
+  .header .header-container{
+    margin : 1rem;
+    margin-top : 5rem;
+    display: flex;
+    flex-direction : column;
+    align-items: center;
+    justify-content: start;
+    width : 90%;
+  }
+  .swiper , .logement h2{
+    display:none;
+  }
+  .header-btn .btn-primary{
+    margin-right: 0.7rem;
+  }
+}
 </style>

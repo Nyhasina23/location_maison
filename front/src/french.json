@@ -1,7 +1,7 @@
 {
     "site_location" : "Site de location",
     "header_text" : "Vous êtes à la recherche d’une maison à louer ? Venez découvrir sur notre site les annonces immobilières de maisons en location. De nombreux logements pourront répondre à vos besoins et exigences",
-    "started" : "lancez-cous",
+    "started" : "lancez-vous",
     "reserve" : "réserver",
     "accomodation" : "LOGEMENT DISPONIBLES",
     "bedrooms" : "chambres",
@@ -30,7 +30,7 @@
     "male" :"Masculin",
     "female" : "Féminin",
     "day" : "jour",
-    "book_head" : "Veuillez faire glisser les deux boutons sur le calendrier pour choisir votre date de réservation",
+    "book_head" : "Veuillez maintener et glisser les deux boutons sur le calendrier pour choisir votre date de réservation",
     "try" : "Réessayer",
     "entry_date" : "Date d'entrée",
     "release_date" : "Date de sortie",

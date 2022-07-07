@@ -44,26 +44,26 @@
                   <div class="relative w-full overflow-x-auto   sm:rounded-lg reservations">
                         <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des réservations</h3>
 
-                        <table class="mb-4" >
+                        <table class="mb-4 table1" >
                              <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" @click="toggleActive($event); allReservation();" id="link1"  class="px-6 py-3 link active">
+                                    <th scope="col" @click="toggleActive($event); allReservation();" id="link1"  class="py-3 link active">
                                         Toutes les réservations
                                     </th>
-                                    <th scope="col" @click="toggleActive($event); reservationNotPayed(); " id="link2"  class="px-6 py-3 link ">
+                                    <th scope="col" @click="toggleActive($event); reservationNotPayed(); " id="link2"  class="py-3 link ">
                                         Non Payé 
                                     </th>
-                                    <th scope="col" @click="toggleActive($event); reservationAcompte();" id="link3" class="px-6 py-3 link">
+                                    <th scope="col" @click="toggleActive($event); reservationAcompte();" id="link3" class="py-3 link">
                                         Avec acompte 
                                     </th>
-                                    <th scope="col" @click="toggleActive($event); reservationPayed()" id="link4" class="px-6 py-3 link">
+                                    <th scope="col" @click="toggleActive($event); reservationPayed()" id="link4" class="py-3 link">
                                         Payé
                                     </th>
                                 </tr>
                             </thead>
                         </table>
 
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <table class="table2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
@@ -1062,6 +1062,10 @@ export default {
     display: flex;
     width : 100%;
 }
+.link{
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
 .link:hover{
     color : rgb(0, 132, 255);
     border-bottom : 2px solid rgb(0, 132, 255);
@@ -1269,5 +1273,53 @@ input[disabled]{
     display: flex;
     align-items: center;
     justify-content: end;
+}
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+.table1 , .table2 {
+    border: 0;
+}
+
+  
+  .table1 thead , .table2 thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  .table1 table tr , .table2 table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  .table1 td , .table2 td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  .table1 td::before , .table2 td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .table1 td:last-child , .table2 td:last-child {
+    border-bottom: 0;
+  }
 }
 </style>

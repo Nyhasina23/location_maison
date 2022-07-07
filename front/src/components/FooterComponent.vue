@@ -3,7 +3,7 @@
     <div class="line"></div>
         <div class="social-content">
             <h4>{{$t("contact")}}</h4>
-            <div class="flex">
+            <div class="flex footer-content">
                 <h5 class="flex justify-center"><box-icon type='solid' class="icons mr-2" name='phone-call'></box-icon> 03325145698 </h5>
                 <h5 class="flex justify-center"><box-icon type='logo' class="icons mr-2"  name='facebook-circle'></box-icon> nyhasina finaritra </h5>
                 <h5 class="flex justify-center"><box-icon name='gmail'  class="icons mr-2" type='logo' ></box-icon> nyhasina.finaritra@gmail.com </h5>
@@ -40,5 +40,26 @@ h4{
 }
 .icons{
     fill : var(--primary-color-4)
+}
+
+
+/* responsivity */
+
+@media screen and (max-width:320px){
+  
+  .footer-content{
+    display : flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width:425px){
+  
+  .footer-content{
+    display : flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>
