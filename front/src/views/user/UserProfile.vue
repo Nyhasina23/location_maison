@@ -2,18 +2,32 @@
   <div class="admin">
        <div class="leftSideBar">
           <ul>
-              <li class="cursor-pointer mr-4 ml-4" @click="showLogementView">Profile</li>
-              <li class="cursor-pointer mr-4 ml-4" @click="showReservationView">Réservations</li>
-              <li class="cursor-pointer mr-4 ml-4" @click="showFeedbackView">Feedbacks</li>
+              <li class="cursor-pointer mr-4 ml-4" @click="showLogementView">
+                 <span>
+                    <box-icon type='solid' name='user' class="mr-2"></box-icon>
+                    Profile
+                </span> 
+              </li>
+              <li class="cursor-pointer mr-4 ml-4" @click="showReservationView">
+               <span>
+                    <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
+                    Réservations
+                </span>
+              </li>
+              <li class="cursor-pointer mr-4 ml-4" @click="showFeedbackView">
+              <span>
+                    <box-icon type='solid' name='smile' class="mr-2"></box-icon>
+                    Feedbacks
+                </span>
+              </li>
           </ul>
       </div>
       <div class="right">
 
           <router-view></router-view>
 
-          <div v-if="showReservation" class="reservation">
-              <div class="reservationContent">
-                  <div class="relative w-full overflow-x-auto   sm:rounded-lg">
+          <div v-if="showReservation" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
+              <div class="form">
                         <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">Vos réservations</h3>
 
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -48,7 +62,7 @@
                                         {{res.date_leave}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{  oneReservation.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
+                                        {{  res.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
                                     </td>
                                     <td class="px-6 py-4 text-right">
                                         <a href="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</a>
@@ -56,7 +70,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
               </div>
           </div>
           <div v-if="showLogement" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
@@ -211,6 +224,31 @@
                     <p>
                   
                     </p>
+                        <button v-if="!isWaitAddLogement && oneReservation.state != 4 " @click="cancelReservation" type="button" class=" mb-4 w-fitC text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center">
+                            Annuler réservation
+                        </button>
+                        <div class="cancel">
+
+                        </div>
+                        <button v-if="isWaitAddLogement" disabled type="button" class=" w-fitC py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-red-700 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center cursor-not-allowed">
+                            <svg role="status" class="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                            </svg>
+                            Loading...
+                        </button>
+                        <div v-if="cancelError === true" class=" w-fitC flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                        <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                        <div>
+                            <span class="font-medium">Mot de passe invalide!</span> 
+                        </div>
+                        </div>
+                        <div v-if="cancelError === false" class=" w-fitC flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                        <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                        <div>
+                            <span class="font-medium">Annulation avec succès!</span>
+                        </div>
+                        </div>
                     <p>
                     </p>
                 </form>
@@ -233,6 +271,7 @@ export default {
             addLogError : '',
             isWaitAddLogement : false,
             feedBackError : '',
+            cancelError : '',
             showLogement : true ,
             showReservation : false ,
             showFeedback : false,
@@ -288,6 +327,37 @@ export default {
     },
 
     methods: {
+        cancelReservation(){
+            const cancel = document.querySelector('.cancel')
+            const cancelField = document.createElement('input')
+            const cancelBtn = document.createElement('button')
+            cancelField.setAttribute('class' ,'shadow-sm mb-2 w-64 bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light')
+            cancelField.setAttribute('placeholder' , 'Entrer votre mot de passe...')
+            cancelBtn.setAttribute('class' , 'mb-4 w-fitC text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center')
+            cancelBtn.innerText = "Valider"
+            cancelBtn.setAttribute('type' , 'button')
+            cancel.appendChild(cancelField)
+            cancel.appendChild(cancelBtn)
+            cancelBtn.addEventListener('click' , async () => {
+                
+                let password = cancelField.value;
+                await axios.put(process.env.VUE_APP_URL+'/reservation/userAnnulation' , {
+                    password,
+                    reservationId : localStorage.getItem('idRes') ,
+                } , {
+                    headers : {
+                        Authorization : 'Bearer '+localStorage.getItem('token')
+                    }
+                }).then(() => {
+                    this.cancelError  = false;
+                    }).catch(() => {
+                    this.cancelError = true;
+                })
+            })
+
+
+
+        },
         async update(){
             this.isWaitAddLogement = true;
             await axios.put(process.env.VUE_APP_URL+'/user/update' , {
@@ -383,6 +453,8 @@ export default {
             this.showReservation = false;
             this.showCalendar = false;
             this.showValidate = false;
+            this.showFeedback = false;
+
             
         },
         showReservationView(){
@@ -406,15 +478,8 @@ export default {
             this.showReservation = false;
             this.showLogement = false;
             this.showCalendar = false;
-        },
-        showCalendarView(id){
-            this.showCalendar = true;
-            this.showValidate = false;
-            this.showReservation = false;
-            this.showLogement = false;
-            this.showFeedback = false;
-            localStorage.setItem('idLog' , id)
         }
+      
     }
 }  
 </script>
@@ -614,5 +679,15 @@ h3 {
 input[disabled]{
     background : #e5e5e5
 }
-
+li span {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+li box-icon{
+    fill : white;
+}
+.leftSideBar ul li:hover{
+    background: rgba(255, 255, 255, 0.13);
+}
 </style>

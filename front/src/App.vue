@@ -22,7 +22,8 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --tw-ring-color:none
+  --tw-ring-color:none;
+  --tw-ring-shadow:none;
 }
 [type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
   --tw-ring-color:none;
@@ -145,7 +146,7 @@ body {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .text-gradient-small {
   background: var(--primary-gradient-2);
