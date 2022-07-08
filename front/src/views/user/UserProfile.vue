@@ -5,19 +5,19 @@
               <li class="cursor-pointer mr-4 ml-4" @click="showLogementView">
                  <span>
                     <box-icon type='solid' name='user' class="mr-2"></box-icon>
-                    Profile
+                       {{$t('profile')}}
                 </span> 
               </li>
               <li class="cursor-pointer mr-4 ml-4" @click="showReservationView">
                <span>
                     <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
-                    Réservations
+                    {{$t('reservations')}}
                 </span>
               </li>
               <li class="cursor-pointer mr-4 ml-4" @click="showFeedbackView">
               <span>
                     <box-icon type='solid' name='smile' class="mr-2"></box-icon>
-                    Feedbacks
+                    {{$t('feedback')}}
                 </span>
               </li>
           </ul>
@@ -28,22 +28,22 @@
 
           <div v-if="showReservation" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
               <div class="form">
-                        <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">Vos réservations</h3>
+                        <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC "> {{$t('reservations')}} </h3>
 
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
-                                        Nom 
+                                        {{$t('firstname')}} 
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Date d'entrée
+                                        {{$t('entry_date')}}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Date de sortie
+                                        {{$t('release_date')}}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Status
+                                        {{$t('state')}}
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         <span class="sr-only">Edit</span>
@@ -62,10 +62,10 @@
                                         {{res.date_leave}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{  res.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
+                                        {{  res.state === 4  ?   $t('canceled') :  res.state === 3 ?  $t('notpayed') :  res.state === 2 ? $t('acompte') : $t('payeds') }}
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</a>
+                                        <a href="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"> {{$t('detail')}} </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -74,30 +74,30 @@
           </div>
           <div v-if="showLogement" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
             <div class="form">
-                <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">Modifier vos informations</h3>
+                <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">{{$t('modif_info')}}</h3>
                 <form class="">
                     <p class="mb-2">
-                    <label for="" class="mb-2">Nom</label>
+                    <label for="" class="mb-2">{{$t('firstname')}}</label>
                     <input type="text" v-model="firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Prenoms</label>
+                    <label for="" class="mb-2">{{$t('lastname')}}</label>
                     <input type="text" v-model="lastname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Email</label>
+                    <label for="" class="mb-2">{{$t('email')}}</label>
                     <input type="text" v-model="email" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Adresse</label>
+                    <label for="" class="mb-2">{{$t('address')}}</label>
                     <input type="text" v-model="address" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Nouveau mot de passe</label>
+                    <label for="" class="mb-2">{{$t('new_password')}}</label>
                     <input type="password" v-model="password" placeholder="******" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Téléphone</label>
+                    <label for="" class="mb-2">{{$t('phone')}}</label>
                     <input type="text" v-model="phoneNumber" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p>
@@ -108,7 +108,7 @@
                 </form>
             </div>
             <button v-if="!isWaitAddLogement" @click="update" type="button" class=" mb-4 w-fitC ml-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
-                Valider
+                {{$t('valid')}}
             </button>
             <button v-if="isWaitAddLogement" disabled type="button" class=" ml-8 w-fitC py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center cursor-not-allowed">
                 <svg role="status" class="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,33 +120,33 @@
             <div v-if="addLogError === true" class="ml-8 w-fitC flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
               <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
               <div>
-                  <span class="font-medium">Veuillez vérifier tous les champs</span> 
+                  <span class="font-medium"> {{$t('verify')}} </span> 
               </div>
             </div>
             <div v-if="addLogError === false" class="ml-8 w-fitC flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
               <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
               <div>
-                  <span class="font-medium">Informations modifiées avec succès!</span>
+                  <span class="font-medium"> {{$t('info_success')}} </span>
               </div>
             </div>
 
           </div>
           <div v-if="showFeedback" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
             <div class="form">
-                <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">Feedbacks</h3>
+                <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC ">{{$t('feedback')}}</h3>
                 <form class="">
                     <p class="mb-2">
-                    <label for="" class="mb-2">Envoyer vos avis sur notre site</label>
+                    <label for="" class="mb-2"> {{$t('send_feedback')}} </label>
                     <textarea v-model="feedback" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" name="" id="" cols="30" rows="5"></textarea>
                     <input id="default-range" type="range" v-model="range"  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                     </p>
-                    <p class="mb-2" >Note :   {{range / 10}} / 10</p>
+                    <p class="mb-2" >{{$t('note')}} :   {{range / 10}} / 10</p>
                     <p>
                     </p>
                 </form>
             </div>
             <button v-if="!isWaitAddLogement" @click="sendFeedback" type="button" class=" mb-4 w-fitC ml-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
-                Envoyer
+                {{$t('send')}}
             </button>
             <button v-if="isWaitAddLogement" disabled type="button" class=" ml-8 w-fitC py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center cursor-not-allowed">
                 <svg role="status" class="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -158,74 +158,74 @@
             <div v-if="feedBackError === true" class="ml-8 w-fitC flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
               <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
               <div>
-                  <span class="font-medium">Veuillez vérifier tous les champs</span> 
+                  <span class="font-medium"> {{$t('verify')}} </span> 
               </div>
             </div>
             <div v-if="feedBackError === false" class="ml-8 w-fitC flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
               <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
               <div>
-                  <span class="font-medium">Feedback envoyé avec succès!</span>
+                  <span class="font-medium"> {{$t('feedback_success')}} </span>
               </div>
             </div>
 
           </div>
           <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
             <div class="form">
-                <h3 class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</h3>
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">{{$t('detail_reservation')}}</h3>
                 <form class="">
                     <p class="mb-2">
-                    <label for="" class="mb-2">Nom</label>
+                    <label for="" class="mb-2"> {{$t('firstname')}} </label>
                     <input type="text" disabled v-model="oneReservation.firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Prenoms</label>
+                    <label for="" class="mb-2"> {{$t('lastname')}} </label>
                     <input type="text" disabled v-model="oneReservation.lastname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Email</label>
+                    <label for="" class="mb-2"> {{$t('email')}} </label>
                     <input type="text" disabled v-model="oneReservation.email" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Adresse</label>
+                    <label for="" class="mb-2">{{$t('address')}}</label>
                     <input type="text" disabled v-model="oneReservation.address" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Date d'arrivée</label>
+                    <label for="" class="mb-2">{{$t('entry_date')}}</label>
                     <input type="text" disabled v-model="oneReservation.date_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Date de départ</label>
+                    <label for="" class="mb-2">{{$t('release_date')}}</label>
                     <input type="text" disabled v-model="oneReservation.date_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Heure d'entrée</label>
+                    <label for="" class="mb-2">{{$t('entry_time')}}</label>
                     <input type="text" disabled v-model="oneReservation.hour_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Heure de sortie</label>
+                    <label for="" class="mb-2">{{$t('exit_time')}}</label>
                     <input type="text" disabled v-model="oneReservation.hour_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Nombre de personne</label>
+                    <label for="" class="mb-2">{{$t('people')}}</label>
                     <input type="text" disabled v-model="oneReservation.nbr_pers" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Transport</label>
+                    <label for="" class="mb-2">{{$t('transport')}}</label>
                     <input type="text" disabled v-model="oneReservation.transport" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Montant Payé</label>
+                    <label for="" class="mb-2">{{$t('payed')}}</label>
                     <input type="text" disabled v-model="oneReservation.payed" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
-                    <label for="" class="mb-2">Logement réservé</label>
+                    <label for="" class="mb-2">{{$t('log_reserve')}}</label>
                     <input type="text" disabled v-model="userLogement" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p>
                   
                     </p>
                         <button v-if="!isWaitAddLogement && oneReservation.state != 4 " @click="cancelReservation" type="button" class=" mb-4 w-fitC text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center">
-                            Annuler réservation
+                            {{$t('cancel_res')}}
                         </button>
                         <div class="cancel">
 
@@ -240,13 +240,13 @@
                         <div v-if="cancelError === true" class=" w-fitC flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
                         <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
                         <div>
-                            <span class="font-medium">Mot de passe invalide!</span> 
+                            <span class="font-medium"> {{$t('invalid_password')}} </span> 
                         </div>
                         </div>
                         <div v-if="cancelError === false" class=" w-fitC flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
                         <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
                         <div>
-                            <span class="font-medium">Annulation avec succès!</span>
+                            <span class="font-medium"> {{$t('cancel_success')}} </span>
                         </div>
                         </div>
                     <p>
@@ -332,9 +332,9 @@ export default {
             const cancelField = document.createElement('input')
             const cancelBtn = document.createElement('button')
             cancelField.setAttribute('class' ,'shadow-sm mb-2 w-64 bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light')
-            cancelField.setAttribute('placeholder' , 'Entrer votre mot de passe...')
+            cancelField.setAttribute('placeholder' , this.$t('password')+'...')
             cancelBtn.setAttribute('class' , 'mb-4 w-fitC text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center')
-            cancelBtn.innerText = "Valider"
+            cancelBtn.innerText = this.$t('valid')
             cancelBtn.setAttribute('type' , 'button')
             cancel.appendChild(cancelField)
             cancel.appendChild(cancelBtn)
@@ -572,7 +572,7 @@ export default {
 .edit-profile{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: start;
     width : 100%;
 }
 .input-field{
