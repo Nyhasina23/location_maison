@@ -18,6 +18,7 @@
     "se_connecter" : "Hiditra amin'ny tranokala",
     "connexion" : "Hiditra",
     "email" : "Mailaka" , 
+    "new_password": "Teny miafina vaovao",
     "password": "Teny miafina",
     "not_account" : "Tsy manana kaonty ianao?",
     "inscrire" : "Hisoratra anarana",
@@ -47,6 +48,37 @@
     "transfer" : "Karazana famindrana",
     "toPay" : "Vola haloa" ,
     "confirm_res" : "Handefa",
-    "bookings" : "Famandrihana"
+    "bookings" : "Famandrihana",
+    "logement_detail" : "Momba ny trano" ,
+    "type" : "Karazany",
+    "surface" : "Refy",
+    "modalite" : "Fanampiny",
+    "modif_info" : "Hanova ny mombamomba",
+    "reservations" : "Famandrihana",
+    "feedback" : "Sosokevitra",
+    "valid" : "Hanaiky",
+    "state" : "Endriny",
+    "send_feedback" : "Alefaso ao amin'ny tranokalanay ny hevitrao",
+    "note" : "Naoty",
+    "send" : "Handefa",
+    "detail_reservation" : "Mombamomba ny famandrihana",
+    "payed" : "Vola voaloa",
+    "log_reserve" : "Trano voafandrika",
+    "cancel_res" : "Foanana ny famandrihana",
+    "invalid_password" : "Fahadisoana teny miafina",
+    "cancel_success" : "Nahomby ny fanafoanana",
+    "verify" : "Hamarino azafady ny saha rehetra",
+    "feedback_success" : "Fanamarihana voaray",
+    "info_success" : "Fanovàna voaray",
+    "payeds" : "Voaloa",
+    "notpayed" : "Tsy voaloa",
+    "acompte" : "Fandoavana mialoha" , 
+    "canceled" : "Nofoanana"
+
+
+
+
+
+
 
 }

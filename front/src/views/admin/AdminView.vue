@@ -59,6 +59,9 @@
                                     <th scope="col" @click="toggleActive($event); reservationPayed()" id="link4" class="py-3 link">
                                         Payé
                                     </th>
+                                    <th scope="col" @click="toggleActive($event); reservationCanceled()" id="link4" class="py-3 link">
+                                        Annulé
+                                    </th>
                                 </tr>
                             </thead>
                         </table>
@@ -783,6 +786,14 @@ export default {
         },
         async reservationPayed(){
             await axios.get(process.env.VUE_APP_URL+'/reservation/payed')
+            .then(res => {
+                this.reservation = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        async reservationCanceled(){
+            await axios.get(process.env.VUE_APP_URL+'/reservation/cancel')
             .then(res => {
                 this.reservation = res.data
             }).catch(error => {

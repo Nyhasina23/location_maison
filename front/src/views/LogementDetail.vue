@@ -11,7 +11,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Détails du logement
+                            {{$t('logement_detail')}}
                         </th>
                         <th scope="col" class="px-6 py-3">
                         </th>
@@ -21,7 +21,7 @@
                 <tbody>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
-                            Type
+                           {{$t('type')}}
                         </th>
                         <td class="px-6 py-4">
                             {{logement.type}}
@@ -30,7 +30,7 @@
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
-                            Surface
+                           {{$t('surface')}}
                         </th>
                         <td class="px-6 py-4">
                             {{logement.surface}}
@@ -39,7 +39,7 @@
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
-                            Chambres
+                            {{$t('bedrooms')}}
                         </th>
                         <td class="px-6 py-4">
                             {{logement.chambre}}
@@ -48,7 +48,7 @@
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
-                            Nombre de personnes
+                             {{$t('people')}}
                         </th>
                         <td class="px-6 py-4">
                             {{logement.pers_max}}
@@ -59,7 +59,7 @@
             </table>
         </div>
         <div class="flex-col mt-2 mb-2">
-                  <h2 class="font-bold text-gray-600 dark:text-white whitespace-nowrap mb-2" >Modalités</h2>
+                  <h2 class="font-bold text-gray-600 dark:text-white whitespace-nowrap mb-2" > {{$t('modalite')}}</h2>
                   <div class="flex flex-wrap btn-category">
                       <div  class="btn-cat mod hide  text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="a" > Parking</div>
                       <div  class="btn-cat mod hide  text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700" data-value="b" > Cuisine </div>
@@ -74,10 +74,10 @@
     </div>
     <div class="logement-footers relative shadow-md   overflow-x-auto sm:rounded-lg">
         <div class="flex-col">
-            <p>{{price}} Ar / jour</p>
+            <p>{{price}} Ar / {{$t('day')}} </p>
         </div>
 
-        <a href="/reservation/detail" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "  @click="getLogementId(logement._id)">Réserver</a>
+        <a href="/reservation/detail" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "  @click="getLogementId(logement._id)"> {{$t('reserve')}}</a>
     </div>
   </div>
   <div class="sliderBody inactive">

@@ -126,6 +126,15 @@ class reservationController {
         }
     }
 
+    static getReservationCanceled = async (req , res) => {
+        try {
+            const reservation = await ReservationModel.find({state : 4})
+            res.status(200).send(reservation)
+        } catch (error) {
+            res.status(500).send()
+        }
+    }
+
     static validateReservation = async (req, res) => {
         try {
             const reservationId = req.body.reservation;
