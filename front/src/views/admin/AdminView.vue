@@ -1202,7 +1202,7 @@ input[disabled]{
     fill : red;
 }
 .edit:hover{
-    fill : rgb(8, 235, 8);
+    fill : #31A24C;
 }
 .calendars:hover{
     fill : blue;
