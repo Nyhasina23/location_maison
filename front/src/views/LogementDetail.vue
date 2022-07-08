@@ -72,7 +72,7 @@
                   </div>
         </div> 
     </div>
-    <div class="logement-footers relative  overflow-x-auto sm:rounded-lg">
+    <div class="logement-footers relative shadow-md   overflow-x-auto sm:rounded-lg">
         <div class="flex-col">
             <p>{{price}} Ar / jour</p>
         </div>
