@@ -133,6 +133,7 @@ class LogementController {
                                 })
                             }
                             logement.remove()
+                            res.status(200).send()
 
                         }
                     })
@@ -141,7 +142,6 @@ class LogementController {
 
 
         } catch (error) {
-            console.log(error);
             res.status(500).send(error)
         }
     }
