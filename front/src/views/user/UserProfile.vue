@@ -27,6 +27,44 @@
           <router-view></router-view>
 
           <div v-if="showReservation" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
+                <div  id="authentication-modal" tabindex="-1" class="hiddenModal overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                    <div class="relative p-4 w-full max-w-md md:h-auto ">
+                        <!-- Modal content -->
+                        <div class="payModal relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" @click="togglePayModal()">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                            </button>
+                            <div class="py-6 px-6 lg:px-8 modals">
+                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"> {{$t('payment_ref')}}</h3>
+                                <form class="space-y-6" action="#">
+                                    <div>
+                                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('ref')}}</label>
+                                        <input v-model="reference" type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="">
+
+                                    </div>
+                                    <div>
+                                        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{$t('transfer')}}</label>
+                                         <select id="countries" v-model="transfert" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                             <option>MVola</option>
+                                             <option>BNI</option>
+                                             <option>Paypal</option>
+                                         </select>
+                                    </div>
+                                    <p class="text-sm methode" >Mvola : +2613489758426</p>
+                                    <p class="text-sm methode" >BNI : 108 1235 45 5452</p>
+                                    <p class="text-sm methode" >Paypal : nyhasina@gmail.com</p>
+                                    <br>
+                                    <p> <span class="text-sm mr-8 fc" >{{$t('toPay')}}</span><span class="text-xl">{{toPayModal}} AR</span></p><br>
+                                    <p> <span class="text-sm mr-8 fc" >{{$t('payed')}}</span><span class="text-xl">{{payedModal}} AR</span></p><br>
+                                    <p> <span class="text-sm mr-8 fc" >{{$t('restToPay')}}</span><span class="text-xl">{{restToPayModal}} AR</span></p>
+                                    
+                                    <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> {{$t('confirm_res')}}</button>
+                                  
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+              </div>
               <div class="form">
                         <h3 class=" mt-4 text-2xl mb-4 font-semibold w-fitC "> {{$t('reservations')}} </h3>
 
@@ -65,7 +103,8 @@
                                         {{  res.state === 4  ?   $t('canceled') :  res.state === 3 ?  $t('notpayed') :  res.state === 2 ? $t('acompte') : $t('payeds') }}
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"> {{$t('detail')}} </a>
+                                        <button href="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-4"> {{$t('detail')}} </button>
+                                        <button href="#" @click=" getReservationById(res._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" data-modal-toggle="authentication-modal"> {{$t('pay')}} </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -259,6 +298,39 @@
 
       </div>
   </div>
+
+            <div v-if="success" id="popup-modal" tabindex="-1" class="modals overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                      
+                        <div class="p-6 text-center check-modal">
+                            <img src="../../assets/check.svg" class="img-check mb-4" alt="">
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Nous avions bien été notifié de votre payement, il sera validé sous peut.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="error" id="popup-modal" tabindex="-1" class="modals overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
+                      
+                        <div class="p-6 text-center check-modal">
+                            <img src="../../assets/error.svg" class="img-check mb-4" alt="">
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">La notification de votre payement n'a pas été envoyée , veuillez réessayer plus tard</h3>
+                            <div class="flex">
+                              <a href="/" data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                  Annuler
+                              </a>
+                              <button @click="disableError" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Réessayer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div></div>
+
+
 </template>
 
 <script>
@@ -291,12 +363,19 @@ export default {
             phoneNumber : '',
             userLogement : '',
             range : 50,
-            feedback : ''
+            feedback : '',
+            toPayModal:0,
+            payedModal:0,
+            restToPayModal:0,
+            reservationModal : '',
+            success : false ,
+            error : false ,
 
         }
     },
     async mounted() {
-              
+        
+
         await axios.get(process.env.VUE_APP_URL+'/reservation/user' , {
             headers : {
                 Authorization : 'Bearer ' + localStorage.getItem('token') 
@@ -327,6 +406,44 @@ export default {
     },
 
     methods: {
+        
+    async sendReservation(){
+
+      await axios.post(process.env.VUE_APP_URL+'/reservation/sendRef/' , {
+          reservation : this.reservationModal,
+          reference : this.reference,
+          typeTransfert : this.transfert,
+      }).then(async () => {
+        this.success = true;
+        setTimeout( () => {
+            window.location.href = '/'
+          } , 1000)
+      }).catch((error) => {
+          console.log('error while sending reservation : ',error);
+          this.success = false;
+          this.error = true
+
+      })
+
+
+    },
+        async getReservationById(reservation){
+            await axios.get(process.env.VUE_APP_URL+'/reservation/oneReservation/'+reservation)
+                .then((res) => {
+                    this.payedModal = res.data.payed;
+                    this.toPayModal = res.data.toPay;
+                    this.restToPayModal = this.toPayModal - this.payedModal;
+                    this.reservationModal = reservation;
+                    const modal = document.getElementById('authentication-modal');
+                    modal.classList.toggle('hiddenModal');
+                    }).catch(() => {
+                    this.cancelError = true;
+                })
+        },
+        togglePayModal(){
+            const modal = document.getElementById('authentication-modal')
+            modal.classList.toggle('hiddenModal');
+        },
         cancelReservation(){
             const cancel = document.querySelector('.cancel')
             const cancelField = document.createElement('input')
@@ -357,6 +474,9 @@ export default {
 
 
 
+        },
+        disableError(){
+            this.error = false
         },
         async update(){
             this.isWaitAddLogement = true;
@@ -495,6 +615,7 @@ export default {
     color : rgb(0, 132, 255);
     border-bottom : 2px solid rgb(0, 132, 255);
 }
+
 .calendar{
   width:65% ;
 }
@@ -509,6 +630,13 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+.check-modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 .editReservation label{
     align-items: start;
@@ -527,10 +655,19 @@ export default {
     flex : 2;
     background: rgb(26, 33, 41);
     width : 100%;
+    
 
 }
 .leftSideBar ul{
     width : 100%;
+}
+#authentication-modal{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+#authentication-modal.hiddenModal{
+    display:none;
 }
 .leftSideBar ul li{
     font-size: 1.1rem;
@@ -551,6 +688,23 @@ export default {
     flex : 7;
     height: calc(100vh - 4.5rem);
     overflow-y : scroll;
+}
+
+.text-sm.methode{
+  margin-top : 0 !important;
+  padding: 0 !important;
+}
+#popup-modal{
+    z-index:9999;
+  background: #000000ad;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.payModal{
+    min-height: auto;
+    max-height: calc(100vh - 8rem);
+    overflow-y: scroll
 }
 .reservation{
     display : flex ;
@@ -611,6 +765,9 @@ export default {
 form p {
   float: left;
   width: 49%;
+}
+.fc{
+    width:fit-content
 }
 form p:not(:nth-child(2n)) {
   margin-right: 2%;

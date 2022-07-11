@@ -179,8 +179,6 @@ export default {
 
     }
   } ,
-
- 
   methods: {
     disableError(){
       this.error = false
@@ -436,6 +434,12 @@ export default {
   margin-top : 0 !important;
   padding: 0 !important;
 }
+#popup-modal{
+  background: #000000ad;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .calendar{
   width:100% ;
   height:100vh;
@@ -507,12 +511,7 @@ export default {
   justify-content: center;
   width: 100%;
 }
-#popup-modal{
-  background: #000000ad;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 /* responsivity */
 

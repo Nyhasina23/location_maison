@@ -5,7 +5,10 @@
     "reserve" : "Book",
     "accomodation" : "ACCOMMODATION AVAILABLE",
     "bedrooms" : "bedrooms",
+    "bedroomsVoid":"",
+
     "people" : "peoples" ,
+    "peopleVoid" : "",
     "accomodation_photo" : "SOME PHOTOS OF THE ACCOMMODATION",
     "contact" : "contact us",
     "detail" : "More",
@@ -73,7 +76,19 @@
     "payeds" : "Paid",
     "notpayed" : "Not paid",
     "acompte" : "Advance payment" , 
-    "canceled" : "Canceled"
+    "canceled" : "Canceled",
+    "restToPay":"Rest to pay",
+    "Parking":"Parking",
+    "Cuisine":"Kichen",
+    "Douche":"Bathroom",
+    "EauChaude":"Hot water",
+    "wifi":"wifi",
+    "TV":"TV",
+    "playRoom":"Joy room",
+    "Gardien": "Guard",
+    "pay":"Pay"
+    
+
     
 
 

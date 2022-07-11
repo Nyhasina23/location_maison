@@ -5,7 +5,11 @@
     "reserve" : "réserver",
     "accomodation" : "LOGEMENT DISPONIBLES",
     "bedrooms" : "chambres",
+    "bedroomsVoid":"",
+
     "people" : "personnes" ,
+    "peopleVoid" : "",
+
     "accomodation_photo" : "QUELQUES PHOTOS DU LOGEMENT",
     "contact" : "Contactez-nous",
     "detail" : "détails",
@@ -73,7 +77,18 @@
     "payeds" : "Payé",
     "notpayed" : "Non payé",
     "acompte" : "Acompte" , 
-    "canceled" : "Annulé"
+    "canceled" : "Annulé",
+    "restToPay":"Reste à payer",
+    "Parking":"Parking",
+    "Cuisine":"Cuisine",
+    "Douche":"Douche",
+    "EauChaude":"Eau chaude",
+    "wifi":"Wifi",
+    "TV":"TV",
+    "playRoom":"Salle de jeu",
+    "Gardien": "Gardien",
+    "pay":"Pay"
+
 
 
 
