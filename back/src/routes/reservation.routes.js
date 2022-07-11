@@ -4,6 +4,7 @@ const router = express.Router();
 const {reservationController} = require('../controllers/reservation.controller.js')
 
 router.post('/' , reservationController.reserver)
+router.post('/sendRef' , reservationController.sendRef)
 router.get('/user' , reservationController.getAllReservationUser)
 router.get('/' , reservationController.getAllReservation)
 router.get('/payed' , reservationController.getReservationPayed)

@@ -5,6 +5,25 @@ const { sendMail } = require('../modules/emailSend')
 const { LogementModel } = require('../models/logement.model')
 const {sha} = require('../modules/sha256')
 class reservationController {
+    static sendRef = async (req, res) =>{
+        try{
+            const reservationId = req.body.reservation;
+            const reference = req.body.reference;
+            const typeTransfert = req.body.typeTransfert;
+            const reservation = await ReservationModel.findById(reservationId);
+            const logement = await LogementModel.findById(reservation.logement)
+            const text = `${reservation.lastname} ${reservation.firstname} ${logement.name} a payé par ${typeTransfert} sur la référence ${reference}`
+            let isSent = await sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
+            if(isSent){
+                res.status(200).send();
+            }else{
+                res.status(403).send("Email could not be sent")
+            }
+        }catch(err){
+            res.Status(500).send("system error");
+            console.log(err);
+        }
+    } 
     static reserver = async (req, res) => {
         try {
             const token = req.headers['authorization'].split(' ')[1];
