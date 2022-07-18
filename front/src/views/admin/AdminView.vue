@@ -1,9 +1,9 @@
 /* eslint-disable */
 <template>
-  <div v-if="roleStatus" class="admin">
+  <div v-if="adminStatus" class="admin">
        <div class="leftSideBar">
           <ul>
-             <li @click="showAddLogement" class="cursor-pointer">
+             <li v-if=" adminStatus > 1" @click="showAddLogement" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
                     Ajouter Logement
@@ -11,11 +11,12 @@
               </li>
               <li @click="showLogementView" class="cursor-pointer">
                 <span>
+                
                     <box-icon type='solid' name='building' class="mr-2"></box-icon>
                     Logements
                 </span>
               </li>
-              <li @click="showReservationView" class="cursor-pointer">
+              <li  @click="showReservationView" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
                     Réservations
@@ -27,7 +28,7 @@
                     Utilisateurs
                 </span>
               </li>
-              <li @click="showFeedbackView" class="cursor-pointer">
+              <li v-if=" adminStatus > 1" @click="showFeedbackView" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='smile' class="mr-2"></box-icon>
                     Feedbacks
@@ -100,7 +101,7 @@
                                     <td class="px-6 py-4">
                                         {{  res.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
                                     </td>
-                                    <td class="px-6 py-4 ">
+                                    <td v-if=" adminStatus > 1" class="px-6 py-4 ">
                                         <router-link to="#"  @click="getResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons edit" ></box-icon></router-link>
                                     </td>
                                 </tr>
@@ -163,7 +164,7 @@
                                         <router-link to="/logement/calendar" @click="showCalendarView(log._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                             <box-icon type='solid' name='calendar'  class="icons calendars"></box-icon>
                                         </router-link>
-                                        <li  @click="showEditLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
+                                        <li v-if=" adminStatus > 1" @click="showEditLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
                                             <box-icon type='solid' name='edit' class="icons edit" ></box-icon>
                                         </li>
                                         <li  @click="deleteLogement(log._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
@@ -518,7 +519,10 @@
                                         {{user.phoneNumber}}
                                     </td>
                                  
-                                    <td class="px-6 py-4 ">
+                                    <td class="px-6 py-4 flex justify-center items-center">
+                                        <li v-if=" adminStatus > 1" @click="makeAdmin(user._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
+                                            <box-icon type='solid' name='edit' class="icons edit" ></box-icon>
+                                        </li>
                                         <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='trash' class="icons trash"></box-icon></a>
                                     </td>
                                 </tr>
@@ -612,13 +616,13 @@ export default {
             userDeletedAlert : false,
             isWaitAddLogement: false,
             logementDeletedAlert : false,
-            roleStatus: 0,
+            adminStatus: 0,
             feedbacks : ''
         }
     },
     async mounted() {
-        await this.getRoleStatus();
-        if(2>this.roleStatus){
+        await this.getadminStatus();
+        if(1>this.adminStatus){
             this.$router.push('/')
         }
         await axios.get(process.env.VUE_APP_URL+'/reservation')
@@ -798,6 +802,14 @@ export default {
                 this.reservation = res.data
             }).catch(error => {
                 console.log(error);
+            })
+        },
+        async makeAdmin(id){
+            await axios.get(process.env.VUE_APP_URL+'/user/setAdminStatus/'+id)
+            .then(() => {
+                alert("Modification accepté")
+            }).catch(() => {
+                alert("Il y a eu une erreur");
             })
         },
         showLogementView(){
@@ -983,13 +995,13 @@ export default {
                 console.log(error);
             })
         },
-        async getRoleStatus(){
+        async getadminStatus(){
             await axios.get(process.env.VUE_APP_URL+'/user/getOneUser' , {
                 headers : {
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(async (res) => {
-                this.roleStatus = res.data.role;
+                this.adminStatus = res.data.role;
             }).catch(error => {
                 console.log(error);
             })

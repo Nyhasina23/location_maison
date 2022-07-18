@@ -14,10 +14,12 @@ class reservationController {
             const logement = await LogementModel.findById(reservation.logement)
             const text = `${reservation.lastname} ${reservation.firstname} ${logement.name} a payé par ${typeTransfert} sur la référence ${reference}`
             let isSent = await sendMail(process.env.ADMIN_EMAIL, 'Payment reservation', text)
+            console.log(isSent);
             if(isSent){
                 res.status(200).send();
             }else{
                 res.status(403).send("Email could not be sent")
+
             }
         }catch(err){
             res.Status(500).send("system error");

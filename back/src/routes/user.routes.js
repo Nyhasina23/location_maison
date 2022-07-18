@@ -8,7 +8,7 @@ router.get('/' , UserController.getAll );
 router.get('/getAllAdmin' , UserController.getAllAdmin );
 router.get('/search/:filter',UserController.search);
 router.put('/update/' , UserController.update);
-router.put('/setAdminStatus' , UserController.setAdminStatus);
+router.get('/setAdminStatus/:userId' , UserController.setAdminStatus);
 
 router.delete('/:id' , UserController.delete);
 
