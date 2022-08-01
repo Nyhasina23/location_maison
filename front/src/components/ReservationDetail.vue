@@ -39,9 +39,9 @@
 
                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{$t('transport')}}</label>
                  <select id="countries" v-model="transport" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="AT" >{{$t('AT')}} </option>
-                    <option value="ST" > {{$t('ST')}}</option>
-                    <option value="AR" > {{$t('AR')}}</option>
+                    <option value="AT(Avec Transport)" >{{$t('AT')}} </option>
+                    <option value="ST(Sans Transport)" > {{$t('ST')}}</option>
+                    <option value="AR(Aller et Retour)" > {{$t('AR')}}</option>
                  </select>
                  <div class="mb-6 flex items-center">
                     <input type="checkbox" id="dejeuner" class="">
@@ -89,8 +89,9 @@
                                     <p>- Prix du logement <strong>{{defaultPrice}}</strong> / jour </p>
                                     <p v-if="isDejeuner">- Avec petit déjeuner <strong>{{dejPrice}}</strong> Ar</p>
                                     <p v-if="isFemme">- Avec femme de chambre <strong>{{femme}}</strong> Ar</p>
+                                    <p >- Transport <strong>{{transport}}</strong></p>
                                     <p class="text-sm underline mt-8" > {{$t('toPay')}}</p>
-                                    <p class="text-xl"> <strong> {{price ? price : '0'}} </strong> AR</p>
+                                    <p class="text-xl mb-2"> <strong> {{price ? price : '0'}} </strong> AR</p>
                                     <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> {{$t('confirm_res')}}</button>
 
                                 </div>
@@ -197,7 +198,17 @@ export default {
       isDejeuner : false,
       isFemme : false,
       dejPrice : 30000,
-      femme : 20000
+      femme : 20000,
+      dateSelect : [
+        {
+          start : undefined , 
+          startDate : undefined
+        } , 
+        {
+          end : undefined , 
+          endDate : undefined
+      }]
+
 
     }
   } ,
@@ -212,7 +223,6 @@ export default {
       document.getElementById('draggable-end').style.display = 'block'
 
       let disponibility = await this.getDisponibility();
-      console.log(this.disponibilityRaw)
       for(let i=0; i<this.disponibilityRaw.length; i++){
         this.disponibilityRaw[i].color = "#3788d8"
       }
@@ -222,6 +232,32 @@ export default {
           plugins : [dayGridPlugin , interactionPlugin] ,
           editable : false ,
           droppable : true ,
+          selectable : true,
+          dateClick : (e) => {
+              if(this.dateSelect[0].start != undefined){
+                this.dateSelect[1].end = e.dateStr
+                this.dateSelect[1].endDate = e.date
+              }else{
+                this.dateSelect[0].start = e.dateStr
+                this.dateSelect[0].startDate = e.date
+
+              }
+              this.startDisplay = this.dateSelect[0].start
+              this.endDisplay = this.dateSelect[1].end
+
+              this.start = new Date(this.dateSelect[0].start)
+              this.start.setHours(0,0,0,0)
+              this.end = new Date(this.dateSelect[1].end)
+              this.end.setHours(0,0,0,0)
+
+              if(this.start > this.end){
+                  this.endDisplay = "Choisissez une date valide"
+                  e.dayEl.style.color = 'red'
+              }else{
+                  e.dayEl.style.backgroundColor = 'blue'; 
+              }
+
+          },
           events : this.disponibilityRaw ,
           eventAllow : (info , event) => {
 
@@ -452,6 +488,9 @@ export default {
 </script>
 
 <style scoped>
+.red{
+  background: red;
+}
 .toDrag{
   margin:8px;
   padding: 1px 2px;

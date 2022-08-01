@@ -48,6 +48,12 @@ const LogementSchema = mongoose.Schema({
     price: {
         type: Array,
     },
+    dejeuner : {
+        type : Number
+    } ,
+    femme : {
+        type : Number
+    }
 })
 
 const LogementModel = mongoose.model('logements', LogementSchema)

@@ -51,8 +51,10 @@ class LogementController {
             const pers_max = req.body.pers_max;
             const modalite = req.body.modalite;
             const price = req.body.price;
+            const dejeuner = req.body.dejeuner;
+            const femme = req.body.femme;
             if (name == '' || type == '' || description == '' || surface == '' || address == ''
-                || price == '' || image == ''
+                || price == '' || image == '' || dejeuner == '' || femme == ''
             ) {
                 res.status(403).send()
             } else {
@@ -72,7 +74,9 @@ class LogementController {
                             value: price
                         }
                     }],
-                    images: image
+                    images: image,
+                    dejeuner,
+                    femme
                 })
                 newLogement.save()
                 res.status(200).send('created')
@@ -90,7 +94,6 @@ class LogementController {
             const logement = await LogementModel.find()
             if (logement) {
                 res.status(200).send(logement)
-                console.log("eto");
             } else {
                 res.status(404).send('no logement')
             }
