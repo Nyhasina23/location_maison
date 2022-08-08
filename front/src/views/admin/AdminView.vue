@@ -149,7 +149,7 @@
                                         {{log.type}}
                                     </td>
                                     <td class="px-6 py-4 text-left">
-                                        {{log.price[0].date.value}} Ar
+                                        {{log.price[0].date.value}} €
                                     </td>
                                     <td class="px-6 py-4 text-left">
                                         {{log.address}}

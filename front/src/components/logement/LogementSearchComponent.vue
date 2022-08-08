@@ -7,7 +7,7 @@
                 <img src="../../assets/img(1).jpg" alt="">
             </div>
             <div class="logement-detail-search">
-                <h5>150000 Ar / jour</h5>
+                <h5>150000 € / jour</h5>
                 <p>Villa</p>
                 <a class="btn-primary-search" href="#">Details</a>
             </div>
@@ -17,7 +17,7 @@
                 <img src="../../assets/img(3).jpg" alt="">
             </div>
             <div class="logement-detail-search">
-                <h5>150000 Ar / jour</h5>
+                <h5>150000 € / jour</h5>
                 <p>Villa</p>
                 <a class="btn-primary-search" href="#">Details</a>
             </div>
@@ -27,7 +27,7 @@
                 <img src="../../assets/placeholder.jpg" alt="">
             </div>
             <div class="logement-detail-search">
-                <h5>150000 Ar / jour</h5>
+                <h5>150000 € / jour</h5>
                 <p>Villa</p>
                 <a class="btn-primary-search" href="#">Details</a>
             </div>

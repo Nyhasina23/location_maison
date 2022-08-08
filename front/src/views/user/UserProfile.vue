@@ -54,8 +54,8 @@
                                     <p class="text-sm methode" >BNI : 108 1235 45 5452</p>
                                     <p class="text-sm methode" >Paypal : nyhasina@gmail.com</p>
                                     <br>
-                                    <p> <span class="text-sm mr-8 fc" >{{$t('toPay')}}</span><span class="text-xl">{{toPayModal}} AR</span></p><br>
-                                    <p> <span class="text-sm mr-8 fc" >{{$t('payed')}}</span><span class="text-xl">{{payedModal}} AR</span></p><br>
+                                    <p> <span class="text-sm mr-8 fc" >{{$t('toPay')}}</span><span class="text-xl">{{toPayModal}} €</span></p><br>
+                                    <p> <span class="text-sm mr-8 fc" >{{$t('payed')}}</span><span class="text-xl">{{payedModal}} €</span></p><br>
                                     <p> <span class="text-sm mr-8 fc" >{{$t('restToPay')}}</span><span class="text-xl">{{restToPayModal}} AR</span></p>
                                     
                                     <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> {{$t('confirm_res')}}</button>
