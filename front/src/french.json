@@ -5,7 +5,11 @@
     "reserve" : "réserver",
     "accomodation" : "LOGEMENT DISPONIBLES",
     "bedrooms" : "chambres",
+    "bedroomsVoid":"",
+
     "people" : "personnes" ,
+    "peopleVoid" : "",
+
     "accomodation_photo" : "QUELQUES PHOTOS DU LOGEMENT",
     "contact" : "Contactez-nous",
     "detail" : "détails",
@@ -19,6 +23,7 @@
     "connexion" : "Connexion",
     "email" : "Adresse éléctronique" , 
     "password": "Mot de passe",
+    "new_password": "Nouveau mot de passe",
     "not_account" : "Vous n'avez pas de compte?",
     "inscrire" : "S'inscrire",
     "firstname" : "Nom",
@@ -30,7 +35,7 @@
     "male" :"Masculin",
     "female" : "Féminin",
     "day" : "jour",
-    "book_head" : "Veuillez maintener et glisser les deux boutons sur le calendrier pour choisir votre date de réservation",
+    "book_head" : "Veuillez maintenir et glisser les deux boutons sur le calendrier pour choisir votre date de réservation",
     "try" : "Réessayer",
     "entry_date" : "Date d'entrée",
     "release_date" : "Date de sortie",
@@ -47,6 +52,47 @@
     "transfer" : "Type de transfert",
     "toPay" : "Total à payer" ,
     "confirm_res" : "Valider réservation",
-    "booking" : "Réservations"
+    "booking" : "Réservations",
+    "logement_detail" : "Détails du logement" ,
+    "type" : "Type",
+    "surface" : "Surface",
+    "modalite" : "Modalités",
+    "modif_info" : "Modifier vos informations",
+    "reservations" : "Réservations",
+    "feedback" : "Avis",
+    "valid" : "Valider",
+    "state" : "Status",
+    "send_feedback" : "Envoyez vos avis sur notre site",
+    "note" : "Note",
+    "send" : "Envoyer",
+    "detail_reservation" : "Détails de la réservation",
+    "payed" : "Montant payé",
+    "log_reserve" : "Logement réservé",
+    "cancel_res" : "Annuler réservation",
+    "invalid_password" : "Mot de passe invalide",
+    "cancel_success" : "Annulation avec succès!",
+    "verify" : "Veuillez vérifier tous les champs!",
+    "feedback_success" : "Feedback envoyé avec succès!",
+    "info_success" : "Modification avec succès!",
+    "payeds" : "Payé",
+    "notpayed" : "Non payé",
+    "acompte" : "Acompte" , 
+    "canceled" : "Annulé",
+    "restToPay":"Reste à payer",
+    "Parking":"Parking",
+    "Cuisine":"Cuisine",
+    "Douche":"Douche",
+    "EauChaude":"Eau chaude",
+    "wifi":"Wifi",
+    "TV":"TV",
+    "playRoom":"Salle de jeu",
+    "Gardien": "Gardien",
+    "pay":"Pay"
+
+
+
+
+
+
 
 }

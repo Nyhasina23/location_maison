@@ -12,7 +12,7 @@
                         </span>
                     </router-link>
                 </li>
-                <li  v-if=" adminStatus > 1 && $store.state.isAuth">
+                <li  v-if=" adminStatus > 0 && $store.state.isAuth">
                     <a href="/admin"  class="nav-link">
                         <span class="navText">
                              {{$t("administration")}}
@@ -201,7 +201,7 @@ export default {
     position: fixed;
     top: 0;
     left:0;
-    z-index:9999999;
+    z-index:20;
     background: white;
     
 }

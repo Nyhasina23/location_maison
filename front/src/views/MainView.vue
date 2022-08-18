@@ -19,10 +19,10 @@
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{logement.name}}</h5>
             <p class="mb-3 font-normal text-gray-400 dark:text-gray-400">{{logement.type}}</p>
             <div class="flex justify-start  w-full mb-2 mt-5">
-              <p class="flex items-center mr-2 text-sm" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>{{logement.chambre}} {{$t("bedrooms")}}</p>
-              <p class="flex items-center ml-2 text-sm" ><box-icon type='solid' class="mr-1" name='group'></box-icon>{{logement.pers_max}} {{$t("people")}}</p>
+              <p class="flex items-center mr-2 text-sm" ><box-icon type='solid' class="mr-1" name='bed'></box-icon>{{$t("bedroomsVoid")}}{{logement.chambre}} {{$t("bedrooms")}}</p>
+              <p class="flex items-center ml-2 text-sm" ><box-icon type='solid' class="mr-1" name='group'></box-icon>{{$t("peopleVoid")}}{{logement.pers_max}} {{$t("people")}}</p>
             </div>
-            <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{logement.price[0].date.value}} Ar <span class="text-sm font-normal text-gray-500">/ {{$t('day')}}</span> </p>
+            <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{logement.price[0].date.value}} € <span class="text-sm font-normal text-gray-500">/ {{$t('day')}}</span> </p>
              <div class="duo flex justify-start w-full">
               <a href="/logement" class="detail btn " @click="getLogementId(logement._id)" >{{$t("detail")}}</a>
               <a :href=" $store.state.isAuth ? '/reservation/detail' : '/signin' " class="reserver btn" @click="getLogementId(logement._id)"  >{{$t("reserve")}}</a>

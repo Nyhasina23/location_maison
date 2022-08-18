@@ -19,15 +19,10 @@ class UserController {
     }
     static setAdminStatus = async (req, res) => {
         try{
-            const status = req.body.status;
-            const userId = req.body.userId;
-            const token = req.headers['authorization'].split(' ')[1];
-    
-            const mainUserId = jwtdecode(token).id;
-            let mainUser = await UserModel.findById(mainUserId);
-            if (mainUser.role > 1) {
-                let user = await UserModel.findById(userId);
-                user.role = status;
+            const userId = req.params.userId;
+            let user = await UserModel.findById(userId);
+            if (user.role > 0) {
+                user.role = 1;
                 const text = "Votre rôle a été modifié";
                 const isSent = await sendMail(user.email, 'Promotion', text);
                 if(isSent){
@@ -37,7 +32,15 @@ class UserController {
                     res.status(401).send("Error while sending email");
                 }
             } else {
-                res.status(403).send("you are not an admin");
+                user.role = 1;
+                const text = "Votre rôle a été modifié";
+                const isSent = await sendMail(user.email, 'Promotion', text);
+                if(isSent){
+                    user.save();
+                    res.status(200).send("User role updated");
+                }else{
+                    res.status(401).send("Error while sending email");
+                }
             }
         }catch(error){
             res.status(500).send("internal server error")

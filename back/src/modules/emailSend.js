@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-const sendMail = (to, subject, text) => {
+const sendMail = async (to, subject, text) => {
     let transport = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
@@ -16,14 +16,17 @@ const sendMail = (to, subject, text) => {
         subject, // Subject line
         text, // Plain text body
     };
-
-    transport.sendMail(mailOptions, function (err, info) {
-        if (err) {
-            return false;
-        }else{
-            return true;
-        }
+    let isSent;
+    await transport.sendMail(mailOptions)
+    .then(()=>{
+        console.log("sent");
+        isSent = true;
+    })
+    .catch((err)=>{
+        console.log(err);
+        isSent = false;
     });
+    return isSent;
 }
 
 module.exports = { sendMail }

@@ -4,8 +4,10 @@
     "started" : "Manomboka",
     "reserve" : "Hamandrika",
     "accomodation" : "Trano malalaka",
-    "bedrooms" : "Hefitra",
-    "people" : "Olona" ,
+    "bedrooms" : "",
+    "bedroomsVoid":"Hefitra ",
+    "people" : "" ,
+    "peopleVoid" : "Olona ",
     "accomodation_photo" : "Sary sasantsasany amin'ny trano",
     "contact" : "Hifandray aminay",
     "detail" : "Bebe kokoa",
@@ -18,6 +20,7 @@
     "se_connecter" : "Hiditra amin'ny tranokala",
     "connexion" : "Hiditra",
     "email" : "Mailaka" , 
+    "new_password": "Teny miafina vaovao",
     "password": "Teny miafina",
     "not_account" : "Tsy manana kaonty ianao?",
     "inscrire" : "Hisoratra anarana",
@@ -47,6 +50,48 @@
     "transfer" : "Karazana famindrana",
     "toPay" : "Vola haloa" ,
     "confirm_res" : "Handefa",
-    "bookings" : "Famandrihana"
+    "bookings" : "Famandrihana",
+    "logement_detail" : "Momba ny trano" ,
+    "type" : "Karazany",
+    "surface" : "Fivelarana",
+    "modalite" : "Fanampiny",
+    "modif_info" : "Hanova ny mombamomba",
+    "reservations" : "Famandrihana",
+    "feedback" : "Sosokevitra",
+    "valid" : "Hanaiky",
+    "state" : "Endriny",
+    "send_feedback" : "Alefaso ao amin'ny tranokalanay ny hevitrao",
+    "note" : "Naoty",
+    "send" : "Handefa",
+    "detail_reservation" : "Mombamomba ny famandrihana",
+    "payed" : "Vola voaloa",
+    "log_reserve" : "Trano voafandrika",
+    "cancel_res" : "Foanana ny famandrihana",
+    "invalid_password" : "Fahadisoan'ny teny miafina",
+    "cancel_success" : "Nahomby ny fanafoanana",
+    "verify" : "Hamarino azafady ny saha rehetra",
+    "feedback_success" : "Voaray ny fanamarihanao",
+    "info_success" : "Voaray ny fanovàna nangatahanao",
+    "payeds" : "Voaloa",
+    "notpayed" : "Tsy voaloa",
+    "acompte" : "Fandoavana mialoha" , 
+    "canceled" : "Nofoanana",
+    "restToPay":"Ambiny",
+    "Parking":"Parking",
+    "Cuisine":"Lakozia",
+    "Douche":"Hefitra fisasana",
+    "EauChaude":"Rano mafana",
+    "wifi":"Wifi",
+    "TV":"Fahitavitra",
+    "playRoom":"Hefitra fialana voly",
+    "Gardien": "Mpiambina",
+    "pay":"Mandoha"
+
+
+
+
+
+
+
 
 }
