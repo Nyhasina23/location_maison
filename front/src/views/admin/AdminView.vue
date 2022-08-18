@@ -993,11 +993,12 @@ export default {
             marqueCar : '',
             descCar : '',
             nbr_placeCar : '',
-            priceCar : ''
+            priceCar : '',
+            adminStatus : ''
         }
     },
     async mounted() {
-        await this.getadminStatus();
+        await this.getRoleStatus();
         if(1>this.adminStatus){
             this.$router.push('/')
         }
@@ -1667,6 +1668,7 @@ export default {
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(async (res) => {
+                console.log(res.data)
                 this.adminStatus = res.data.role;
             }).catch(error => {
                 console.log(error);

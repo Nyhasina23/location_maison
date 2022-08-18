@@ -107,126 +107,6 @@
                 </form>
               </div>
             </div>
-            <div class="logement-detail">
-                <h1 class="text-xl mb-10 mt-4 font-semibold"> {{$t('info')}} </h1>
-                <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('nbr_pers')}} </label>
-                    <input type="number" v-model="nbr_pers" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                </div>
-                <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('entry_date')}} </label>
-                    <input type="text" v-model="startDisplay" disabled id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-                </div>
-                <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('release_date')}} </label>
-                    <input type="text" v-model="endDisplay" disabled id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                </div>
-                
-                 <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('entry_time')}} </label>
-                    <input type="time" id="base-input" v-model="entry_hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                
-                </div>
-                 <div class="mb-6">
-                    <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('exit_time')}} </label>
-                    <input type="time" id="base-input" v-model="leave_hour" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                </div>
-
-                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{$t('transport')}}</label>
-                 <select id="countries" v-model="transport" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="AT(Avec Transport)" >{{$t('AT')}} </option>
-                    <option value="ST(Sans Transport)" > {{$t('ST')}}</option>
-                    <option value="AR(Aller et Retour)" > {{$t('AR')}}</option>
-                 </select>
-                 <div class="mb-6 flex items-center">
-                    <input type="checkbox" id="dejeuner" class="">
-                    <label for="dejeuner" class="block ml-2 mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> Avec petit déjeuner </label>
-                </div>
-                 <div class="mb-6 flex items-center">
-                    <input type="checkbox" id="femme" class="">
-                    <label for="femme" class="block ml-2 mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> Avec femme de chambre </label>
-                </div>
-
-                <!-- Main modal -->
-
-                <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-                    <div class="relative p-4 h-full md:h-auto w-80">
-                        <!-- Modal content -->
-                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="authentication-modal">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
-                            </button>
-                            <div class="py-6 px-6 lg:px-8 modals flex">
-                                <form class="space-y-6" action="#">
-                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"> {{$t('payment_ref')}}</h3>
-                                    <div>
-                                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> {{$t('ref')}}</label>
-                                        <input v-model="reference" type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="">
-
-                                    </div>
-                                    <div>
-                                        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{$t('transfer')}}</label>
-                                         <select id="countries" v-model="transfert" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                             <option>MVola</option>
-                                             <option>BNI</option>
-                                             <option>Paypal</option>
-                                         </select>
-                                    </div>
-                                    <p class="text-sm methode" >Mvola : +2613489758426</p>
-                                    <p class="text-sm methode" >BNI : 108 1235 45 5452</p>
-                                    <p class="text-sm methode" >Paypal : nyhasina@gmail.com</p>
-                                    
-                                  
-                                </form>
-                                <div class="facturation ml-8">
-                                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"> Facturation</h3>
-                                    <p>- Location pendant <strong>{{days }}</strong> jours </p>
-                                    <p>- Prix du logement <strong>{{defaultPrice}}</strong> / jour </p>
-                                    <p v-if="isDejeuner">- Avec petit déjeuner <strong>{{dejPrice}}</strong> Ar</p>
-                                    <p v-if="isFemme">- Avec femme de chambre <strong>{{femme}}</strong> Ar</p>
-                                    <p >- Transport <strong>{{transport}}</strong></p>
-                                    <p class="text-sm underline mt-8" > {{$t('toPay')}}</p>
-                                    <p class="text-xl mb-2"> <strong> {{price ? price : '0'}} </strong> AR</p>
-                                    <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> {{$t('confirm_res')}}</button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
-                <button class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-modal-toggle="authentication-modal" @click="submitReservation">{{$t('reserve')}}</button>
-            </div>
-
-            <div v-if="success" id="popup-modal" tabindex="-1" class="modals flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
-                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                      
-                        <div class="p-6 text-center check-modal">
-                            <img src="../assets/check.svg" class="img-check mb-4" alt="">
-                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Votre réservation à été envoyée</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div v-if="error" id="popup-modal" tabindex="-1" class="modals flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
-                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 ">
-                      
-                        <div class="p-6 text-center check-modal">
-                            <img src="../assets/error.svg" class="img-check mb-4" alt="">
-                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Votre réservation n'a pas été envoyée , veuillez réessayer</h3>
-                            <div class="flex">
-                              <a href="/" data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                  Annuler
-                              </a>
-                              <button @click="disableError" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Réessayer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
           </div>
         </div>
 
@@ -315,37 +195,22 @@ export default {
   },
   data() {
     return {
-      start : undefined ,
-      end : undefined ,
-      startDisplay : '' ,
-      endDisplay : '' ,
-      price : 0 ,
-      defaultPrice : '' ,
-      day : 0 ,
-      disponibilityRaw : [] ,
-      nbr_pers : '' ,
-      entry_hour : '' ,
-      leave_hour : '' ,
-      transport : '' ,
-      reference : '' ,
-      transfert : '' ,
-      success : false ,
-      error : false ,
-      days : 0,
-      isDejeuner : false,
-      isFemme : false,
-      dejPrice : 30000,
-      femme : 20000,
-      dateSelect : [
-        {
-          start : undefined , 
-          startDate : undefined
-        } , 
-        {
-          end : undefined , 
-          endDate : undefined
-      }]
-
+      start: undefined,
+      end: undefined,
+      startDisplay: '',
+      endDisplay: '',
+      price: 0,
+      defaultPrice: '',
+      day: 0,
+      disponibilityRaw: [],
+      nbr_pers: '',
+      entry_hour: '',
+      leave_hour: '',
+      transport: '',
+      reference: '',
+      transfert: '',
+      success: false,
+      error: false,
 
     }
   },
@@ -358,44 +223,67 @@ export default {
       document.getElementById('draggable-end').style.display = 'block'
 
       let disponibility = await this.getDisponibility();
-      for(let i=0; i<this.disponibilityRaw.length; i++){
+      for (let i = 0; i < this.disponibilityRaw.length; i++) {
         this.disponibilityRaw[i].color = "#3788d8"
       }
-       let calendarElement = document.getElementById('calendar')
-        let calendar = new Calendar(calendarElement , {
-          initialView : 'dayGridMonth' ,
-          plugins : [dayGridPlugin , interactionPlugin] ,
-          editable : false ,
-          droppable : true ,
-          selectable : true,
-          dateClick : (e) => {
-              if(this.dateSelect[0].start != undefined){
-                this.dateSelect[1].end = e.dateStr
-                this.dateSelect[1].endDate = e.date
-              }else{
-                this.dateSelect[0].start = e.dateStr
-                this.dateSelect[0].startDate = e.date
+      let calendarElement = document.getElementById('calendar')
+      let calendar = new Calendar(calendarElement, {
+        initialView: 'dayGridMonth',
+        plugins: [dayGridPlugin, interactionPlugin],
+        editable: false,
+        droppable: true,
+        events: this.disponibilityRaw,
+        dateClick:  (info)=> {
 
+          console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+          console.log('Clicked on: ' + info.dateStr);
+          console.log('Current view: ' + info.view.type);
+          // change the day's background color just for fun
+          let date = new Date(info.dateStr);
+          let today = new Date(Date.now());
+          today.setHours(0, 0, 0, 0)
+
+          if (info.dayEl.style.backgroundColor == 'blue') {
+            info.dayEl.style.backgroundColor = 'white';
+            if(info.dateStr == this.start){
+              this.start= this.end;
+            }
+            this.end = undefined;
+
+
+          } else {
+            if (date >= today) {
+              if (this.start) {
+                if (this.end) {
+                  console.log('done')
+                } else {
+                  if (this.start > info.dateStr) {
+                    this.end = this.start;
+                    this.start = info.dateStr;
+                    info.dayEl.style.backgroundColor = 'blue';
+                  } else {
+                    this.end = info.dateStr;
+                    info.dayEl.style.backgroundColor = 'blue';
+                  }
+                }
+              } else {
+                this.start = info.dateStr
+                info.dayEl.style.backgroundColor = 'blue';
               }
-              this.startDisplay = this.dateSelect[0].start
-              this.endDisplay = this.dateSelect[1].end
+            }
+          }
+          console.log("start = ",this.start)
+          console.log("end = ",this.end)
+          this.startDisplay = this.start;
+          this.endDisplay = this.end;
 
-              this.start = new Date(this.dateSelect[0].start)
-              this.start.setHours(0,0,0,0)
-              this.end = new Date(this.dateSelect[1].end)
-              this.end.setHours(0,0,0,0)
+        },
 
-              if(this.start > this.end){
-                  this.endDisplay = "Choisissez une date valide"
-                  e.dayEl.style.color = 'red'
-              }else{
-                  e.dayEl.style.backgroundColor = 'blue'; 
-              }
 
-              console.log(this.dateSelect)
 
-          },
-          events : this.disponibilityRaw ,
+
+
+
         eventAllow: (info, event) => {
 
           let now = new Date(Date.now());
@@ -551,32 +439,14 @@ export default {
 
     },
 
-    submitReservation(){
-      const isFemmeChecked = document.getElementById('femme').checked
-      const isDejeunerChecked = document.getElementById('dejeuner').checked
-      
-      this.$store.commit('setNbr_pers' , this.nbr_pers);
-      this.$store.commit('setHour_enter' ,this.entry_hour);
-      this.$store.commit('setHour_leave' ,this.leave_hour);
-      this.$store.commit('setTransport' ,this.transport);
-      let toPay = this.defaultPrice * ((new Date(this.endDisplay).setHours(0,0,0,0) - new Date(this.start).setHours(0,0,0,0) ) / (1000 * 60 * 60 * 24 ) + 1)
-      this.days = toPay / this.defaultPrice
-      if(isNaN(this.days)){
-        this.days = 0
-      }
-      if(isFemmeChecked){
-        this.isFemme = true
-        toPay = toPay + this.femme
-      }else{
-        this.isFemme = false
-      }
-      if(isDejeunerChecked){
-        this.isDejeuner = true
-        toPay = toPay + this.dejPrice
-      }else{
-        this.isDejeuner = false
-      }
-      this.$store.commit('setToPay' , toPay)
+    submitReservation() {
+
+      this.$store.commit('setNbr_pers', this.nbr_pers);
+      this.$store.commit('setHour_enter', this.entry_hour);
+      this.$store.commit('setHour_leave', this.leave_hour);
+      this.$store.commit('setTransport', this.transport);
+      const toPay = this.defaultPrice * ((new Date(this.endDisplay).setHours(0, 0, 0, 0) - new Date(this.start).setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24) + 1)
+      this.$store.commit('setToPay', toPay)
       this.price = toPay
 
 
@@ -625,11 +495,8 @@ export default {
 </script>
 
 <style scoped>
-.red{
-  background: red;
-}
-.toDrag{
-  margin:8px;
+.toDrag {
+  margin: 8px;
   padding: 1px 2px;
   border-radius: 3px;
   font-size: .85em;
@@ -743,15 +610,8 @@ export default {
   justify-content: center;
   width: 100%;
 }
-#popup-modal{
-  background: #000000ad;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.w-80{
-  width : fit-content;
-}
+
+
 /* responsivity */
 
 @media screen and (max-width:320px) {
