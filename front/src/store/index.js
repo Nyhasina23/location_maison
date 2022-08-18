@@ -7,6 +7,7 @@ const store =  createStore({
             name:'',
             logement:'',
             nbr_pers : '',
+            nbr_persCar : '',
             date_enter : '',
             date_leave: '',
             transport : '',
@@ -16,8 +17,10 @@ const store =  createStore({
             typeTransfert:'',
             payed : '',
             toPay: '',
+            toCarPay : '',
             idLog : '' ,
-            modalite : ''
+            modalite : '',
+            idCar : ''
     },
     mutations : {
         setModalite(state , value){
@@ -26,9 +29,18 @@ const store =  createStore({
         isAuthenticated(state, value){
         state.isAuth = value
         },
+        setNbr_persCar(state , value){
+            state.nbr_persCar = value
+        },
+        setCarToPay(state , value){
+            state.toCarPay = value
+        },  
         setIdLog(state , value){
             state.idLog  = value
         } ,
+        setIdCar(state , value){
+            state.idCar = value
+        },
         setToPay(state, value){
             state.toPay = value;
         },

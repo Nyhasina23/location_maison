@@ -15,10 +15,28 @@
                     Logements
                 </span>
               </li>
-              <li @click="showReservationView" class="cursor-pointer">
+               <li @click="showReservationView" class="cursor-pointer">
                 <span>
                     <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
                     Réservations
+                </span>
+              </li>
+             <li @click="showAddCars" class="cursor-pointer">
+                <span>
+                    <box-icon type='solid' name='clinic' class="mr-2"></box-icon>
+                    Ajouter Voiture
+                </span>
+              </li>
+              <li @click="showCarView" class="cursor-pointer">
+                <span>
+                    <box-icon type='solid' name='building' class="mr-2"></box-icon>
+                    Voitures
+                </span>
+              </li>
+              <li @click="showCarReservationView" class="cursor-pointer">
+                <span>
+                    <box-icon type='solid' name='food-menu' class="mr-2"></box-icon>
+                    Réservations Voitures
                 </span>
               </li>
               <li @click="showUserView" class="cursor-pointer">
@@ -106,6 +124,73 @@
                     </div>
               </div>
           </div>
+          <div v-if="showCarReservation" class="reservation">
+              <div class="reservationContent">
+                  <div class="relative w-full overflow-x-auto   sm:rounded-lg reservations">
+                        <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des réservations Voitures</h3>
+
+                        <table class="mb-4 table1" >
+                             <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" @click="toggleActive($event); allCarReservation();" id="link1"  class="py-3 link active">
+                                        Toutes les réservations
+                                    </th>
+                                    <th scope="col" @click="toggleActive($event); reservationCarNotPayed(); " id="link2"  class="py-3 link ">
+                                        Non Payé 
+                                    </th>
+                                    <th scope="col" @click="toggleActive($event); reservationCarAcompte();" id="link3" class="py-3 link">
+                                        Avec acompte 
+                                    </th>
+                                    <th scope="col" @click="toggleActive($event); reservationCarPayed()" id="link4" class="py-3 link">
+                                        Payé
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <table class="table2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nom 
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Date d'entrée
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Date de sortie
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Edit</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="res in reservationCar" v-bind:key="res._id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        {{res.firstname}}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{res.date_enter}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{res.date_leave}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{  res.state === 4  ?   'Annulé' :  res.state === 3 ?  'Non payé' :  res.state === 2 ?  'Avec acompte' : 'Payé' }}
+                                    </td>
+                                    <td class="px-6 py-4 ">
+                                        <router-link to="#"  @click="getCarResId(res._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='edit' class="icons edit" ></box-icon></router-link>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+              </div>
+          </div>
           <div v-if="showLogement" class="relative w-full overflow-x-auto sm:rounded-lg">
                         <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des logements</h3>
 
@@ -177,6 +262,71 @@
                             </div>
                         </div>
           </div>
+          <div v-if="showCar" class="relative w-full overflow-x-auto sm:rounded-lg">
+                        <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des voitures</h3>
+
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Marque 
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Type
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Prix
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Places
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Réservations
+                                    </th>
+                                    
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Calendar</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="car in cars" v-bind:key="car._id"  class="maxHeightLogement bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                       {{car.marque}}
+                                    </th>
+                                    <td class="px-6 py-4 text-left">
+                                        {{car.type}}
+                                    </td>
+                                    <td class="px-6 py-4 text-left">
+                                        {{car.price}} Ar
+                                    </td>
+                                    <td class="px-6 py-4 text-left">
+                                        {{car.nbr_place}}
+                                    </td>
+                                    <td class="px-6 py-4 text-left">
+                                        {{car.reservation.length}}
+                                    </td>
+                                    <td class="px-6 py-4  flex w-full justify-center">
+                                        <router-link to="/car/calendar" @click="showCarCalendarView(car._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            <box-icon type='solid' name='calendar'  class="icons calendars"></box-icon>
+                                        </router-link>
+                                        <li  @click="showEditCars(car._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
+                                            <box-icon type='solid' name='edit' class="icons edit" ></box-icon>
+                                        </li>
+                                        <li  @click="deleteCar(car._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
+                                            <box-icon type='solid' name='trash' class="icons trash"></box-icon>
+                                        </li>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div v-if="logementDeletedAlert === true" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                            <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <div>
+                                <span class="font-medium">Voiture supprimé avec succès!</span>
+                            </div>
+                        </div>
+          </div>
        
             <div v-if="showValidate" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
             <div class="form">
@@ -188,7 +338,7 @@
                     </p>
                     <p class="mb-2">
                     <label for="" class="mb-2">Prenoms</label>
-                    <input type="text" disabled  v-model="oneReservation.firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    <input type="text" disabled  v-model="oneReservation.lastname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
                     <label for="" class="mb-2">Email</label>
@@ -293,6 +443,164 @@
 
           </div>
 
+            <div v-if="showCarValidate" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
+            <div class="form">
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Validation de la réservation</h3>
+                <form class="">
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Nom</label>
+                    <input type="text"  disabled  v-model="oneCarReservation.firstname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Prenoms</label>
+                    <input type="text" disabled  v-model="oneCarReservation.lastname" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Email</label>
+                    <input type="text" disabled  v-model="oneCarReservation.email" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Adresse</label>
+                    <input type="text" disabled  v-model="oneCarReservation.address" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Date d'arrivée</label>
+                    <input type="text"  disabled v-model="oneCarReservation.date_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Date de départ</label>
+                    <input type="text"  disabled v-model="oneCarReservation.date_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Type de transfert</label>
+                    <input type="text"  disabled v-model="oneCarReservation.typeTransfert" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Voiture réservé</label>
+                    <input type="text" disabled  v-model="userCar" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Montat à payé</label>
+                    <input type="text" disabled  v-model="toPayCar" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Status</label>
+                    <input type="text"  disabled :value="oneCarReservation.state === 4  ?   'Annulé' :  oneCarReservation.state === 3 ?  'Non payé' :  oneCarReservation.state === 2 ?  'Avec acompte' : 'Payé'" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                    <label for="" class="mb-2">Montant Payé</label>
+                    <input type="text" v-model="payedCar" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p>
+                    </p>
+                    <p v-if="payedError" class="error p-4 mt-2 text-sm text-red-700 bg-red-100 rounded dark:bg-red-200 dark:text-red-800" role="alert">{{ payedError }}</p>
+
+                    <p>
+                    </p>
+                    
+                </form>
+
+            </div>
+           
+                <div class="flex-col mt-4">
+                    <div v-if="validError === true" class="flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Veuillez vérifier tous les champs</span> 
+                    </div>
+                  </div>
+
+                  <div v-if="validError === false" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Validation avec succès!</span>
+                    </div>
+                  </div>
+                    <button @click="validCarChange" class="btn-valid text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
+                    <button v-if="!isWaitAddLogement && oneCarReservation.state != 4 " @click="cancelCarReservation" type="button" class=" mb-4 w-fitC text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 inline-flex items-center">
+                            Annuler réservation
+                        </button>
+                        <div class="cancelCarRes">
+
+                        </div>
+                        <button v-if="isWaitAddLogement" disabled type="button" class=" w-fitC py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-red-700 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center cursor-not-allowed">
+                            <svg role="status" class="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                            </svg>
+                            Loading...
+                        </button>
+                        <div v-if="cancelError === true" class=" w-fitC flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                        <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                        <div>
+                            <span class="font-medium">Mot de passe invalide!</span> 
+                        </div>
+                        </div>
+                        <div v-if="cancelError === false" class=" w-fitC flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                        <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                        <div>
+                            <span class="font-medium">Annulation avec succès!</span>
+                        </div>
+                        </div>
+                </div>
+
+          </div>
+
+          <div v-if="showAddCar" class="edit-profile relative w-full overflow-x-auto  sm:rounded-lg">
+            <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Ajouter une voiture</h3>
+            <div class="form">
+                <form class="">
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Type</label>
+                        <input type="text" v-model="typeCar" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Marque</label>
+                        <input type="text" v-model="marqueCar" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Description</label>
+                        <input type="text" v-model="descCar" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Nombre Place</label>
+                        <input type="text" v-model="nbr_placeCar" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Prix</label>
+                        <input type="text" v-model="priceCar" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2"  >
+                        <label for="file-input" class="mb-2">Ajouter photos</label>
+                        <input type="file" @change="uploadFile" multiple id="file-input" accept="image/png, image/jpeg" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <div id="images"></div>
+                </form> 
+            </div>
+            
+            <div v-if="addLogError === true" class="flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+              <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+              <div>
+                  <span class="font-medium">Veuillez vérifier tous les champs</span> 
+              </div>
+            </div>
+            <div v-if="addLogError === false" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+              <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+              <div>
+                  <span class="font-medium">Voiture ajouté avec succès!</span>
+              </div>
+            </div>
+            <button v-if="!isWaitAddLogement" @click="addCar" type="button" class="mb-8 w-fitC ml-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+                Valider
+            </button>
+            <button v-if="isWaitAddLogement" disabled type="button" class="ml-8 w-fitC py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center cursor-not-allowed">
+                <svg role="status" class="inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
+                </svg>
+                Loading...
+            </button>
+          </div>
           <div v-if="showAddLog" class="edit-profile relative w-full overflow-x-auto  sm:rounded-lg">
             <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Ajouter un logement</h3>
             <div class="form">
@@ -456,6 +764,54 @@
             </div>
           </div>
 
+          <div v-if="showEditCar" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
+          
+                <h3 class="mt-4 text-2xl mb-4 font-semibold">Modifier une voiture</h3>
+                <div class="form">
+                <form class="">
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Marque</label>
+                        <input type="text" v-model="oneCarMarque" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Type</label>
+                        <input type="text" v-model="oneCarType" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Description</label>
+                        <input type="text" v-model="oneCarDescription" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Places</label>
+                        <input type="text" v-model="oneCarPers" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2">
+                        <label for="" class="mb-2">Prix</label>
+                        <input type="text" v-model="oneCarPrice" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p></p>
+                    <p></p>
+                </form>
+                
+            </div>
+              <div class="flex-col  mt-4">
+                  <div v-if="editLogError === true" class="flex alert p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Veuillez vérifier tous les champs</span> 
+                    </div>
+                  </div>
+
+                  <div v-if="editLogError === false" class="flex alert p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+                    <svg class="inline flex-shrink-0 mr-3 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div>
+                        <span class="font-medium">Voiture modifié avec succès!</span>
+                    </div>
+                  </div>
+                <button @click="editCar" class="btn-valid mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Valider</button>
+            </div>
+          </div>
+
           <div v-if="showUser" class="edit-profile relative w-full overflow-x-auto   sm:rounded-lg">
                  <div class="relative w-full overflow-x-auto   sm:rounded-lg reservations">
                         <h3 class="addLogText mt-4 text-2xl mb-4 font-semibold w-fitC">Liste des utilisateurs</h3>
@@ -563,15 +919,22 @@ export default {
             isWaitSearchUser: false,
             searchFilter:'',
             showLogement : false ,
+            showCar : false ,
             showReservation : false ,
+            showCarReservation : false ,
             showValidate : false ,
+            showCarValidate : false ,
             showEditLog : false ,
+            showEditCar : false ,
             cancelError : '',
             showUser : false ,
             showCalendar : true ,
             showAddLog : true ,
+            showAddCar : false ,
             showFeedback : false,
             reservation : '' ,
+            reservationCar : '' ,
+            carReservation : '' ,
             oneLogementName : '' ,
             oneLogementType : '' ,
             oneLogementSurface : '' ,
@@ -584,9 +947,16 @@ export default {
             oneLogementChambre : '' ,
             oneLogementPers : '' ,
             oneReservation : '' ,
+            oneCarReservation : '' ,
+            oneCarMarque : '',
+            oneCarType : '',
+            oneCarDescription : '',
+            oneCarPers : '',
+            oneCarPrice : '',
             oneLogement : '' ,
             logement : '' ,
             userLogement : '' ,
+            userCar : '' ,
             payed : '',
             toPay : '' ,
             payedError : '',
@@ -610,7 +980,13 @@ export default {
             isWaitAddLogement: false,
             logementDeletedAlert : false,
             roleStatus: 0,
-            feedbacks : ''
+            feedbacks : '',
+            cars : '',
+            typeCar : '',
+            marqueCar : '',
+            descCar : '',
+            nbr_placeCar : '',
+            priceCar : ''
         }
     },
     async mounted() {
@@ -624,10 +1000,22 @@ export default {
         }).catch(error => {
             console.log(error);
         })
+        await axios.get(process.env.VUE_APP_URL+'/car/reservation')
+        .then((res) => {
+            this.reservationCar = res.data
+        }).catch(error => {
+            console.log(error);
+        })
 
         await axios.get(process.env.VUE_APP_URL+'/logement/list')
         .then((res) => {
             this.logement = res.data
+        }).catch(error => {
+            console.log(error);
+        })
+        await axios.get(process.env.VUE_APP_URL+'/car/')
+        .then((res) => {
+            this.cars = res.data
         }).catch(error => {
             console.log(error);
         })
@@ -683,6 +1071,35 @@ export default {
             })
 
         },
+        cancelCarReservation(){
+            const cancel = document.querySelector('.cancelCarRes')
+            const cancelField = document.createElement('input')
+            const cancelBtn = document.createElement('button')
+            cancelField.setAttribute('class' ,'shadow-sm  ml-8 mb-2 w-64 bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light')
+            cancelField.setAttribute('placeholder' , 'Entrer votre mot de passe...')
+            cancelBtn.setAttribute('class' , 'mb-4 ml-8 w-fitC text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center')
+            cancelBtn.innerText = "Valider"
+            cancelBtn.setAttribute('type' , 'button')
+            cancel.appendChild(cancelField)
+            cancel.appendChild(cancelBtn)
+            cancelBtn.addEventListener('click' , async () => {
+                
+                let password = cancelField.value;
+                await axios.put(process.env.VUE_APP_URL+'/car/reservation/userAnnulation' , {
+                    password,
+                    reservationId : localStorage.getItem('idCarRes') ,
+                } , {
+                    headers : {
+                        Authorization : 'Bearer '+localStorage.getItem('token')
+                    }
+                }).then(() => {
+                    this.cancelError  = false;
+                    }).catch(() => {
+                    this.cancelError = true;
+                })
+            })
+
+        },
         async getFeedback(){
             await axios.get(process.env.VUE_APP_URL+'/feedback')
             .then(res => {
@@ -707,10 +1124,9 @@ export default {
 
             })
         },
-       async getResId(id){
+       async getResId(idRes){
             this.showValidationView()
-            localStorage.setItem('idRes' , id)
-            const idRes = localStorage.getItem('idRes')
+            localStorage.setItem('idRes' , idRes)
             await axios.get(process.env.VUE_APP_URL+'/reservation/oneReservation/'+idRes)
             .then(async (res) => {
                 this.oneReservation = res.data
@@ -724,6 +1140,22 @@ export default {
                 console.log(error);
             })
         },
+       async getCarResId(idCarRes){
+            this.showCarValidationView()
+            localStorage.setItem('idCarRes' , idCarRes)
+            await axios.get(process.env.VUE_APP_URL+'/car/reservation/oneReservation/'+idCarRes)
+            .then(async (res) => {
+                this.oneCarReservation = res.data
+                this.payedCar = res.data.payed
+                this.toPayCar = res.data.toPay
+                const idCar = res.data.car;
+                const car = await axios.get(process.env.VUE_APP_URL+'/car/getOneCar/'+idCar)
+                this.userCar = car.data.marque
+
+            }).catch(error => {
+                console.log(error);
+            })
+        },
         async validChange(){
             if(this.payed == ''){
             this.payedError = 'Veuillez vérifier tous les champs'
@@ -732,6 +1164,23 @@ export default {
             axios.put(process.env.VUE_APP_URL+'/reservation/validate/' , {
                 reservation : idRes , 
                 payed : this.payed,
+            }).then(() => {
+                this.validError = false
+            }).catch(error => {
+                console.log(error);
+                this.validError = true
+            })
+        }
+            
+        } ,
+        async validCarChange(){
+            if(this.payedCar == ''){
+            this.payedError = 'Veuillez vérifier tous les champs'
+        }else{
+            const idCarRes = localStorage.getItem('idCarRes')
+            axios.put(process.env.VUE_APP_URL+'/car/reservation/validate/' , {
+                reservation : idCarRes , 
+                payed : this.payedCar,
             }).then(() => {
                 this.validError = false
             }).catch(error => {
@@ -789,79 +1238,232 @@ export default {
                 console.log(error);
             })
         },
+        async allCarReservation(){
+            await axios.get(process.env.VUE_APP_URL+'/car/reservation/')
+            .then(res => {
+                this.reservationCar = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        async reservationCarNotPayed(){
+            await axios.get(process.env.VUE_APP_URL+'/car/reservation/notPayed')
+            .then(res => {
+                this.reservationCar = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        async reservationCarAcompte(){
+            await axios.get(process.env.VUE_APP_URL+'/car/reservation/acompte')
+            .then(res => {
+                this.reservationCar = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        async reservationCarPayed(){
+            await axios.get(process.env.VUE_APP_URL+'/car/reservation/payed')
+            .then(res => {
+                this.reservationCar = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        },
         showLogementView(){
             this.showLogement = true;
             this.showReservation = false;
+            this.showCarReservation = false;
             this.showCalendar = false;
             this.showAddLog = false;
             this.showEditLog = false;
             this.showUser = false;
             this.showValidate = false;
+            this.showCarValidate = false;
             this.showFeedback = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+            
+        },
+        showCarView(){
+            this.showCar = true;
+            this.showLogement = false;
+            this.showReservation = false;
+            this.showCarReservation = false;
+            this.showCalendar = false;
+            this.showAddLog = false;
+            this.showEditLog = false;
+            this.showUser = false;
+            this.showValidate = false;
+            this.showCarValidate = false;
+            this.showFeedback = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
             
         },
         showReservationView(){
             this.showReservation = true;
+            this.showCarReservation = false;
             this.showCalendar = false;
             this.showLogement = false;
             this.showAddLog = false;
             this.showEditLog = false;
             this.showUser = false;
             this.showValidate = false;
+            this.showCarValidate = false;
             this.showFeedback = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+
+            
+        },
+        showCarReservationView(){
+            this.showCarReservation = true;
+            this.showReservation = false;
+            this.showCalendar = false;
+            this.showLogement = false;
+            this.showAddLog = false;
+            this.showEditLog = false;
+            this.showUser = false;
+            this.showValidate = false;
+            this.showCarValidate = false;
+            this.showFeedback = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+
             
         },
         showValidationView(){
             this.showValidate = true;
+            this.showCarValidate = false;
             this.showReservation = false;
+            this.showCarReservation = false;
             this.showLogement = false;
             this.showAddLog = false;
             this.showEditLog = false;
             this.showUser = false;
             this.showCalendar = false;
             this.showFeedback = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+        },
+        showCarValidationView(){
+            this.showCarValidate = true;
+            this.showValidate = false;
+            this.showReservation = false;
+            this.showCarReservation = false;
+            this.showLogement = false;
+            this.showAddLog = false;
+            this.showEditLog = false;
+            this.showUser = false;
+            this.showCalendar = false;
+            this.showFeedback = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
         },
         showCalendarView(id){
             this.showCalendar = true;
             this.showValidate = false;
+            this.showCarValidate = false;
             this.showReservation = false;
+            this.showCarReservation = false;
             this.showLogement = false;
             this.showEditLog = false;
             this.showAddLog = false;
             this.showFeedback = false;
             this.showUser = false;
             this.$store.commit('setIdLog' , id)
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+
+        } ,
+        showCarCalendarView(id){
+            this.showCalendar = true;
+            this.showValidate = false;
+            this.showCarValidate = false;
+            this.showReservation = false;
+            this.showCarReservation = false;
+            this.showLogement = false;
+            this.showEditLog = false;
+            this.showAddLog = false;
+            this.showFeedback = false;
+            this.showUser = false;
+            this.$store.commit('setIdCar' , id)
+            this.showAddCar = false;
+            this.showCar = false;
+            this.showEditCar = false;
+
         } ,
         showAddLogement(){
             this.showAddLog = true;
             this.showCalendar = false;
             this.showValidate = false;
+            this.showCarValidate = false;
             this.showReservation = false;
+            this.showCarReservation = false;
             this.showLogement = false;
             this.showEditLog = false;
             this.showFeedback = false;
             this.showUser = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+
             window.location.reload()
         } ,
+        showAddCars(){
+            this.showAddCar = true;
+            this.showAddLog = false;
+            this.showCalendar = false;
+            this.showValidate = false;
+            this.showCarValidate = false;
+            this.showReservation = false;
+            this.showCarReservation = false;
+            this.showLogement = false;
+            this.showEditLog = false;
+            this.showFeedback = false;
+            this.showUser = false;
+            this.showCar = false;
+            this.showEditCar = false;
+
+} ,
         showFeedbackView(){
             this.showFeedback = true;
             this.showAddLog = false;
             this.showCalendar = false;
             this.showValidate = false;
+            this.showCarValidate = false;
             this.showReservation = false;
+            this.showCarReservation = false;
             this.showLogement = false;
             this.showEditLog = false;
             this.showUser = false;
-        } ,
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+
+} ,
         async showUserView(){
             this.showUser = true;
             this.showAddLog = false;
             this.showCalendar = false;
             this.showValidate = false;
+            this.showCarValidate = false;
             this.showReservation = false;
+            this.showCarReservation = false;
             this.showLogement = false;
             this.showFeedback = false;
             this.showEditLog = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+
 
             await axios.get(process.env.VUE_APP_URL+'/user/search/@')
             .then((res) => {
@@ -876,9 +1478,15 @@ export default {
             this.showAddLog = false;
             this.showCalendar = false;
             this.showValidate = false;
+            this.showCarValidate = false;
             this.showReservation = false;
+            this.showCarReservation = false;
             this.showFeedback = false;
             this.showLogement = false;
+            this.showCar = false;
+            this.showAddCar = false;
+            this.showEditCar = false;
+
             this.$store.commit('setIdLog' , id)
            await axios.get(process.env.VUE_APP_URL+'/logement/getOneLogement/'+id)
            .then((res) => {
@@ -897,13 +1505,40 @@ export default {
            })
            
         } ,
+        async showEditCars(id){
+            this.showEditCar = true;
+            this.showEditLog = false;
+            this.showAddLog = false;
+            this.showCalendar = false;
+            this.showValidate = false;
+            this.showCarValidate = false;
+            this.showReservation = false;
+            this.showCarReservation = false;
+            this.showFeedback = false;
+            this.showLogement = false;
+            this.showCar = false;
+            this.showAddCar = false;
+
+            this.$store.commit('setIdCar' , id)
+           await axios.get(process.env.VUE_APP_URL+'/car/getOneCar/'+id)
+           .then((res) => {
+               console.log(res.data)
+            this.oneCarMarque = res.data.marque
+            this.oneCarType = res.data.type
+            this.oneCarDescription = res.data.description
+            this.oneCarPers = res.data.nbr_place
+            this.oneCarPrice = res.data.price
+           }).catch(error => {
+            console.log(error);
+           })
+           
+        } ,
        
          uploadFile(event) {
             this.files = event.target.files;
         },
         async addLogement(){
             this.isWaitAddLogement = true;
-            console.log(this.logementDesc)
             const formData = new FormData();
             formData.append('name' , this.logementName)
             formData.append('type' , this.logementType)
@@ -932,6 +1567,29 @@ export default {
                 console.log(error);
             })
         } ,
+        async addCar(){
+            this.isWaitAddLogement = true;
+            const formData = new FormData();
+            formData.append('type' , this.typeCar)
+            formData.append('marque' , this.marqueCar)
+            formData.append('description' , this.descCar)
+            formData.append('nbr_place' , this.nbr_placeCar)
+            formData.append('price' , this.priceCar)
+            
+            if(this.files){
+               for (const i of Object.keys(this.files)) {
+               formData.append("images", this.files[i]);
+               }
+            }
+            await axios.post(process.env.VUE_APP_URL+'/car/add' , formData)
+            .then(() => {
+                this.addLogError = false;
+                this.isWaitAddLogement = false;
+            }).catch(() => {
+                this.addLogError = true
+                this.isWaitAddLogement = false
+            })
+        } ,
         
         async editLogement(){
             const idLog = this.$store.state.idLog;
@@ -955,6 +1613,22 @@ export default {
                 this.editLogError = true
             })
         },
+        async editCar(){
+            const idCar = this.$store.state.idCar;
+
+            await axios.put(process.env.VUE_APP_URL+'/car/'+idCar , {
+                marque : this.oneCarMarque,
+                type : this.oneCarType,
+                description : this.oneCarDescription,
+                nbr_place : this.oneCarPers,
+                price : this.oneCarPrice,
+            }).then(() => {
+                this.editLogError = false
+            }).catch(error => {
+                console.log(error);
+                this.editLogError = true
+            })
+        },
 
         async deleteUser(id){
             await axios.delete(process.env.VUE_APP_URL+'/user/'+id)
@@ -966,6 +1640,14 @@ export default {
         } ,
         async deleteLogement(id){
              await axios.delete(process.env.VUE_APP_URL+'/logement/remove/'+id)
+            .then(() => {
+                this.logementDeletedAlert = true
+            }).catch((error) => {
+                console.log(error);
+            })
+        },
+        async deleteCar(id){
+             await axios.delete(process.env.VUE_APP_URL+'/car/'+id)
             .then(() => {
                 this.logementDeletedAlert = true
             }).catch((error) => {
@@ -1024,16 +1706,17 @@ export default {
     align-items: center;
     flex : 2;
     background: rgb(26, 33, 41);
-    min-width: 15.4rem;
-    max-width: 15.4rem;
+    min-width: 17.4rem;
+    max-width: 17.4rem;
 
 }
 .leftSideBar ul{
     width : 100%;
+    overflow-y: scroll;
 }
 .leftSideBar ul li{
     font-size: 1.1rem;
-    margin-top:1rem;
+    margin:1rem;
     padding : 1rem;
     background: rgba(255, 255, 255, 0.041);
     border-radius : 0.5rem;

@@ -38,6 +38,10 @@ const UserSchema = mongoose.Schema({
     reservation : [{
         type : mongoose.Schema.Types.ObjectId , 
         ref : 'reservation'
+    }], 
+    carReservation : [{
+        type : mongoose.Schema.Types.ObjectId , 
+        ref : 'carReservation'
     }]
 });
 

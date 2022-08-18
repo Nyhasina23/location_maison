@@ -30,6 +30,25 @@
         </div>
     </div>
   </div>
+    <p class="mb-4 text-sm mt-4 l-dispo font-semibold uppercase text-gray-500 dark:text-white text-center">{{$t("Voitures disponibles")}}</p>
+  <div class="logementList">
+  
+    <div v-for="car in cars" v-bind:key="car._id" class="flex flex-col oneLogement items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <img  :class="'xx'+car._id+' logement object-cover w-full one-log rounded-t-lg  md:w-64 md:rounded-none md:rounded-l-lg'" src="../assets/placeholder.jpg" alt="">
+        <div class="flex flex-col w-full justify-start items-start p-4 leading-normal">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">{{car.marque}}</h5>
+            <p class="mb-3 font-normal text-gray-400 dark:text-gray-400">{{car.type}}</p>
+            <div class="flex justify-start  w-full mb-2 mt-5">
+              <p class="flex items-center ml-2 text-sm" ><box-icon type='solid' class="mr-1" name='group'></box-icon>{{car.nbr_place}} {{$t("people")}}</p>
+            </div>
+            <p class="mb-3 text-xl font-medium  text-blue-600 dark:text-gray-400">{{car.price}} Ar <span class="text-sm font-normal text-gray-500">/ {{$t('day')}}</span> </p>
+             <div class="duo flex justify-start w-full">
+              <a href="/car" class="detail btn " @click="getCarId(car._id)" >{{$t("detail")}}</a>
+              <a :href=" $store.state.isAuth ? '/car/reservation' : '/signin' " class="reserver btn" @click="getCarId(car._id)"  >{{$t("reserve")}}</a>
+            </div>
+        </div>
+    </div>
+  </div>
   
     
 <div class="mainLogement">
@@ -72,6 +91,7 @@ export default {
     data() {
         return {
             logements : '',
+            cars : '' ,
             email : '' ,
             password : '' , 
             firstname : '' ,
@@ -87,19 +107,15 @@ export default {
       .then(async (res) => {
         this.logements = res.data
         
-        setTimeout(async () =>{
 
           for(let i = 0; i<res.data.length;i++){
             const imageUrl = await getImage.get(res.data[i].images[0]);
             console.log(imageUrl)
             const tempId = ".x"+res.data[i]._id
-
-            console.log(tempId)
             const image = document.querySelector(tempId)
             console.log(image)
             image.setAttribute('src', imageUrl)
           }
-        },2000)
       }).catch(error => {
         console.log(error);
       })
@@ -107,11 +123,33 @@ export default {
       slider.addEventListener('mousedown', () => {
         slider.style.cursor = "-webkit-grabbing";
       });
+
+      this.getCars()
     },
     methods: {
       getLogementId(id){
         this.$store.commit('setIdLog' , id)
       },
+      getCarId(id){
+        this.$store.commit('setIdCar' , id)
+      },
+
+      async getCars(){
+        await axios.get(process.env.VUE_APP_URL + '/car')
+        .then(async (res) => {
+          this.cars = res.data
+          for(let i = 0; i<res.data.length;i++){
+            const imageUrl = await getImage.get(res.data[i].images[0]);
+            console.log(imageUrl)
+            const tempId = ".xx"+res.data[i]._id
+            const image = document.querySelector(tempId)
+            console.log(image)
+            image.setAttribute('src', imageUrl)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     },
 }
 </script>

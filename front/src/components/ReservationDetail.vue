@@ -257,6 +257,8 @@ export default {
                   e.dayEl.style.backgroundColor = 'blue'; 
               }
 
+              console.log(this.dateSelect)
+
           },
           events : this.disponibilityRaw ,
           eventAllow : (info , event) => {
