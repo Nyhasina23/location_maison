@@ -1,0 +1,4 @@
+vps-f662c3ce.vps.ovh.net
+
+ssh ubuntu@37.187.84.21
+w8PEe3K3KVsY

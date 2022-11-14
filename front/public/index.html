@@ -9,13 +9,27 @@
     <meta name="description" lang="mg" content="Toerana fanofa trano isan'andro eto Antananarivo Madagasikara">
     <!-- <link rel="icon" href="../src/assets/logo.png"> -->
     <title>Villappart</title>
+    <script>
+      if (window.location.href[window.location.href.length-5] == ".") {
+        window.location.href = "http://vps-f662c3ce.vps.ovh.net/"
+      }
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-  </head>
-  <body>
     
+  </head>
+  <style>
+    #header_home {
+      display: none !important;
+    }
+  </style>
+  <body>
+    <header id="header_home">
+      <h1>Villappart, un site web de maison d'hôte</h1>
+      <p>Site de location journalière de maison d'hôte à Antananarivo Madagascar pour ressortissants Européens</p>
+      <img src="http://vps-f662c3ce.vps.ovh.net/img/img(3).37a30392.jpg" alt="image interne">
+    </header>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
