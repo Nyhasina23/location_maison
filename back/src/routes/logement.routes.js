@@ -31,5 +31,5 @@ router.post('/add' ,upload.array('images', 1000), LogementController.create )
 router.get('/list' , LogementController.getAll)
 router.get('/getOneLogement/:idLog' , LogementController.getOneLogement)
 router.delete('/remove/:idLog' , LogementController.delete)
-router.put('/:idLog' , LogementController.update)
+router.put('/:idLog' ,upload.array('images', 1000),  LogementController.update)
 module.exports = router

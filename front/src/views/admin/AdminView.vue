@@ -745,6 +745,10 @@
                         <label for="" class="mb-2">Description (fr)</label>
                         <textarea rows="4" v-model="oneLogementDescFR" class="shadow-sm mb-2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
                     </p>
+                    <p class="mb-2"  >
+                        <label for="file-input" class="mb-2">Changer photos</label>
+                        <input type="file" @change="uploadFile" multiple id="file-input" accept="image/png, image/jpeg" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
                     <p></p>
                     <p></p>
                 </form>
@@ -792,6 +796,10 @@
                     <p class="mb-2">
                         <label for="" class="mb-2">Prix</label>
                         <input type="text" v-model="oneCarPrice" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+                    </p>
+                    <p class="mb-2"  >
+                        <label for="file-input" class="mb-2">Changer photos</label>
+                        <input type="file" @change="uploadFile" multiple id="file-input" accept="image/png, image/jpeg" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p></p>
                     <p></p>
@@ -1527,10 +1535,12 @@ export default {
             this.showCar = false;
             this.showAddCar = false;
 
+
+
+
             this.$store.commit('setIdCar' , id)
            await axios.get(process.env.VUE_APP_URL+'/car/getOneCar/'+id)
            .then((res) => {
-               console.log(res.data)
             this.oneCarMarque = res.data.marque
             this.oneCarType = res.data.type
             this.oneCarDescription = res.data.description
@@ -1603,18 +1613,24 @@ export default {
             const idLog = this.$store.state.idLog;
             this.oneLogementDesc[0,1,2] = [this.oneLogementDescFR,this.oneLogementDescMG,this.oneLogementDescEN]
 
-            await axios.put(process.env.VUE_APP_URL+'/logement/'+idLog , {
-                name : this.oneLogementName,
-                type : this.oneLogementType,
-                descriptionFR : this.oneLogementDescFR,
-                descriptionMG : this.oneLogementDescMG,
-                descriptionEN : this.oneLogementDescEN,
-                surface : this.oneLogementSurface,
-                chambre : this.oneLogementChambre,
-                pers_max : this.oneLogementPers,
-                address : this.oneLogementAddress,
-                price : this.oneLogementPrice,
-            }).then(() => {
+                const formData = new FormData();
+                formData.append('name' ,  this.oneLogementName)
+                formData.append('type' , this.oneLogementType)
+                formData.append('descriptionFR' , this.oneLogementDescFR)
+                formData.append('descriptionMG' , this.oneLogementDescMG)
+                formData.append('descriptionEN' , this.oneLogementDescEN)
+                formData.append('surface' , this.oneLogementSurface)
+                formData.append('address' , this.oneLogementAddress)
+                formData.append('chambre' , this.oneLogementChambre)
+                formData.append('pers_max' , this.oneLogementPers)
+                formData.append('price' , this.oneLogementPrice)
+                if(this.files){
+                   for (const i of Object.keys(this.files)) {
+                   formData.append("images", this.files[i]);
+                   }
+                }
+
+            await axios.put(process.env.VUE_APP_URL+'/logement/'+idLog , formData).then(() => {
                 this.editLogError = false
             }).catch(error => {
                 console.log(error);
@@ -1624,13 +1640,20 @@ export default {
         async editCar(){
             const idCar = this.$store.state.idCar;
 
-            await axios.put(process.env.VUE_APP_URL+'/car/'+idCar , {
-                marque : this.oneCarMarque,
-                type : this.oneCarType,
-                description : this.oneCarDescription,
-                nbr_place : this.oneCarPers,
-                price : this.oneCarPrice,
-            }).then(() => {
+
+            const formData = new FormData();
+                formData.append('marque' ,  this.oneCarMarque)
+                formData.append('type' ,  this.oneCarType)
+                formData.append('description' ,  this.oneCarDescription)
+                formData.append('nbr_place' ,  this.oneCarPers)
+                formData.append('price' ,  this.oneCarPrice)
+                if(this.files){
+                   for (const i of Object.keys(this.files)) {
+                   formData.append("images", this.files[i]);
+                   }
+                }
+
+            await axios.put(process.env.VUE_APP_URL+'/car/'+idCar , formData).then(() => {
                 this.editLogError = false
             }).catch(error => {
                 console.log(error);
