@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta name="description" lang="fr" content="Site de location journalière de maison d'hôte à Antananarivo Madagascar pour ressortissants Européens">
-    <meta name="description" lang="en" content="Daily guest house rental site in Antananarivo Madagascar for European nationals">
-    <meta name="description" lang="mg" content="Toerana fanofa trano isan'andro eto Antananarivo Madagasikara">
-    <!-- <link rel="icon" href="../src/assets/logo.png"> -->
-    <title>Villappart</title>
-    <script>
-      if (window.location.href[window.location.href.length-5] == ".") {
-        window.location.href = "http://vps-f662c3ce.vps.ovh.net/"
-      }
-    </script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
-    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" lang="fr"
+    content="Site de location journalière de maison d'hôte à Antananarivo Madagascar pour ressortissants Européens">
+  <meta name="description" lang="en"
+    content="Daily guest house rental site in Antananarivo Madagascar for European nationals">
+  <meta name="description" lang="mg" content="Toerana fanofa trano isan'andro eto Antananarivo Madagasikara">
+  <!-- <link rel="icon" href="../src/assets/logo.png"> -->
+  <title>Villappart</title>
+  <script>
+    var string = window.location.href;
+    var substring = "index.html";
     
-  </head>
-  <style>
-    #header_home {
-      display: none !important;
+    if (string.includes(substring)) {
+      window.location.href = "http://vps-f662c3ce.vps.ovh.net/"
     }
-  </style>
-  <body>
-    <header id="header_home">
-      <h1>Villappart, un site web de maison d'hôte</h1>
-      <p>Site de location journalière de maison d'hôte à Antananarivo Madagascar pour ressortissants Européens</p>
-      <img src="http://vps-f662c3ce.vps.ovh.net/img/img(3).37a30392.jpg" alt="image interne">
-    </header>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+</head>
+<style>
+  #header_home {
+    display: none !important;
+  }
+</style>
+
+<body>
+  <header id="header_home">
+    <h1>Villappart, un site web de maison d'hôte</h1>
+    <p>Site de location journalière de maison d'hôte à Antananarivo Madagascar pour ressortissants Européens</p>
+    <img src="http://vps-f662c3ce.vps.ovh.net/img/img(3).37a30392.jpg" alt="image interne">
+  </header>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>
