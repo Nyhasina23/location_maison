@@ -44,6 +44,9 @@
                         <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                            {{$t('have_account')}}  <a href="/signin" class="text-blue-700 hover:underline dark:text-blue-500">{{$t('se_connecter')}} </a>
                         </div>
+                        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                            By creating an account you accept the general conditions of use accessible <a href="https://api.teratany.org/file/public/CGU.pdf" class="text-blue-700 hover:underline dark:text-blue-500">here</a>
+                        </div>
                     </form>
                 </div>
             </div>
