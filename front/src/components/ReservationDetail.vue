@@ -35,20 +35,6 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         </div>
 
-        <div class="mb-6">
-          <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            {{ $t('entry_time') }} </label>
-          <input type="time" id="base-input" v-model="entry_hour"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-        </div>
-        <div class="mb-6">
-          <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            {{ $t('exit_time') }} </label>
-          <input type="time" id="base-input" v-model="leave_hour"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        </div>
-
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
           {{ $t('transport') }}</label>
         <select id="countries" v-model="transport"
@@ -62,7 +48,7 @@
 
         <div id="authentication-modal" tabindex="-1" aria-hidden="true"
           class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-          <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+          <div class="relative p-4 w-full max-w-md h-full md:h-auto modal-top">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <button type="button"
@@ -91,18 +77,22 @@
                     <select id="countries" v-model="transfert"
                       class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option>MVola</option>
-                      <option>BNI</option>
-                      <option>Paypal</option>
                     </select>
                   </div>
                   <p class="text-sm methode">Mvola : +2613489758426</p>
-                  <p class="text-sm methode">BNI : 108 1235 45 5452</p>
-                  <p class="text-sm methode">Paypal : nyhasina@gmail.com</p>
-                  <p class="text-sm underline"> {{ $t('toPay') }}</p>
-                  <p class="text-xl">{{ price ? price : '0' }} €</p>
+                  
+                  <div class="facturation">
+                      <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white"> Facturation</h3>
+                      <p>- Location pendant <strong>{{days }}</strong> jours </p>
+                      <p>- Prix du logement <strong>{{defaultPrice}} € </strong> / jour </p>
+                      <p class="text-sm underline mt-8" > {{$t('toPay')}}</p>
+                      <p class="text-xl mb-2"> <strong> {{price ? price : '0'}} </strong> €</p>
+                      
                   <button type="button" @click="sendReservation"
                     class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     {{ $t('confirm_res') }}</button>
+                  </div>
+
 
                 </form>
               </div>
@@ -202,10 +192,9 @@ export default {
       price: 0,
       defaultPrice: '',
       day: 0,
+      days : 0,
       disponibilityRaw: [],
       nbr_pers: '',
-      entry_hour: '',
-      leave_hour: '',
       transport: '',
       reference: '',
       transfert: '',
@@ -442,10 +431,12 @@ export default {
     submitReservation() {
 
       this.$store.commit('setNbr_pers', this.nbr_pers);
-      this.$store.commit('setHour_enter', this.entry_hour);
-      this.$store.commit('setHour_leave', this.leave_hour);
       this.$store.commit('setTransport', this.transport);
       const toPay = this.defaultPrice * ((new Date(this.endDisplay).setHours(0, 0, 0, 0) - new Date(this.start).setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24) + 1)
+      this.days = toPay / this.defaultPrice;
+      if(isNaN(this.days)){
+        this.days = 0
+      }
       this.$store.commit('setToPay', toPay)
       this.price = toPay
 
@@ -457,8 +448,6 @@ export default {
       const date_enter = this.startDisplay;
       const date_leave = this.endDisplay;
       const transport = this.$store.state.transport;
-      const hour_enter = this.$store.state.hour_enter;
-      const hour_leave = this.$store.state.hour_leave;
       const toPay = this.$store.state.toPay;
 
       await axios.post(process.env.VUE_APP_URL + '/reservation/', {
@@ -467,8 +456,6 @@ export default {
         date_enter,
         date_leave,
         transport,
-        hour_enter,
-        hour_leave,
         reference: this.reference,
         typeTransfert: this.transfert,
         toPay
@@ -516,6 +503,9 @@ export default {
 
 }
 
+.modal-top{
+  margin-top: 5%;
+}
 .text-sm.methode {
   margin-top: 0 !important;
   padding: 0 !important;

@@ -57,9 +57,13 @@
     </div>
           <swiper :slidesPerView="3" :spaceBetween="30" :pagination="{ clickable: true, }" :modules="modules" class="mySwiper">
           <swiper-slide><img src="../assets/img(1).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/img(2).jpg" alt=""></swiper-slide>
           <swiper-slide><img src="../assets/img(3).jpg" alt=""></swiper-slide>
           <swiper-slide><img src="../assets/img(4).jpg" alt=""></swiper-slide>
-          <swiper-slide><img src="../assets/img(6).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/img(7).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/img(8).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/img(9).jpg" alt=""></swiper-slide>
+          <swiper-slide><img src="../assets/bg-home.jpg" alt=""></swiper-slide>
         </swiper>
         <FooterComponent />
 </div>

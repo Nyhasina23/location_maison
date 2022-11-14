@@ -78,9 +78,6 @@
                                     <th scope="col" @click="toggleActive($event); reservationPayed()" id="link4" class="py-3 link">
                                         Payé
                                     </th>
-                                    <th scope="col" @click="toggleActive($event); reservationCanceled()" id="link4" class="py-3 link">
-                                        Annulé
-                                    </th>
                                 </tr>
                             </thead>
                         </table>
@@ -359,14 +356,6 @@
                     <p class="mb-2">
                     <label for="" class="mb-2">Date de départ</label>
                     <input type="text"  disabled v-model="oneReservation.date_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                    </p>
-                    <p class="mb-2">
-                    <label for="" class="mb-2">Heure d'entrée</label>
-                    <input type="text" disabled  v-model="oneReservation.hour_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                    </p>
-                    <p class="mb-2">
-                    <label for="" class="mb-2">Heure de sortie</label>
-                    <input type="text"  disabled v-model="oneReservation.hour_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
                     <label for="" class="mb-2">Transport</label>
@@ -883,12 +872,12 @@
                                         {{user.phoneNumber}}
                                     </td>
                                  
-                                    <td class="px-6 py-4 flex justify-center items-center">
+                                    <!-- <td class="px-6 py-4 flex justify-center items-center">
                                         <li v-if=" adminStatus > 1" @click="makeAdmin(user._id)" class="font-medium li-link text-blue-600 dark:text-blue-500 hover:underline ml-8" style="list-style-type:none">
                                             <box-icon type='solid' name='edit' class="icons edit" ></box-icon>
                                         </li>
                                         <a href="#"  @click="deleteUser(user._id) " class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><box-icon type='solid' name='trash' class="icons trash"></box-icon></a>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>

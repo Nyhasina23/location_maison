@@ -61,14 +61,6 @@ const reservationSchema = mongoose.Schema({
         type : String , 
         require : true
     } ,
-    hour_enter : {
-        type : String,
-        require : true
-    } ,
-    hour_leave : {
-        type : String,
-        require : true
-    } ,
     reference : {
         type : String ,
         require : true
