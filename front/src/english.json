@@ -90,7 +90,10 @@
     "pay":"Pay",
     "marque":"Mark",
     "nbr_place":"Number of places",
-    "description":"Description"
+    "description":"Description",
+    "acceptcgu":"By creating an account you accept the general conditions of use accessible ",
+    "eto": "here"
+
     
 
     

@@ -91,7 +91,10 @@
     "pay":"Pay",
     "marque":"marque",
     "nbr_place":"Nombre de places",
-    "description":"Description"
+    "description":"Description",
+    "acceptcgu":"En créant un compte vous acceptez les conditions générales d'utilisation accessibles ",
+    "eto": "ici"
+
 
 
 

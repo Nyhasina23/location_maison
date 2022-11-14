@@ -44,6 +44,9 @@
                         <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                            {{$t('have_account')}}  <a href="/signin" class="text-blue-700 hover:underline dark:text-blue-500">{{$t('se_connecter')}} </a>
                         </div>
+                        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                            {{$t('acceptcgu')}} <a href="https://api.teratany.org/file/public/CGU.pdf" class="text-blue-700 hover:underline dark:text-blue-500">{{$t('eto')}}</a>
+                        </div>
                     </form>
                 </div>
             </div>
