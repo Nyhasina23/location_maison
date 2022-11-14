@@ -92,15 +92,64 @@ class CarController {
   static update = async (req, res) => {
     try {
       const idCar = req.params.idCar;
+
+      if(req.files != ""){
+        let imageFiles = []
+        let imageBlurFiles = [];
+        let blur = undefined;
+        if (req.files) {
+            for (let i = 0; i < req.files.length; i++) {
+                const url = req.files[i].path;
+                blur = dirname + '/public/blur/' + req.files[i].path.replace("public\\", '');
+                const imageBlured = await resizeImg(fs.readFileSync(url), {
+                    width: 8
+                });
+                let image = await resizeImg(fs.readFileSync(url), {
+                    width: 800
+                })
+                fs.writeFileSync(url, image);
+                fs.writeFileSync(blur, imageBlured);
+                imageFiles.push(url);
+                imageBlurFiles.push(blur);
+            }
+        }
+  
+        let image = []
+        for (let j = 0; j < imageFiles.length; j++) {
+            let newImg = new ImageModel({
+                _id: new mongoose.Types.ObjectId(),
+                url: imageFiles[j].replace("public\\", ''),
+            })
+            image.push(newImg._id)
+            newImg.save();
+        }
+         
       const car = await CarModel.findByIdAndUpdate(idCar, {
         type: req.body.type,
         marque: req.body.marque,
         description : req.body.description,
         nbr_place: req.body.nbr_place,
         price: req.body.price,
+        images:image
       });
       car.save();
       res.status(200).send("Car updated");
+
+      }else{
+        
+        const car = await CarModel.findByIdAndUpdate(idCar, {
+          type: req.body.type,
+          marque: req.body.marque,
+          description : req.body.description,
+          nbr_place: req.body.nbr_place,
+          price: req.body.price,
+        });
+        car.save();
+        res.status(200).send("Car updated");
+
+        
+      }
+    
     } catch (error) {
       console.log(error);
       res.status(500).send("Error while updating car");

@@ -876,6 +876,7 @@ export default {
     display:flex;
     justify-content: center;
     align-items: center;
+    background: #000000b8;
 }
 #authentication-modal.hiddenModal{
     display:none;

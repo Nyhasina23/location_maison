@@ -30,6 +30,6 @@ const storage = multer.diskStorage({
 router.get('/' , CarController.getAll)
 router.post('/add' , upload.array('images', 10) , CarController.create)
 router.get('/getOneCar/:idCar' , CarController.getOneCar)
-router.put('/:idCar' , CarController.update)
+router.put('/:idCar' , upload.array('images', 10) , CarController.update)
 router.delete('/:idCar' , CarController.delete)
 module.exports = router

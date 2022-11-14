@@ -149,7 +149,7 @@ class LogementController {
         }
     }
 
-    static update = (req, res) => {
+    static update = async (req, res) => {
         try {
             const idLog = req.params.idLog;
             const name = req.body.name;
@@ -168,6 +168,64 @@ class LogementController {
             ) {
                 res.status(403).send()
             } else {
+                if(req.files != ''){
+                    let imageFiles = []
+                    let imageBlurFiles = [];
+                    let blur = undefined;
+                    if (req.files) {
+                        for (let i = 0; i < req.files.length; i++) {
+                            const url = req.files[i].path;
+                            blur = dirname + '/public/blur/' + req.files[i].path.replace("public\\", '');
+                            const imageBlured = await resizeImg(fs.readFileSync(url), {
+                                width: 8
+                            });
+                            let image = await resizeImg(fs.readFileSync(url), {
+                                width: 800
+                            })
+                            fs.writeFileSync(url, image);
+                            fs.writeFileSync(blur, imageBlured);
+                            imageFiles.push(url);
+                            imageBlurFiles.push(blur);
+                        }
+                    }
+    
+                    let image = []
+                    for (let j = 0; j < imageFiles.length; j++) {
+                        let newImg = new ImageModel({
+                            _id: new mongoose.Types.ObjectId(),
+                            url: imageFiles[j].replace("public\\", ''),
+                        })
+                        image.push(newImg._id)
+                        newImg.save();
+                    }
+
+
+                LogementModel.findByIdAndUpdate(idLog, {
+                    name,
+                    type,
+                    description,
+                    chambre,
+                    pers_max,
+                    surface,
+                    address,
+                    images: image,
+                    price: [{
+                        date: {
+                            start: 'default',
+                            end: 'default',
+                            value: price
+                        }
+                    }],
+                }, (err, docs) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send('error while updating logement')
+                    } else {
+                        res.status(200).send(docs)
+                    }
+                })
+    
+                }else{
                 LogementModel.findByIdAndUpdate(idLog, {
                     name,
                     type,
@@ -191,8 +249,12 @@ class LogementController {
                         res.status(200).send(docs)
                     }
                 })
+                }
+
+
             }
         } catch (error) {
+            console.log(error);
             res.status(500).send()
 
         }
