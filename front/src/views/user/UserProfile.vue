@@ -52,17 +52,18 @@
                                         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> {{$t('transfer')}}</label>
                                          <select id="countries" v-model="transfert" class="bg-gray-50 mb-8 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                              <option>MVola</option>
-                                             <option>BNI</option>
-                                             <option>Paypal</option>
+                                             <option>Orange Money</option>
+
                                          </select>
                                     </div>
-                                    <p class="text-sm methode" >Mvola : +2613489758426</p>
-                                    <p class="text-sm methode" >BNI : 108 1235 45 5452</p>
-                                    <p class="text-sm methode" >Paypal : nyhasina@gmail.com</p>
+                                    <div class="flex-col">
+                                        <p class="text-sm methode" >Mvola : +2613489758426</p>
+                                        <p class="text-sm methode">Orange Money : +261328526860</p>
+                                    </div>
                                     <br>
                                     <p> <span class="text-sm mr-8 fc" >{{$t('toPay')}}</span><span class="text-xl">{{toPayModal}} €</span></p><br>
                                     <p> <span class="text-sm mr-8 fc" >{{$t('payed')}}</span><span class="text-xl">{{payedModal}} €</span></p><br>
-                                    <p> <span class="text-sm mr-8 fc" >{{$t('restToPay')}}</span><span class="text-xl">{{restToPayModal}} AR</span></p>
+                                    <p> <span class="text-sm mr-8 fc" >{{$t('restToPay')}}</span><span class="text-xl">{{restToPayModal}} €</span></p>
                                     
                                     <button type="button" @click="sendReservation" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> {{$t('confirm_res')}}</button>
                                   
@@ -287,14 +288,6 @@
                     <p class="mb-2">
                     <label for="" class="mb-2">{{$t('release_date')}}</label>
                     <input type="text" disabled v-model="oneReservation.date_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                    </p>
-                    <p class="mb-2">
-                    <label for="" class="mb-2">{{$t('entry_time')}}</label>
-                    <input type="text" disabled v-model="oneReservation.hour_enter" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                    </p>
-                    <p class="mb-2">
-                    <label for="" class="mb-2">{{$t('exit_time')}}</label>
-                    <input type="text" disabled v-model="oneReservation.hour_leave" class="shadow-sm mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                     </p>
                     <p class="mb-2">
                     <label for="" class="mb-2">{{$t('people')}}</label>

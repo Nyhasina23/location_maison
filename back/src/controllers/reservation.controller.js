@@ -41,15 +41,12 @@ class reservationController {
             const date_enter = req.body.date_enter;
             const date_leave = req.body.date_leave;
             const transport = req.body.transport;
-            const hour_enter = req.body.hour_enter;
-            const hour_leave = req.body.hour_leave;
             const reference = req.body.reference;
             const typeTransfert = req.body.typeTransfert;
             const payed = req.body.payed;
             const toPay = req.body.toPay;
             if(nb_pers == '' || date_enter == '' || 
-             date_leave == '' || transport == '' || hour_enter == ''
-             || hour_leave == '' || reference == '' || typeTransfert == ''){
+             date_leave == '' || transport == '' || reference == '' || typeTransfert == ''){
                 res.status(403).send()
             }else{
                 const newReservation = new ReservationModel({
@@ -63,8 +60,6 @@ class reservationController {
                     date_enter,
                     date_leave,
                     transport,
-                    hour_enter,
-                    hour_leave,
                     reference,
                     typeTransfert,
                     payed,

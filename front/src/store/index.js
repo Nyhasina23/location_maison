@@ -11,8 +11,6 @@ const store =  createStore({
             date_enter : '',
             date_leave: '',
             transport : '',
-            hour_leave : '',
-            hour_enter : '',
             reference:'',
             typeTransfert:'',
             payed : '',
@@ -56,10 +54,6 @@ const store =  createStore({
         setModal(state,value){
             state.modalMessage = value;
         },
-      
-        setHour_enter(state , value){
-            state.hour_enter =value
-        },
         setNbr_pers(state , value){
             state.nbr_pers = value
         },
@@ -74,9 +68,6 @@ const store =  createStore({
         },
         setTransport(state , value){
             state.transport = value
-        },
-        setHour_leave(state , value){
-            state.hour_leave = value
         },
     
     } , 
