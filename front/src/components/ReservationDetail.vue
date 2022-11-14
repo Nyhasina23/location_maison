@@ -3,7 +3,8 @@
     <div class="logement-content">
       <div class="logement-img">
         <p class="para text-2xl mb-2 font-semibold"> {{ $t('booking') }} </p>
-        <p class="mb-8 para text-left"> {{ $t('book_head') }} </p>
+        <p class="mb-2 para text-left"> {{ $t('book_head') }} </p>
+        <p class="mt-1 mb-8 para-valid text-sm-bold text-left"> {{ $t('info-valid') }} </p>
         <div class="flex w-full btn-calendar">
           <button @click="mount"
             class="text-white mt-2 bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">{{
@@ -563,6 +564,9 @@ export default {
   margin-top: 1rem;
 }
 
+.para-valid{
+  font-weight: 600;
+}
 .logement-detail .btn-primary {
   text-decoration: none;
   color: white;
