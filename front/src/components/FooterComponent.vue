@@ -4,7 +4,8 @@
         <div class="social-content">
             <h4>{{$t("contact")}}</h4>
             <div class="flex footer-content">
-                <h5 class="flex justify-center"><box-icon type='solid' class="icons mr-2" name='phone-call'></box-icon> 03325145698 </h5>
+                <h5 class="flex justify-center"><box-icon type='solid' class="icons mr-2" name='phone-call'></box-icon> +261328526860 </h5>
+                <h5 class="flex justify-center"><box-icon type='solid' class="icons mr-2" name='phone-call'></box-icon> +261385270349 </h5>
                 <a href="https://www.facebook.com/profile.php?id=100084549674359"><h5 class="flex justify-center"><box-icon type='logo' class="icons mr-2"  name='facebook-circle'></box-icon> Villappart Hote </h5></a>
                 <h5 class="flex justify-center"><box-icon name='gmail'  class="icons mr-2" type='logo' ></box-icon> villapparthote@gmail.com </h5>
             </div>
@@ -59,7 +60,7 @@ h4{
   .footer-content{
     display : flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 }
 </style>

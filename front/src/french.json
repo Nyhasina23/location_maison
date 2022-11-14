@@ -87,8 +87,10 @@
     "TV":"TV",
     "playRoom":"Salle de jeu",
     "Gardien": "Gardien",
-    "pay":"Pay"
-
+    "pay":"Pay",
+    "marque":"marque",
+    "nbr_place":"Nombre de places",
+    "description":"Description"
 
 
 

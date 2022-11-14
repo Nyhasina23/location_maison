@@ -4,16 +4,16 @@
     <div id="allImages">
       <img  class="singleImage" v-for="(imageData,i) in imagesData" v-bind:key="i" @click="swipper(i)" :src="imageData" alt=""/>
     </div>
-        <h1 class="mt-4 mb-4">Marque : {{car.marque}} </h1>
-        <p class="mb-4"> <strong> Type :</strong>   {{car.type}} </p>  
-        <p class="mb-4"> <strong>Nombre de places :</strong>   {{car.nbr_place}} </p>  
-        <h1 class="mt-4 mb-4">Description</h1>
+        <h1 class="mt-4 mb-4">{{ $t('marque') }} : {{car.marque}} </h1>
+        <p class="mb-4"> <strong> {{ $t('type') }} :</strong>   {{car.type}} </p>  
+        <p class="mb-4"> <strong>{{ $t('nbr_place') }} :</strong>   {{car.nbr_place}} </p>  
+        <h1 class="mt-4 mb-4">{{ $t('description') }}</h1>
         <p class="mb-4"> {{car.description}} </p>  
 
     </div>
     <div class="logement-footers relative  overflow-x-auto sm:rounded-lg">
         <div class="flex-col">
-            <p>{{price}} Ar / jour</p>
+            <p>{{price}} € / {{ $t('day') }}</p>
         </div>
 
         <a href="/car/reservation/" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "  @click="getLogementId(logement._id)">Réserver</a>

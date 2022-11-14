@@ -86,7 +86,10 @@
     "TV":"TV",
     "playRoom":"Joy room",
     "Gardien": "Guard",
-    "pay":"Pay"
+    "pay":"Pay",
+    "marque":"Mark",
+    "nbr_place":"Number of places",
+    "description":"Description"
     
 
     
